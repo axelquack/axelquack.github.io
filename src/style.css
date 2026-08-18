@@ -1,0 +1,469 @@
+:root {
+  --bg: #f7f7f7;
+  --ink: #0a0a0a;
+  --muted: #8a8a8a;
+  --line: rgba(10, 10, 10, 0.12);
+  --pad-x: clamp(1.5rem, 5vw, 4rem);
+  --pad-y: clamp(1.5rem, 4vh, 2.5rem);
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-ui: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.5s var(--ease);
+}
+
+body.scene-dark {
+  background: #000;
+}
+
+
+/* WebGL: above empty stages, under solid screens */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  cursor: crosshair;
+}
+
+#bg.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#bg.is-dragging {
+  cursor: grabbing;
+}
+
+main {
+  position: relative;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* —— Stages (WebGL canvas shows through) —— */
+.stage {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad-y) var(--pad-x);
+  pointer-events: none;
+}
+
+.stage > * {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
+  justify-content: space-between;
+}
+
+/* Labels float over the hero letterform field */
+.hero-labels {
+  margin-top: clamp(18vh, 28vh, 34vh);
+  margin-left: clamp(0rem, 8vw, 6rem);
+  max-width: 16rem;
+}
+
+.label-name {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.label-role {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.clock {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.clock::before {
+  content: "●";
+  margin-right: 0.4rem;
+  font-size: 0.38rem;
+  vertical-align: 0.15em;
+  opacity: 0.7;
+}
+
+/* —— Previous-style spacious chapters (solid, above canvas) —— */
+.screen {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  padding: clamp(5rem, 14vh, 9rem) var(--pad-x);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chapter .display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.8vw, 4.4rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 18em;
+}
+
+.chapter .display-gap {
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+}
+
+.chapter .display-md {
+  font-size: clamp(1.85rem, 3.8vw, 3.35rem);
+  line-height: 1.2;
+  max-width: 20em;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+}
+
+/* Section 4 — Skills */
+.skills-chapter {
+  justify-content: flex-start;
+  padding-top: clamp(5rem, 14vh, 9rem);
+  padding-bottom: clamp(5rem, 14vh, 9rem);
+}
+
+.skills-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 8vw, 6.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.skill-list {
+  list-style: none;
+  margin: clamp(3rem, 8vh, 5rem) 0 0;
+  padding: 0;
+  max-width: 42rem;
+}
+
+.skill-list li {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.55;
+  color: var(--ink);
+  transition: padding 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.skill-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.skill-list li:hover {
+  padding-left: 0.65rem;
+  background: rgba(12, 12, 12, 0.02);
+}
+
+/* Chrome */
+.text-btn {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.25s var(--ease);
+}
+
+.text-btn:hover,
+.text-btn:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.text-btn span[aria-hidden] {
+  display: inline-block;
+  transition: transform 0.3s var(--ease);
+}
+
+.text-btn:hover span[aria-hidden] {
+  transform: translateX(3px);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.contact-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: min(42rem, 100%);
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+}
+
+.link {
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.link.light {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.link.light:hover,
+.link.light:focus-visible {
+  color: #fff;
+}
+
+.screen-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 42rem;
+  margin-top: clamp(2.5rem, 8vh, 5rem);
+}
+
+/* Interlude */
+.interlude {
+  height: 100vh;
+  height: 100svh;
+  min-height: 32rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.interlude-hint {
+  margin: 0 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+
+.interlude.is-active .interlude-hint {
+  opacity: 0.85;
+}
+
+/* Contact dark */
+.contact-stage {
+  background: #000;
+  color: #f2f2f2;
+  min-height: 100vh;
+  min-height: 100svh;
+  justify-content: space-between;
+  padding-top: clamp(2.5rem, 8vh, 5rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.contact-copy {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem 3rem;
+  flex-wrap: wrap;
+}
+
+.contact-copy p {
+  margin: 0;
+  max-width: 22rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.contact-foot {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 720px) {
+  .hero-labels {
+    margin-left: 0;
+    margin-top: clamp(12vh, 20vh, 28vh);
+  }
+
+  .hero-bottom,
+  .screen-foot,
+  .contact-bar,
+  .contact-copy,
+  .years-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-stack {
+    align-items: flex-start;
+  }
+
+  .chapter .display,
+  .chapter .display-md {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  #bg {
+    display: none !important;
+  }
+
+  .hero {
+    background: var(--bg);
+  }
+
+  .hero::before {
+    content: "AQ";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: clamp(8rem, 40vw, 22rem);
+    color: rgba(0, 0, 0, 0.06);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .contact-stage {
+    z-index: 2;
+  }
+}
+
+::selection {
+  background: rgba(10, 10, 10, 0.12);
+}
+
+.contact-stage ::selection {
+  background: rgba(255, 255, 255, 0.22);
+}

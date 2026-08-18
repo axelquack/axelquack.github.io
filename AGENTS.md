@@ -1,0 +1,43 @@
+# Agent instructions — axelquack.github.io
+
+Guidance for coding agents working in this repository.
+
+## What this is
+
+A **static personal presence site** (not a job-application pack, CMS, or SPA framework app). Copy is first-person and restrained. Visual system: white editorial chapters + graphite WebGL point fields on transparent stages.
+
+## Do
+
+- Prefer editing `index.html` for copy; `src/style.css` for layout/type; `src/scene.js` / `forms.js` / `ascii.js` for WebGL
+- Keep solid content on `.screen` (above canvas); WebGL only on `.stage[data-scene]`
+- After meaningful changes: update `CHANGELOG.md`, run `npm run build`, commit, push `main` (Pages deploys via Actions)
+- Match existing type tokens (`--font-display`, `--pad-x`, etc.) rather than inventing a new system
+- Treat secrets as out of band (Proton Pass / `pass-cli`); never commit credentials
+
+## Don’t
+
+- Don’t reintroduce a client-side password gate unless explicitly requested
+- Don’t add analytics, cookie banners, or marketing funnels without being asked
+- Don’t rewrite Git history or force-push unless the user explicitly asks
+- Don’t cite or name third-party personal portfolio sites in docs or comments
+- Don’t change INWX / DNS or GitHub Pages domain settings without an explicit request
+- Don’t commit `node_modules/` or `dist/` (build artifact is produced in CI)
+
+## Commands
+
+```bash
+npm ci
+npm run dev
+npm run build
+npm run preview
+```
+
+## Deploy
+
+- Default branch: `main`
+- Workflow: `.github/workflows/deploy.yml` → GitHub Pages
+- Live: https://www.axelquack.de
+
+## DNS note
+
+`www` → CNAME `axelquack.github.io`. Apex A/AAAA → GitHub Pages. **Do not** alter MX/TXT/iCloud records unless asked.

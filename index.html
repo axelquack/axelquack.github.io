@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axel Quack</title>
+    <meta
+      name="description"
+      content="Axel Quack — org builder · enterprise AI. Munich · EMEA."
+    />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,400;14..32,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <main id="site" class="site">
+      <!--
+        Scroll order:
+        1. AQ density-grid hero
+        2. Editorial intro + mid-page contact
+        3. Helicoid (WebGL)
+        4. Skills
+        5. Dark contact + torus knot (WebGL)
+      -->
+
+      <!-- 1 · Hero -->
+      <section class="stage hero" id="top" data-scene="name">
+        <div class="hero-labels">
+          <p class="label-name">Axel Quack</p>
+          <p class="label-role">Org builder · Enterprise AI</p>
+        </div>
+        <div class="hero-bottom">
+          <button type="button" class="text-btn" data-scroll="#about">
+            Read More <span aria-hidden="true">→</span>
+          </button>
+          <time class="clock" id="clock"></time>
+        </div>
+      </section>
+
+      <!-- 2 · Intro -->
+      <section class="screen chapter" id="about">
+        <p class="display">
+          I’m Axel Quack, an org builder working across enterprise AI, regulated
+          industries, and large-scale transformation inside industry — always with
+          people and systems in the same frame.
+        </p>
+        <p class="display display-gap">
+          The through-line is simple: make hard things usable, and make
+          organisations capable of them.
+        </p>
+
+        <div class="contact-bar">
+          <span class="contact-label">Contact</span>
+          <nav class="contact-links" aria-label="Contact">
+            <a class="link" href="mailto:mail@axelquack.de">Email</a>
+            <a
+              class="link"
+              href="https://www.linkedin.com/in/axelquack"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn</a
+            >
+          </nav>
+        </div>
+
+        <div class="screen-foot">
+          <button type="button" class="text-btn" data-scroll="#form-a">
+            Scroll down <span class="muted">for more</span>
+          </button>
+          <span class="muted small">Last updated August 2026</span>
+        </div>
+      </section>
+
+      <!-- 3 · Helicoid -->
+      <section
+        class="stage interlude"
+        id="form-a"
+        data-scene="mono"
+        aria-label="Abstract form"
+      >
+        <p class="interlude-hint">“AI can make everything we care about better.” (a16z)</p>
+      </section>
+
+      <!-- 4 · Skills -->
+      <section class="screen chapter skills-chapter" id="skills">
+        <h1 class="skills-title">Skills</h1>
+        <p class="display display-md">
+          I work best at the intersection of enterprise AI, regulated industries, and
+          multi-country leadership — translating between deep technical craft and the
+          commercial reality of large organisations.
+        </p>
+        <ul class="skill-list">
+          <li>Enterprise AI adoption — from ambition to field use, under real regulation</li>
+          <li>Regulated financial services &amp; insurance — trust, governance, long relationships</li>
+          <li>Multi-disciplinary teams — research, product, technology, and go-to-market as one span</li>
+          <li>Multi-country EMEA leadership — culture, clarity, and accountability across borders</li>
+          <li>Org design &amp; transformation — standing up teams that can ship and last</li>
+        </ul>
+      </section>
+
+      <!-- 5 · Contact -->
+      <section class="stage contact-stage" id="contact" data-scene="talk">
+        <div class="contact-copy">
+          <p>
+            Selective with time, open to substance —<br />
+            if you have a strong idea or opportunity, get in touch.
+          </p>
+          <nav class="contact-stack" aria-label="Contact links">
+            <a class="link light" href="mailto:mail@axelquack.de">Email</a>
+            <a
+              class="link light"
+              href="https://www.linkedin.com/in/axelquack"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn</a
+            >
+          </nav>
+        </div>
+        <p class="contact-foot">Munich · London</p>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
