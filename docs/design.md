@@ -24,11 +24,11 @@ Copy is first-person and restrained. Visual system: **white editorial chapters**
 
 ```text
 z-2  .screen   solid paper chapters (intro, skills)
-z-1  #bg       fixed WebGL canvas (pointer on stages only)
-z-0  .stage    transparent full-viewport scenes (hero, helicoid, contact)
+     .stage    transparent full-viewport scenes (hero, helicoid, contact)
+z-1  #bg       fixed WebGL canvas
 ```
 
-Pointer events: canvas is `none` until `.is-visible`; stage children re-enable clicks for labels/links.
+`.stage` is `pointer-events: none`; its children (`a`, labels, buttons) are `auto`, so they receive clicks above the canvas. Empty stage area falls through to `#bg` for field drag. Contact-stage fill is transparent — `body.scene-dark` is the black; an opaque fill would hide the knot.
 
 ## Colour
 

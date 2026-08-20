@@ -103,7 +103,7 @@ function wireScene() {
 
   function onPointerDown(e) {
     if (!active || e.button !== 0) return;
-    if (e.target !== canvas) return;
+    if (e.target.closest("a, button, .screen")) return;
     drag = true;
     lastX = e.clientX;
     lastY = e.clientY;
@@ -127,7 +127,7 @@ function wireScene() {
       window.addEventListener("scroll", onScrollOrResize, { passive: true });
       window.addEventListener("resize", onScrollOrResize, { passive: true });
       window.addEventListener("pointermove", onPointerMove, { passive: true });
-      canvas.addEventListener("pointerdown", onPointerDown);
+      window.addEventListener("pointerdown", onPointerDown);
       window.addEventListener("pointerup", onPointerUp);
       window.addEventListener("pointercancel", onPointerUp);
     })

@@ -134,7 +134,7 @@ Do **not** touch MX / TXT / iCloud / apex A-AAAA for mail.
 
 `gallery` / `art` must **not** stay on the `*.axelquack.de` wildcard A (INWX webhosting). Each hostname needs its own CNAME so GitHub can issue a cert. GitHub Pages allows **one** custom domain per repo, so `art` is a tiny redirect site (`axelquack/art`) rather than a second domain on the museum repo. (INWX `URL` records against this zone returned 500 from their redirect farm.)
 
-Until DNS + cert succeed, the room only runs at `http://localhost:5174`.
+Live: [gallery.axelquack.de](https://gallery.axelquack.de). Local: `http://localhost:5174`.
 
 ## File map
 
@@ -147,6 +147,7 @@ gallery/
   src/live-field.js       VideoTexture for live works
   src/style.css           tokens import, HUD, catalog strip
   public/CNAME
+  public/favicon.svg          # same paper/ink A as www
   public/works.json
   public/soundtrack.json
   public/audio/soundtrack.wav

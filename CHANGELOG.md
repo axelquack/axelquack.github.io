@@ -20,6 +20,7 @@ for release tags when used.
 - Gallery **NFT** / **Other** pin a ~40% 2D stills strip over the live room; **All** is the 3D room
 - Gallery soundtrack loops via Web Audio on a trimmed, crossfaded WAV (no MP3 gap)
 - Title **Art Gallery**; second Pages repo `axelquack/gallery`; alias `art.axelquack.de` via `axelquack/art`
+- Contact-stage Email / LinkedIn / Art Gallery links sit above the WebGL canvas so they are clickable
 
 ## [1.0.0] — 2026-08-18
 
