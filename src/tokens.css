@@ -1,0 +1,83 @@
+/**
+ * Axel Quack — design tokens
+ * Source of truth for www.axelquack.de. Copy this file into other projects.
+ * Narrative and usage: docs/design.md
+ * Machine-readable twin: docs/tokens.json
+ */
+:root {
+  /* Color — light (editorial paper) */
+  --bg: #f7f7f7;
+  --bg-chrome: #fafafa;
+  --ink: #0a0a0a;
+  --muted: #8a8a8a;
+  --line: rgba(10, 10, 10, 0.12);
+  --wash: rgba(12, 12, 12, 0.02);
+  --selection: rgba(10, 10, 10, 0.12);
+
+  /* Color — dark (contact / WebGL inverse) */
+  --bg-inverse: #000000;
+  --ink-inverse: #f2f2f2;
+  --ink-inverse-hover: #ffffff;
+  --muted-inverse: rgba(255, 255, 255, 0.5);
+  --copy-inverse: rgba(255, 255, 255, 0.7);
+  --faint-inverse: rgba(255, 255, 255, 0.35);
+  --selection-inverse: rgba(255, 255, 255, 0.22);
+
+  /* Color — point fields (Three.js) */
+  --field-name: #0a0a0a;
+  --field-mono: #121212;
+  --field-talk: #f0f0f0;
+
+  /* Type families */
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-ui: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Type scale */
+  --text-display-xl: clamp(3.2rem, 8vw, 6.5rem);
+  --text-display: clamp(2.1rem, 4.8vw, 4.4rem);
+  --text-display-md: clamp(1.85rem, 3.8vw, 3.35rem);
+  --text-body: clamp(1rem, 1.35vw, 1.15rem);
+  --text-ui: 0.95rem;
+  --text-label: 1.05rem;
+  --text-mono: 0.75rem;
+  --text-mono-sm: 0.72rem;
+  --text-kicker: 0.7rem;
+  --leading-display: 1.16;
+  --leading-display-md: 1.2;
+  --leading-body: 1.55;
+  --tracking-display-xl: -0.03em;
+  --tracking-display: -0.02em;
+  --tracking-ui: -0.01em;
+  --tracking-kicker: 0.16em;
+
+  /* Space */
+  --pad-x: clamp(1.5rem, 5vw, 4rem);
+  --pad-y: clamp(1.5rem, 4vh, 2.5rem);
+  --pad-chapter-y: clamp(5rem, 14vh, 9rem);
+  --gap-display: clamp(2rem, 5vh, 3.5rem);
+  --gap-chapter: clamp(2.5rem, 7vh, 4rem);
+  --gap-list: clamp(3rem, 8vh, 5rem);
+  --measure-display: 18em;
+  --measure-display-md: 20em;
+  --measure-list: 42rem;
+  --hairline: 1px;
+  --underline: 1px;
+  --list-pad-y: 1.25rem;
+  --hover-nudge: 0.65rem;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.25s;
+  --duration: 0.3s;
+  --duration-slow: 0.45s;
+  --duration-scene: 0.5s;
+
+  /* Stacking */
+  --z-stage: 0;
+  --z-canvas: 1;
+  --z-screen: 2;
+
+  /* Breakpoint (documented; used in CSS as 720px) */
+  --bp-narrow: 720px;
+}

@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 for release tags when used.
 
+## [Unreleased]
+
+### Added
+
+- Design styleguide (`docs/design.md`) and portable tokens (`src/tokens.css`, `docs/tokens.json`) extracted from the live site
+- Art Gallery app (`gallery/`) at `gallery.axelquack.de` (alias `art.axelquack.de`) — A-Frame WebXR museum; point-field stills plus live rotating frames (helicoid, knot, gyroid, …)
+
+### Changed
+
+- Gallery HUD: play/pause is a toggling icon plus song title; stock A-Frame VR box replaced with a hairline fullscreen control
+- Gallery **NFT** / **Other** pin a ~40% 2D stills strip over the live room; **All** is the 3D room
+- Gallery soundtrack loops via Web Audio on a trimmed, crossfaded WAV (no MP3 gap)
+- Title **Art Gallery**; second Pages repo `axelquack/gallery`; alias `art.axelquack.de` via `axelquack/art`
+
 ## [1.0.0] — 2026-08-18
 
 ### Added

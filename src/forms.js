@@ -221,3 +221,108 @@ export function buildCliffordBand(count = 14000) {
   }
   return { positions, densities, count };
 }
+
+export function buildGyroid(count = 16000) {
+  const positions = new Float32Array(count * 3);
+  const densities = new Float32Array(count);
+  let i = 0;
+  let g = 0;
+  while (i < count && g < count * 30) {
+    g++;
+    const x = (Math.random() * 2 - 1) * 2.2;
+    const y = (Math.random() * 2 - 1) * 2.2;
+    const z = (Math.random() * 2 - 1) * 2.2;
+    const s =
+      Math.sin(x * 1.6) * Math.cos(y * 1.6) +
+      Math.sin(y * 1.6) * Math.cos(z * 1.6) +
+      Math.sin(z * 1.6) * Math.cos(x * 1.6);
+    if (Math.abs(s) > 0.18) continue;
+    const i3 = i * 3;
+    positions[i3] = x;
+    positions[i3 + 1] = y;
+    positions[i3 + 2] = z;
+    densities[i] = 0.4 + 0.5 * (1 - Math.abs(s) / 0.18);
+    i++;
+  }
+  return {
+    positions: positions.subarray(0, i * 3),
+    densities: densities.subarray(0, i),
+    count: i,
+  };
+}
+
+export function buildMobius(count = 14000) {
+  const positions = new Float32Array(count * 3);
+  const densities = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    const u = Math.random() * Math.PI * 2;
+    const v = (Math.random() * 2 - 1) * 0.55;
+    const x = (1 + v * Math.cos(u / 2)) * Math.cos(u);
+    const y = (1 + v * Math.cos(u / 2)) * Math.sin(u);
+    const z = v * Math.sin(u / 2);
+    const i3 = i * 3;
+    positions[i3] = x * 1.7;
+    positions[i3 + 1] = y * 1.7;
+    positions[i3 + 2] = z * 1.9;
+    densities[i] = 0.35 + 0.5 * (1 - Math.abs(v) / 0.55);
+  }
+  return { positions, densities, count };
+}
+
+export function buildHopf(count = 15000) {
+  const positions = new Float32Array(count * 3);
+  const densities = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    const eta = Math.acos(2 * Math.random() - 1);
+    const xi = Math.random() * Math.PI * 2;
+    const zeta = Math.random() * Math.PI * 2;
+    const a = Math.sin(eta) * Math.cos(xi);
+    const b = Math.sin(eta) * Math.sin(xi);
+    const c = Math.cos(eta) * Math.cos(zeta);
+    const d = Math.cos(eta) * Math.sin(zeta);
+    const den = 1 - d || 1e-4;
+    const i3 = i * 3;
+    positions[i3] = (a / den) * 1.15;
+    positions[i3 + 1] = (b / den) * 1.15;
+    positions[i3 + 2] = (c / den) * 1.15;
+    densities[i] = 0.3 + 0.6 * Math.sin(eta);
+  }
+  return { positions, densities, count };
+}
+
+export function buildLorenz(count = 18000) {
+  const positions = new Float32Array(count * 3);
+  const densities = new Float32Array(count);
+  let x = 0.1;
+  let y = 0;
+  let z = 0;
+  const dt = 0.004;
+  for (let i = 0; i < count; i++) {
+    const dx = 10 * (y - x);
+    const dy = x * (28 - z) - y;
+    const dz = x * y - (8 / 3) * z;
+    x += dx * dt;
+    y += dy * dt;
+    z += dz * dt;
+    const i3 = i * 3;
+    positions[i3] = x * 0.12;
+    positions[i3 + 1] = (z - 25) * 0.1;
+    positions[i3 + 2] = y * 0.12;
+    densities[i] = 0.35 + 0.5 * (i / count);
+  }
+  return { positions, densities, count };
+}
+
+export function buildLissajous(count = 12000, a = 3, b = 4) {
+  const positions = new Float32Array(count * 3);
+  const densities = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    const t = (i / count) * Math.PI * 2 * 6;
+    const i3 = i * 3;
+    positions[i3] = Math.sin(a * t) * 2.1;
+    positions[i3 + 1] = Math.sin(b * t + Math.PI / 4) * 1.6;
+    positions[i3 + 2] = Math.cos((a + b) * 0.5 * t) * 1.4;
+    densities[i] = 0.45 + 0.4 * (i / count);
+  }
+  return { positions, densities, count };
+}

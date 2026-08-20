@@ -6,13 +6,24 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:gallery": "vite --config gallery/vite.config.js",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:gallery": "vite build --config gallery/vite.config.js",
+    "preview": "vite preview",
+    "preview:gallery": "vite preview --config gallery/vite.config.js",
+    "gallery:stills": "node gallery/scripts/render-math-art.mjs",
+    "gallery:loops": "node gallery/scripts/render-loops.mjs",
+    "gallery:videos": "node gallery/scripts/render-videos.mjs"
   },
-  "keywords": ["presence", "portfolio", "three.js"],
+  "keywords": [
+    "presence",
+    "portfolio",
+    "three.js"
+  ],
   "author": "Axel Quack",
   "license": "UNLICENSED",
   "dependencies": {
+    "aframe": "^1.8.0",
     "three": "^0.185.1"
   },
   "devDependencies": {

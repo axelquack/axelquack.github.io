@@ -1,0 +1,41 @@
+name: Deploy Art Gallery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: gallery-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:gallery
+      - run: touch dist-gallery/.nojekyll
+      - name: Publish dist-gallery to axelquack/gallery (gh-pages)
+        env:
+          GALLERY_DEPLOY_KEY: ${{ secrets.GALLERY_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${GALLERY_DEPLOY_KEY}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$GALLERY_DEPLOY_KEY" > ~/.ssh/gallery_deploy
+          chmod 600 ~/.ssh/gallery_deploy
+          export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/gallery_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          cd dist-gallery
+          git init
+          git checkout -B gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+            commit -m "Publish Art Gallery"
+          git remote add origin git@github.com:axelquack/gallery.git
+          git push -f origin gh-pages

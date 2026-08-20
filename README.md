@@ -39,6 +39,15 @@ Solid `.screen` chapters (intro, skills) cover the canvas so type stays crisp.
 - **GitHub Actions** → `actions/upload-pages-artifact` + `deploy-pages`
 - Custom domain: `public/CNAME` → `www.axelquack.de`
 
+## Art Gallery
+
+[gallery.axelquack.de](https://gallery.axelquack.de) (NFT + other work). Alias [art.axelquack.de](https://art.axelquack.de) redirects to it (`axelquack/art`). A-Frame WebXR room, same tokens. App in `gallery/`; published to repo `axelquack/gallery`. DNS, catalog, audio: [docs/gallery.md](docs/gallery.md).
+
+```bash
+npm run dev:gallery    # http://localhost:5174
+npm run build:gallery  # → dist-gallery/
+```
+
 ## Local development
 
 ```bash
@@ -52,9 +61,19 @@ Node 22+ recommended (matches CI).
 
 ## Deploy
 
-Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www) and [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (art gallery → `axelquack/gallery`).
 
-DNS (INWX): `www` CNAME → `axelquack.github.io`; apex A/AAAA → GitHub Pages anycast. Mail MX/TXT untouched.
+DNS (INWX): `www` / `gallery` / `art` CNAME → `axelquack.github.io`; apex A/AAAA → GitHub Pages anycast. Mail MX/TXT untouched.
+
+## Design system
+
+Reusable styleguide for other projects:
+
+| File | |
+|------|--|
+| [docs/design.md](docs/design.md) | Principles, type, colour, components, WebGL rules |
+| [src/tokens.css](src/tokens.css) | CSS custom properties (this site imports them) |
+| [docs/tokens.json](docs/tokens.json) | Same values as JSON |
 
 ## Repository layout
 
@@ -68,6 +87,15 @@ src/
   ascii.js
   forms.js
   style.css
+  tokens.css
+gallery/                  # Art Gallery app (Vite, port 5174)
+docs/
+  design.md
+  tokens.json
+  gallery.md
+.github/workflows/
+  deploy.yml
+  deploy-gallery.yml
 vite.config.js
 AGENTS.md
 CHANGELOG.md
