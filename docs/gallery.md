@@ -20,7 +20,7 @@ WebXR museum of NFT and other work (A-Frame). Same paper / graphite system as [w
 
 ## What you see
 
-- **Title** — “Art Gallery”. Kicker: NFT · other work. Link back to axelquack.de.
+- **Title** — “Art Gallery”. Kicker: NFT · other work. Link back to axelquack.de. Same paper/ink **A** favicon as www.
 - **All** — walk the 3D room. Click to look (pointer lock). **WASD** to walk. Collision is AABB rooms + doorways.
 - **NFT** / **Other** — a transparent ~40% strip on the left, stills at native 8∶5 (1400×875), scrollable, over the live room. The rest of the view stays the museum. **Escape** or **All** clears the strip.
 - **NFT** is empty until works in `works.json` have `"kind": "nft"`. Everything generated so far is `"kind": "other"`.

@@ -129,6 +129,8 @@ Reuse these patterns; do not invent cards.
 
 **Focus:** no outline box. Hover and `:focus-visible` share the same ink/underline treatment.
 
+**Favicon** — paper square (`#f7f7f7`) with an ink **A**. SVG is the source (`public/favicon.svg`); ICO + 180px apple-touch are rasters of the same mark. Same files on www, gallery, and `art.axelquack.de`.
+
 ## WebGL (this site only)
 
 Other projects can skip 3D and still use colour/type/space. If they keep the field language:

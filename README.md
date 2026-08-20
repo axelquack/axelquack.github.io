@@ -80,6 +80,7 @@ Reusable styleguide for other projects:
 ```
 index.html
 public/CNAME
+public/favicon.svg        # paper/ink A; ICO + apple-touch rasters alongside
 public/photo.jpg          # unused by current markup; kept as asset
 src/
   main.js
