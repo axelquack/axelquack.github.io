@@ -10,6 +10,7 @@ A **static personal presence site** (not a job-application pack, CMS, or SPA fra
 
 - Prefer editing `index.html` for copy; `src/tokens.css` for colour/type/space; `src/style.css` for layout; `src/scene.js` / `forms.js` / `ascii.js` for WebGL
 - Art Gallery (`gallery/`, [gallery.axelquack.de](https://gallery.axelquack.de); alias [art.axelquack.de](https://art.axelquack.de)): A-Frame WebXR, same tokens; add works in `gallery/public/works.json` + `gallery/public/media/`. See [docs/gallery.md](docs/gallery.md)
+- Ventures (`ventures/`, [axelquack.ventures](https://axelquack.ventures)): business angel, pre-seed deep tech & AI. Same tokens, different layout (gyroid field, not the www chapter scroll). See [docs/ventures.md](docs/ventures.md)
 - Keep tokens in sync: `src/tokens.css` ↔ `docs/tokens.json` ↔ `docs/design.md`
 - Keep solid content on `.screen` (above canvas); WebGL only on `.stage[data-scene]`
 - After meaningful changes: update `CHANGELOG.md`, run `npm run build`, commit, push `main` (Pages deploys via Actions)
@@ -40,10 +41,12 @@ npm run preview
 - Workflow: `.github/workflows/deploy.yml` → GitHub Pages
 - Live: https://www.axelquack.de
 - Art Gallery: https://gallery.axelquack.de (alias https://art.axelquack.de via repo `axelquack/art`). Source in `gallery/`; published to `axelquack/gallery` via `.github/workflows/deploy-gallery.yml` (`GALLERY_DEPLOY_KEY`)
+- Ventures: https://axelquack.ventures — `ventures/` → `axelquack/ventures` via `.github/workflows/deploy-ventures.yml` (`VENTURES_DEPLOY_KEY`)
 
 ## DNS note
 
 `www` → CNAME `axelquack.github.io`. Apex A/AAAA → GitHub Pages.  
 `gallery` → CNAME `axelquack.github.io` (repo `axelquack/gallery`, custom domain).  
 `art` → CNAME `axelquack.github.io` (repo `axelquack/art` redirect).  
+`axelquack.ventures` apex A/AAAA → GitHub Pages (repo `axelquack/ventures`).  
 **Do not** alter MX/TXT/iCloud records unless asked.

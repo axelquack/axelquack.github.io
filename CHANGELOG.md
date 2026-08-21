@@ -13,6 +13,7 @@ for release tags when used.
 - Design styleguide (`docs/design.md`) and portable tokens (`src/tokens.css`, `docs/tokens.json`) extracted from the live site
 - Art Gallery app (`gallery/`) at `gallery.axelquack.de` (alias `art.axelquack.de`) — A-Frame WebXR museum; point-field stills plus live rotating frames (helicoid, knot, gyroid, …)
 - Shared paper/ink **A** favicon on www, gallery, and art (`favicon.svg`, `favicon.ico`, apple-touch)
+- Ventures app (`ventures/`) at `axelquack.ventures` — pre-seed angel, deep tech & AI; gyroid field, not the www chapter scroll
 
 ### Changed
 

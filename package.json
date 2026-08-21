@@ -7,10 +7,13 @@
   "scripts": {
     "dev": "vite",
     "dev:gallery": "vite --config gallery/vite.config.js",
+    "dev:ventures": "vite --config ventures/vite.config.js",
     "build": "vite build",
     "build:gallery": "vite build --config gallery/vite.config.js",
+    "build:ventures": "vite build --config ventures/vite.config.js",
     "preview": "vite preview",
     "preview:gallery": "vite preview --config gallery/vite.config.js",
+    "preview:ventures": "vite preview --config ventures/vite.config.js",
     "gallery:stills": "node gallery/scripts/render-math-art.mjs",
     "gallery:loops": "node gallery/scripts/render-loops.mjs",
     "gallery:videos": "node gallery/scripts/render-videos.mjs"

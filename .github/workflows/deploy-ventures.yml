@@ -1,0 +1,41 @@
+name: Deploy Ventures
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ventures-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:ventures
+      - run: touch dist-ventures/.nojekyll
+      - name: Publish dist-ventures to axelquack/ventures (gh-pages)
+        env:
+          VENTURES_DEPLOY_KEY: ${{ secrets.VENTURES_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${VENTURES_DEPLOY_KEY}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$VENTURES_DEPLOY_KEY" > ~/.ssh/ventures_deploy
+          chmod 600 ~/.ssh/ventures_deploy
+          export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/ventures_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          cd dist-ventures
+          git init
+          git checkout -B gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+            commit -m "Publish Ventures"
+          git remote add origin git@github.com:axelquack/ventures.git
+          git push -f origin gh-pages

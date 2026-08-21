@@ -39,6 +39,15 @@ Solid `.screen` chapters (intro, skills) cover the canvas so type stays crisp.
 - **GitHub Actions** → `actions/upload-pages-artifact` + `deploy-pages`
 - Custom domain: `public/CNAME` → `www.axelquack.de`
 
+## Ventures
+
+[axelquack.ventures](https://axelquack.ventures) — business angel, pre-seed deep tech & AI. Same tokens as www, different layout (live gyroid, offset thesis). App in `ventures/`. [docs/ventures.md](docs/ventures.md).
+
+```bash
+npm run dev:ventures     # http://localhost:5175
+npm run build:ventures   # → dist-ventures/
+```
+
 ## Art Gallery
 
 [gallery.axelquack.de](https://gallery.axelquack.de) (NFT + other work). Alias [art.axelquack.de](https://art.axelquack.de) redirects to it (`axelquack/art`). A-Frame WebXR room, same tokens. App in `gallery/`; published to repo `axelquack/gallery`. DNS, catalog, audio: [docs/gallery.md](docs/gallery.md).
@@ -61,7 +70,7 @@ Node 22+ recommended (matches CI).
 
 ## Deploy
 
-Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www) and [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (art gallery → `axelquack/gallery`).
+Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www), [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (gallery), and [`.github/workflows/deploy-ventures.yml`](.github/workflows/deploy-ventures.yml) (ventures).
 
 DNS (INWX): `www` / `gallery` / `art` CNAME → `axelquack.github.io`; apex A/AAAA → GitHub Pages anycast. Mail MX/TXT untouched.
 
@@ -90,6 +99,7 @@ src/
   style.css
   tokens.css
 gallery/                  # Art Gallery app (Vite, port 5174)
+ventures/                 # Angel page (Vite, port 5175)
 docs/
   design.md
   tokens.json

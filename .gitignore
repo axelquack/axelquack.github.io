@@ -1,8 +1,16 @@
 node_modules/
 dist/
 dist-gallery/
+dist-ventures/
 .DS_Store
 *.log
 .vite/
 .env
 .env.*
+
+# X profile banners (local render)
+docs/x-header-*.png
+
+docs/facebook-cover-*.png
+
+docs/youtube-banner-*.png
