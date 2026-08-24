@@ -41,7 +41,7 @@ Solid `.screen` chapters (intro, skills) cover the canvas so type stays crisp.
 
 ## Ventures
 
-[axelquack.ventures](https://axelquack.ventures) — business angel, pre-seed deep tech & AI. Same tokens as www, different layout (live gyroid, offset thesis). App in `ventures/`. [docs/ventures.md](docs/ventures.md).
+[axelquack.ventures](https://axelquack.ventures) — business angel for solopreneurs building & scaling with AI agents (global). Same tokens as www, different layout (live gyroid, offset thesis). App in `ventures/`. [docs/ventures.md](docs/ventures.md).
 
 ```bash
 npm run dev:ventures     # http://localhost:5175

@@ -1,6 +1,6 @@
 # Ventures — axelquack.ventures
 
-Personal **business angel** page. Same paper / graphite system as [www.axelquack.de](https://www.axelquack.de), different layout: type sits in a live **gyroid** field (not the AQ lattice, not the five-chapter scroll). Pre-seed cheques into deep tech and AI.
+Personal **business angel** page. Same paper / graphite system as [www.axelquack.de](https://www.axelquack.de), different layout: type sits in a live **gyroid** field (not the AQ lattice, not the five-chapter scroll). Pre-seed cheques into solopreneurs who build and scale with AI agents — globally.
 
 | | |
 |--|--|
