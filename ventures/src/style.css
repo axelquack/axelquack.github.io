@@ -86,22 +86,6 @@ main {
   color: var(--ink);
 }
 
-.ghost {
-  position: absolute;
-  top: 8vh;
-  right: var(--pad-x);
-  margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(8rem, 22vw, 18rem);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  color: var(--ink);
-  opacity: 0.055;
-  pointer-events: none;
-  user-select: none;
-}
-
 .frame {
   width: min(36rem, calc(100% - var(--pad-x) * 2));
   margin-left: max(var(--pad-x), min(42vw, 28rem));
@@ -260,12 +244,6 @@ main {
   .pair {
     grid-template-columns: 1fr;
   }
-
-  .ghost {
-    right: auto;
-    left: var(--pad-x);
-    top: 28vh;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -275,10 +253,6 @@ main {
 
   #bg {
     display: none !important;
-  }
-
-  .ghost {
-    opacity: 0.08;
   }
 }
 

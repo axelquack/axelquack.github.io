@@ -17,6 +17,7 @@ for release tags when used.
 
 ### Changed
 
+- Ventures mast: **AQ Ventures**; remove decorative ghost “01” and its CSS
 - Ventures thesis: business angel for global solopreneurs who build and scale with AI agents (was deep tech / Europe enterprise)
 - Gallery HUD: play/pause is a toggling icon plus song title; stock A-Frame VR box replaced with a hairline fullscreen control
 - Gallery **NFT** / **Other** pin a ~40% 2D stills strip over the live room; **All** is the 3D room
