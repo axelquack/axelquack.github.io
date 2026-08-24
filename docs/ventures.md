@@ -21,7 +21,7 @@ npm run build:ventures   # → dist-ventures/ (gitignored)
 
 - One continuous canvas, always on; copy scrolls over it
 - Gyroid point field + pointer tear (not letterform / helicoid / knot scenes)
-- Vertical spine, italic mast (“AQ Ventures”), thesis column offset into the field
+- Vertical spine, mast title “AQ Ventures”, thesis column offset into the field
 - No clock, skills chapter, or contact-stage inverse
 
 Same tokens, type, hairlines, favicon.

@@ -76,16 +76,6 @@ main {
   line-height: 0.95;
 }
 
-.mast-line {
-  margin: 0.15rem 0 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  letter-spacing: var(--tracking-display);
-  line-height: 0.95;
-  color: var(--ink);
-}
-
 .frame {
   width: min(36rem, calc(100% - var(--pad-x) * 2));
   margin-left: max(var(--pad-x), min(42vw, 28rem));
