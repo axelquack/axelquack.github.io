@@ -20,7 +20,7 @@ npm run build:ventures   # → dist-ventures/ (gitignored)
 ## What is different from www
 
 - One continuous canvas, always on; copy scrolls over it
-- Gyroid point field + pointer tear (not letterform / helicoid / knot scenes)
+- Gyroid point field + pointer tear (not letterform / helicoid / knot scenes); ~14k points, opacity `0.58` so thesis type still reads
 - Vertical spine, mast title “AQ Ventures”, thesis column offset into the field
 - No clock, skills chapter, or contact-stage inverse
 

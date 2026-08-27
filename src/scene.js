@@ -194,19 +194,21 @@ export function createScene(canvas) {
     threshold: 205,
   });
 
-  const nameCloud = makePoints(nameSample, 2.05, "letter");
+  const nameCloud = makePoints(nameSample, 1.9, "letter");
   nameCloud.material.uniforms.uColor.value.set("#0a0a0a");
   letterGroup.add(nameCloud);
 
   // §3: auto-moving hyperbolic helicoid
-  const helicoidCloud = makePoints(buildHelicoid(20000), 1.75, "form");
+  const helicoidCloud = makePoints(buildHelicoid(14000), 1.5, "form");
   helicoidCloud.material.uniforms.uColor.value.set("#121212");
   formGroup.add(helicoidCloud);
 
   // §5: auto-moving torus knot (white)
-  const knotCloud = makePoints(buildTorusKnot(18000, 3, 2), 1.7, "form");
+  const knotCloud = makePoints(buildTorusKnot(12000, 3, 2), 1.45, "form");
   knotCloud.material.uniforms.uColor.value.set("#f0f0f0");
   formGroup.add(knotCloud);
+
+  const maxOpacity = { name: 0.78, mono: 0.58, talk: 0.55 };
 
   const clouds = {
     name: nameCloud,
@@ -285,7 +287,7 @@ export function createScene(canvas) {
     autoPitch = Math.sin(t * 0.22) * 0.35 + Math.cos(t * 0.13) * 0.12;
 
     for (const [key, cloud] of Object.entries(clouds)) {
-      const want = key === mode ? visibility : 0;
+      const want = key === mode ? visibility * (maxOpacity[key] ?? 0.7) : 0;
       const cur = cloud.material.uniforms.uOpacity.value;
       const next = cur + (want - cur) * 0.1;
       cloud.material.uniforms.uOpacity.value = next;

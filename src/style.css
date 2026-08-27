@@ -94,6 +94,7 @@ main {
   margin-top: clamp(18vh, 28vh, 34vh);
   margin-left: clamp(0rem, 8vw, 6rem);
   max-width: 16rem;
+  text-shadow: 0 0 18px var(--bg), 0 0 36px var(--bg);
 }
 
 .label-name {

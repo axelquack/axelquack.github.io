@@ -88,7 +88,7 @@ export function createScene(canvas) {
   );
   camera.position.set(0.4, 0.15, 6.4);
 
-  const sample = buildGyroid(22000);
+  const sample = buildGyroid(14000);
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(sample.positions, 3));
   geo.setAttribute("aDensity", new THREE.BufferAttribute(sample.densities, 1));
@@ -97,13 +97,13 @@ export function createScene(canvas) {
   geo.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
 
   const uniforms = {
-    uSize: { value: 1.65 },
+    uSize: { value: 1.4 },
     uPixelRatio: { value: renderer.getPixelRatio() },
     uTime: { value: 0 },
     uMouse: { value: new THREE.Vector2(99, 99) },
     uRepel: { value: 1.05 },
     uColor: { value: new THREE.Color("#121212") },
-    uOpacity: { value: 0.92 },
+    uOpacity: { value: 0.58 },
   };
 
   const mat = new THREE.ShaderMaterial({

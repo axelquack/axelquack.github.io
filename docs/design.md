@@ -60,9 +60,9 @@ Point fields (Three.js `uColor`):
 
 | Token | Value | Scene |
 |-------|--------|--------|
-| `--field-name` | `#0a0a0a` | Hero “AQ” lattice |
-| `--field-mono` | `#121212` | Helicoid |
-| `--field-talk` | `#f0f0f0` | Torus knot on black |
+| `--field-name` | `#0a0a0a` | Hero “AQ” lattice (peak opacity ~0.78) |
+| `--field-mono` | `#121212` | Helicoid (peak opacity ~0.58) |
+| `--field-talk` | `#f0f0f0` | Torus knot on black (peak opacity ~0.55) |
 
 Do not introduce a brand red/blue. If a project needs status colour, keep it out of this palette and namespace it locally.
 
@@ -142,6 +142,8 @@ Other projects can skip 3D and still use colour/type/space. If they keep the fie
 | `talk` | Torus knot (3,2) | `--field-talk` |
 
 Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, density-weighted size. Pixel ratio capped at 2. Pause when `document.hidden`.
+
+**Also used by** [Art Gallery](gallery.md) and [Ventures](ventures.md).
 
 ## Applying this to another project
 

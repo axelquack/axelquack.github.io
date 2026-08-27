@@ -17,6 +17,8 @@ for release tags when used.
 
 ### Changed
 
+- www fields: slightly quieter AQ lattice, helicoid, and knot so labels and contact copy contrast
+- Ventures gyroid: ~14k points, opacity 0.58 so thesis type still reads
 - Ventures mast: title is **AQ Ventures** only (no personal name); remove decorative ghost “01” and unused mast/ghost CSS
 - Ventures thesis: business angel for global solopreneurs who build and scale with AI agents (was deep tech / Europe enterprise)
 - Gallery HUD: play/pause is a toggling icon plus song title; stock A-Frame VR box replaced with a hairline fullscreen control
