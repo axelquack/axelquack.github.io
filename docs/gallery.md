@@ -21,7 +21,7 @@ WebXR museum of NFT and other work (A-Frame). Same paper / graphite system as [w
 ## What you see
 
 - **Title** — “Art Gallery”. Kicker: NFT · other work. Link back to axelquack.de. Same paper/ink **A** favicon as www.
-- **All** — walk the 3D room. Click to look (pointer lock). **WASD** to walk. On a phone, gyro looks; a hairline stick (next to fullscreen) walks. Collision is AABB rooms + doorways.
+- **All** — walk the 3D room. Click to look (pointer lock). **WASD** to walk (~2.5 m/s). On a phone, gyro looks; a hairline stick (next to fullscreen) walks. Collision is AABB rooms + doorways.
 - **NFT** / **Other** — a transparent ~40% strip on the left, stills at native 8∶5 (1400×875), scrollable, over the live room. The rest of the view stays the museum. **Escape** or **All** clears the strip.
 - **NFT** is empty until works in `works.json` have `"kind": "nft"`. Everything generated so far is `"kind": "other"`.
 - Hover / click a hanging in the room for a caption (title, year, medium). Optional outbound `link`.
@@ -67,7 +67,7 @@ The gallery Vite app lives in `gallery/`. It imports `src/tokens.css` and `src/f
 | `kind` | `nft` or `other` (3D hang + 2D strip filter) |
 | `image` | Still, `gallery/public/media/` |
 | `link` | Optional. Shown on the room caption and 2D strip |
-| `live` | If true, the hanging uses a looping MP4 (`video`) while you walk |
+| `live` | If true, the hanging shows the still until a looping MP4 is playing. Only the nearest few decode at once (iOS). |
 | `video` | `/media/<id>.mp4` — 24 fps, 12 s, 1280×800 (`npm run gallery:videos`) |
 | `loop` | Leftover filmstrip PNG from an earlier pipeline; videos are preferred |
 
@@ -85,7 +85,7 @@ npm run gallery:loops     # optional filmstrip PNGs (legacy)
 
 Scripts: `gallery/scripts/render-math-art.mjs`, `render-videos.mjs`, `render-loops.mjs`.
 
-Reduced motion: live hangings fall back to the still PNG.
+Reduced motion: live hangings stay on the still PNG. Otherwise the still is the poster; video textures start after the first tap and only the nearest four decode (iPhone will not play ten 1280×800 loops at once). No full-screen preloader.
 
 ## Soundtrack
 

@@ -352,6 +352,15 @@ body.is-catalog .hud-filters {
   }
 }
 
+#live-videos {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Stock A-Frame VR / fullscreen chrome is a filled box — hide it. */
 .a-enter-vr,
 .a-enter-ar,

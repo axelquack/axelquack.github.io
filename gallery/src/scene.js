@@ -214,7 +214,7 @@ function hanging(slot, work) {
           class: "work",
           width: w,
           height: h,
-          color: "#f7f7f7",
+          src: work.image,
           material: "shader: flat; side: double",
           "select-work": work.id,
           "live-video": `src: ${work.video}`,
@@ -295,7 +295,7 @@ function register() {
   }
   if (!AFRAME.components["stick-move"]) {
     AFRAME.registerComponent("stick-move", {
-      schema: { speed: { type: "number", default: 1.15 } },
+      schema: { speed: { type: "number", default: 2.5 } },
       init() {
         this.dir = new THREE.Vector3();
         this.euler = new THREE.Euler(0, 0, 0, "YXZ");
@@ -370,8 +370,8 @@ export function buildScene() {
   const camera = el("a-camera", {
     position: `0 ${EYE} 5.2`,
     "look-controls": "pointerLockEnabled: true",
-    "wasd-controls": "acceleration: 22",
-    "stick-move": "speed: 1.15",
+    "wasd-controls": "acceleration: 50",
+    "stick-move": "speed: 2.5",
     "contain-player": "radius: 0.32",
   });
 

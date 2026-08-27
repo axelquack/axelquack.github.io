@@ -235,7 +235,7 @@ function setupAudio(meta) {
     if (!playing) play();
     window.removeEventListener("pointerdown", unlock);
   };
-  window.addEventListener("pointerdown", unlock, { once: true });
+  window.addEventListener("pointerdown", unlock, { once: true, capture: true });
 }
 
 function fullscreenElement() {

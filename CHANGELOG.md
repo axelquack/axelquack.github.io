@@ -16,9 +16,11 @@ for release tags when used.
 - Ventures app (`ventures/`) at `axelquack.ventures` — pre-seed angel, deep tech & AI; gyroid field, not the www chapter scroll
 - Gallery mobile walk stick: hairline analog joystick (touch only); gyro still looks
 - Gallery doorways: walk volumes overlap rooms so you can leave the lobby (and side halls)
+- Gallery live hangings: still as poster; nearest looping MP4s play after a gesture (no extra preloader UI)
 
 ### Changed
 
+- Gallery walk is faster (~2.5 m/s stick and WASD)
 - www fields: slightly quieter AQ lattice, helicoid, and knot so labels and contact copy contrast
 - Ventures gyroid: ~14k points, opacity 0.58 so thesis type still reads
 - Ventures mast: title is **AQ Ventures** only (no personal name); remove decorative ghost “01” and unused mast/ghost CSS
