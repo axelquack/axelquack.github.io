@@ -15,6 +15,7 @@ for release tags when used.
 - Shared paper/ink **A** favicon on www, gallery, and art (`favicon.svg`, `favicon.ico`, apple-touch)
 - Ventures app (`ventures/`) at `axelquack.ventures` — pre-seed angel, deep tech & AI; gyroid field, not the www chapter scroll
 - Gallery mobile walk stick: hairline analog joystick (touch only); gyro still looks
+- Gallery doorways: walk volumes overlap rooms so you can leave the lobby (and side halls)
 
 ### Changed
 

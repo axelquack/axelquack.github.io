@@ -20,17 +20,21 @@ const HALL_H = 5.4;
 const THICK = 0.18;
 const EYE = 1.6;
 
-/** Walkable AABBs (player radius is applied in contain-player). */
+/**
+ * Walkable AABBs (player radius is applied in contain-player).
+ * Door boxes must overlap both rooms by more than the radius, or the
+ * inset volumes leave a gap and you cannot step through.
+ */
 export const WALK = [
   { minX: -3.6, maxX: 3.6, minZ: 0.2, maxZ: 7.4 }, // lobby
   { minX: -4.15, maxX: 4.15, minZ: -26.2, maxZ: 0.6 }, // nave
   { minX: -13.6, maxX: -3.7, minZ: -20.4, maxZ: -8.6 }, // west
   { minX: 3.7, maxX: 13.6, minZ: -20.4, maxZ: -8.6 }, // east
   { minX: -7.6, maxX: 7.6, minZ: -35.6, maxZ: -25.6 }, // rear
-  { minX: -4.4, maxX: -3.5, minZ: -15.4, maxZ: -13.2 }, // west door
-  { minX: 3.5, maxX: 4.4, minZ: -15.4, maxZ: -13.2 }, // east door
-  { minX: -1.7, maxX: 1.7, minZ: -26.8, maxZ: -25.4 }, // rear door
-  { minX: -1.5, maxX: 1.5, minZ: -0.2, maxZ: 0.8 }, // lobby → nave
+  { minX: -4.55, maxX: -3.35, minZ: -15.7, maxZ: -12.9 }, // west door
+  { minX: 3.35, maxX: 4.55, minZ: -15.7, maxZ: -12.9 }, // east door
+  { minX: -1.85, maxX: 1.85, minZ: -27.1, maxZ: -25.1 }, // rear door
+  { minX: -1.65, maxX: 1.65, minZ: -0.7, maxZ: 1.1 }, // lobby → nave
 ];
 
 /**
@@ -318,21 +322,32 @@ function register() {
         const r = this.data.radius;
         const x = obj.position.x;
         const z = obj.position.z;
-        const ok = WALK.some(
-          (b) =>
-            x >= b.minX + r &&
-            x <= b.maxX - r &&
-            z >= b.minZ + r &&
-            z <= b.maxZ - r
-        );
-        if (!ok) {
-          if (this._last) {
-            obj.position.x = this._last.x;
-            obj.position.z = this._last.z;
-          }
+        const inside = (px, pz) =>
+          WALK.some(
+            (b) =>
+              px >= b.minX + r &&
+              px <= b.maxX - r &&
+              pz >= b.minZ + r &&
+              pz <= b.maxZ - r,
+          );
+        if (inside(x, z)) {
+          this._last = { x, z };
           return;
         }
-        this._last = { x, z };
+        const last = this._last;
+        if (!last) return;
+        if (inside(x, last.z)) {
+          obj.position.z = last.z;
+          this._last = { x, z: last.z };
+          return;
+        }
+        if (inside(last.x, z)) {
+          obj.position.x = last.x;
+          this._last = { x: last.x, z };
+          return;
+        }
+        obj.position.x = last.x;
+        obj.position.z = last.z;
       },
     });
   }
