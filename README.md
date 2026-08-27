@@ -48,6 +48,19 @@ npm run dev:ventures     # http://localhost:5175
 npm run build:ventures   # → dist-ventures/
 ```
 
+## Slides (spike)
+
+Slidev decks with AQ tokens. **Local only** — not on GitHub Pages. Demo deck (`slides/hermes-agent.md`) uses placeholder lorem; video and layouts unchanged. Layout catalog: `slides/variants.md`. Full map: [docs/slides.md](docs/slides.md).
+
+```bash
+cd slides && npm ci              # first time (own lockfile)
+npm run dev:slides               # http://localhost:5176
+npm run dev:slides:variants      # http://localhost:5177
+npm run build:slides             # → dist-slides/
+npm run export:slides:pdf        # Playwright PDF (optional)
+npm run export:slides:pptx
+```
+
 ## Art Gallery
 
 [gallery.axelquack.de](https://gallery.axelquack.de) (NFT + other work). Alias [art.axelquack.de](https://art.axelquack.de) redirects to it (`axelquack/art`). A-Frame WebXR room, same tokens. App in `gallery/`; published to repo `axelquack/gallery`. DNS, catalog, audio: [docs/gallery.md](docs/gallery.md).
@@ -70,7 +83,7 @@ Node 22+ recommended (matches CI).
 
 ## Deploy
 
-Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www), [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (gallery), and [`.github/workflows/deploy-ventures.yml`](.github/workflows/deploy-ventures.yml) (ventures).
+Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www), [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (gallery), and [`.github/workflows/deploy-ventures.yml`](.github/workflows/deploy-ventures.yml) (ventures). Slides have no workflow yet.
 
 DNS (INWX): `www` / `gallery` / `art` CNAME → `axelquack.github.io`; apex A/AAAA → GitHub Pages anycast. Mail MX/TXT untouched.
 
@@ -100,13 +113,19 @@ src/
   tokens.css
 gallery/                  # Art Gallery app (Vite, port 5174)
 ventures/                 # Angel page (Vite, port 5175)
+slides/                   # Slidev spike (ports 5176 / 5177; not deployed)
+scripts/
+  render-x-header.mjs     # local X / Facebook / YouTube banners → docs/ (gitignored PNGs)
 docs/
   design.md
   tokens.json
   gallery.md
+  ventures.md
+  slides.md
 .github/workflows/
   deploy.yml
   deploy-gallery.yml
+  deploy-ventures.yml
 vite.config.js
 AGENTS.md
 CHANGELOG.md

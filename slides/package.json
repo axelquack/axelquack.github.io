@@ -1,0 +1,23 @@
+{
+  "name": "aq-slides",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AQ Slides — Slidev decks styled with axelquack.de tokens",
+  "scripts": {
+    "dev": "slidev hermes-agent.md --port 5176 --open false",
+    "dev:variants": "slidev variants.md --port 5177 --open false",
+    "build": "slidev build hermes-agent.md --out ../dist-slides",
+    "export:pdf": "slidev export hermes-agent.md --output exports/hermes-agent.pdf",
+    "export:pptx": "slidev export hermes-agent.md --format pptx --output exports/hermes-agent.pptx"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.19.1",
+    "@slidev/theme-default": "^0.25.0",
+    "three": "^0.185.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.62.1"
+  }
+}

@@ -10,6 +10,12 @@ for release tags when used.
 
 ### Added
 
+- AQ Slides spike (`slides/`) — Slidev decks using `src/tokens.css`; Hermes Agent demo from Obsidian (`npm run dev:slides` :5176). Local only; no Pages host yet. Full inventory: [docs/slides.md](docs/slides.md)
+- Slides layouts (`aq-cover` … `aq-end`): cover gyroid field, quote, agenda (CSS 01–08), photo split, section, fill (lists + Monaco), media, three columns, giant stat, 2×2 grid, device frame, statement, split, inverse knot end; variants catalog on :5177
+- Slides components: `AqField` (gyroid / knot), `AqMetrics`, `AqChart` (static ink bars), `AqVideo` (local poster then YouTube nocookie iframe); `{monaco-run}` on the Hermes skill-shape slide
+- Slides media: gallery stills (`gyroid-i`, `helicoid-i`, `knot-32`, `mobius`) plus `hermes-setup.jpg` poster
+- Demo deck copy is lorem ipsum (layouts, stills, and `AqVideo` unchanged)
+- Slide chrome is Markdown: cover `h1 + p` is the lede, `>` is a note, stat `h1 + p` is the caption (no classed HTML)
 - Design styleguide (`docs/design.md`) and portable tokens (`src/tokens.css`, `docs/tokens.json`) extracted from the live site
 - Art Gallery app (`gallery/`) at `gallery.axelquack.de` (alias `art.axelquack.de`) — A-Frame WebXR museum; point-field stills plus live rotating frames (helicoid, knot, gyroid, …)
 - Shared paper/ink **A** favicon on www, gallery, and art (`favicon.svg`, `favicon.ico`, apple-touch)
@@ -18,11 +24,13 @@ for release tags when used.
 - Gallery doorways: walk volumes overlap rooms so you can leave the lobby (and side halls)
 - Gallery live hangings: still as poster; nearest looping MP4s play after a gesture (no extra preloader UI)
 - Gallery iOS hangings animate from filmstrip PNGs (WebKit will not texture `<video>`)
+- Local social banners script (`scripts/render-x-header.mjs`) — X / Facebook / YouTube; PNGs stay gitignored
 
 ### Changed
 
 - Gallery walk is faster (~2.5 m/s stick and WASD)
 - Gallery fullscreen control is desktop-only
+- Slides cover/end field: quieter gyroid/knot (~9k points, opacity ~0.58) so display type still reads
 - www fields: slightly quieter AQ lattice, helicoid, and knot so labels and contact copy contrast
 - Ventures gyroid: ~14k points, opacity 0.58 so thesis type still reads
 - Ventures mast: title is **AQ Ventures** only (no personal name); remove decorative ghost “01” and unused mast/ghost CSS

@@ -1,0 +1,308 @@
+@import "../../src/tokens.css";
+
+:root {
+  --slidev-theme-primary: var(--ink);
+}
+
+html,
+body,
+#app {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slidev-page > .slidev-layout {
+  height: 100%;
+}
+
+.slidev-layout {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-ui);
+  padding: var(--pad-y) var(--pad-x) !important;
+}
+
+/* Keep paper layouts light even if theme-default leans dark */
+.slidev-layout.aq-section,
+.slidev-layout.aq-quote,
+.slidev-layout.aq-split-layout,
+.slidev-layout.aq-fill,
+.slidev-layout.aq-agenda,
+.slidev-layout.aq-photo,
+.slidev-layout.aq-columns,
+.slidev-layout.aq-grid,
+.slidev-layout.aq-stat,
+.slidev-layout.aq-device,
+.slidev-layout.aq-statement,
+.slidev-layout.default {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+}
+
+/* Cover sits on the gyroid field — no solid paper fill */
+.slidev-layout.aq-cover {
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+.slidev-layout.aq-cover h1,
+.slidev-layout.aq-cover h2,
+.slidev-layout.aq-cover p,
+.slidev-layout.aq-cover .aq-lede {
+  color: var(--ink) !important;
+}
+
+.slidev-layout.aq-section,
+.slidev-layout.aq-fill,
+.slidev-layout.aq-split-layout,
+.slidev-layout.default {
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.slidev-layout.default {
+  display: flex;
+  flex-direction: column;
+}
+
+.slidev-layout.default .aq-chart {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--ink);
+}
+
+.slidev-layout h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.05;
+  margin: 0 0 0.6rem;
+}
+
+.slidev-layout h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  margin: 0 0 1rem;
+}
+
+.slidev-layout h3 {
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  margin: 0 0 0.75rem;
+}
+
+.slidev-layout p,
+.slidev-layout li {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--ink);
+}
+
+.slidev-layout a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: var(--underline) solid transparent;
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.slidev-layout a:hover {
+  color: var(--ink);
+  border-color: currentColor;
+}
+
+.slidev-layout ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slidev-layout li {
+  padding: 0.55rem 0;
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+.slidev-layout li::marker {
+  content: "";
+}
+
+.slidev-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-ui);
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  text-align: left;
+  padding: 0.65rem 0;
+  border-bottom: var(--hairline) solid var(--line);
+  font-weight: 400;
+}
+
+.slidev-layout th {
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.slidev-layout pre,
+.slidev-layout code {
+  font-family: var(--font-mono) !important;
+}
+
+.slidev-layout pre {
+  border: var(--hairline) solid var(--line);
+  background: var(--wash) !important;
+  border-radius: 0 !important;
+}
+
+.aq-kicker {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.aq-lede {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-display);
+  max-width: var(--measure-display-md);
+  margin: 0;
+}
+
+/* Cover: first paragraph after the title is the lede (no HTML class). */
+.slidev-layout.aq-cover h1 + p {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-display);
+  max-width: var(--measure-display-md);
+  margin: 0;
+  text-shadow: 0 0 24px var(--bg), 0 0 48px var(--bg);
+}
+
+.aq-note {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* Markdown `>` → muted note. Quote layout uses <blockquote class="aq-lede"> — leave that.
+   theme-default paints blockquotes as a light rounded card — kill that chrome. */
+.slidev-layout blockquote:not(.aq-lede) {
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0.5rem 0 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.slidev-layout blockquote:not(.aq-lede)::before,
+.slidev-layout blockquote:not(.aq-lede)::after {
+  display: none !important;
+  content: none !important;
+}
+
+.slidev-layout blockquote:not(.aq-lede) p {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Stat: caption under the giant h1 (Markdown paragraph, not <small>). */
+.slidev-layout.aq-stat h1 + p {
+  display: block;
+  margin-top: 0.75rem !important;
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-mono) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.4 !important;
+  color: var(--muted) !important;
+}
+
+.aq-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: 100%;
+}
+
+.aq-split h3 {
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.slidev-layout.aq-inverse {
+  background: var(--bg-inverse) !important;
+  color: var(--ink-inverse);
+}
+
+.slidev-layout.aq-inverse h1,
+.slidev-layout.aq-inverse h2,
+.slidev-layout.aq-inverse h3,
+.slidev-layout.aq-inverse p,
+.slidev-layout.aq-inverse li {
+  color: var(--ink-inverse);
+}
+
+.slidev-layout.aq-inverse .aq-kicker,
+.slidev-layout.aq-inverse .aq-note,
+.slidev-layout.aq-inverse blockquote:not(.aq-lede) {
+  color: var(--muted-inverse);
+}
+
+.slidev-layout.aq-end blockquote:not(.aq-lede) {
+  margin-top: 1.5rem;
+}
+
+.slidev-layout.aq-inverse a {
+  color: var(--muted-inverse);
+}
+
+.slidev-layout.aq-inverse a:hover {
+  color: var(--ink-inverse-hover);
+}
+
+@media (max-width: 720px) {
+  .aq-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
