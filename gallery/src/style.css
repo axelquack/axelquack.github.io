@@ -404,6 +404,10 @@ body.is-catalog .hud-filters {
     display: block;
   }
 
+  #fullscreen-toggle {
+    display: none;
+  }
+
   .hud-filters {
     bottom: calc(var(--pad-y) + 4.6rem);
   }

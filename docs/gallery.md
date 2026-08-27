@@ -26,7 +26,7 @@ WebXR museum of NFT and other work (A-Frame). Same paper / graphite system as [w
 - **NFT** is empty until works in `works.json` have `"kind": "nft"`. Everything generated so far is `"kind": "other"`.
 - Hover / click a hanging in the room for a caption (title, year, medium). Optional outbound `link`.
 - **Audio** — looping bed *Monotonie 001*. Minimal play icon swaps to pause. First click anywhere also starts it. Volume 0.55.
-- **Fullscreen** — hairline expand / collapse icon. A-Frame’s default VR box is hidden (`xr-mode-ui` off).
+- **Fullscreen** — hairline expand / collapse icon on desktop only (iOS has no usable fullscreen). A-Frame’s default VR box is hidden (`xr-mode-ui` off).
 - **Walk stick** — coarse-pointer only (`hover: none`). Same stroke language as fullscreen. Analog WASD in camera yaw; gyro still handles look.
 
 No voice, users list, broadcast, or screenshot UI.
@@ -85,7 +85,7 @@ npm run gallery:loops     # optional filmstrip PNGs (legacy)
 
 Scripts: `gallery/scripts/render-math-art.mjs`, `render-videos.mjs`, `render-loops.mjs`.
 
-Reduced motion: live hangings stay on the still PNG. Otherwise the still is the poster; video textures start after the first tap and only the nearest four decode (iPhone will not play ten 1280×800 loops at once). No full-screen preloader.
+Reduced motion: live hangings stay on the still PNG. Desktop uses looping MP4s (nearest four). **iOS / touch** uses the filmstrip PNG (`loop`, 6×8 @ 24 fps) drawn to a canvas — WebKit will not feed `<video>` into WebGL. No full-screen preloader.
 
 ## Soundtrack
 

@@ -217,7 +217,15 @@ function hanging(slot, work) {
           src: work.image,
           material: "shader: flat; side: double",
           "select-work": work.id,
-          "live-video": `src: ${work.video}`,
+          "live-video": [
+            `src: ${work.video}`,
+            work.loop ? `sheet: ${work.loop}` : "",
+            work.cols ? `cols: ${work.cols}` : "",
+            work.rows ? `rows: ${work.rows}` : "",
+            work.fps ? `fps: ${work.fps}` : "",
+          ]
+            .filter(Boolean)
+            .join("; "),
         })
       : work?.image
       ? el("a-plane", {

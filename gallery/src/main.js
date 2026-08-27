@@ -256,10 +256,11 @@ function setupFullscreen() {
   const toggle = document.querySelector("#fullscreen-toggle");
   if (!toggle) return;
 
+  const coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   const canEnter =
     document.documentElement.requestFullscreen ||
     document.documentElement.webkitRequestFullscreen;
-  if (!canEnter) {
+  if (coarse || !canEnter) {
     toggle.hidden = true;
     return;
   }
