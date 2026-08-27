@@ -5,7 +5,7 @@ import { registerLiveField } from "./live-field.js";
  * Physical plan (metres, +X east, +Y up, −Z into the building).
  * After oncyber “showcase” museums such as thecryptomasks:
  *   lobby → long nave → east/west galleries → rear hall.
- * Open doorways, no doors. WASD + look only.
+ * Open doorways, no doors. WASD + look; mobile also has a HUD stick.
  */
 const PAPER = "#f7f7f7";
 const WALL = "#f4f4f4";
@@ -263,8 +263,17 @@ export function setKindVisible(kind) {
   }
 }
 
+/** Analog walk vector from the mobile HUD stick (x = strafe, y = screen-Y / −Z). */
+export const moveStick = { x: 0, y: 0 };
+
+export function setMoveStick(x, y) {
+  moveStick.x = x;
+  moveStick.y = y;
+}
+
 function register() {
   const AFRAME = window.AFRAME;
+  const THREE = window.THREE;
   registerLiveField();
   if (!AFRAME.components["select-work"]) {
     AFRAME.registerComponent("select-work", {
@@ -277,6 +286,27 @@ function register() {
             window.dispatchEvent(new CustomEvent("gallery-select", { detail: id }));
           }
         });
+      },
+    });
+  }
+  if (!AFRAME.components["stick-move"]) {
+    AFRAME.registerComponent("stick-move", {
+      schema: { speed: { type: "number", default: 1.15 } },
+      init() {
+        this.dir = new THREE.Vector3();
+        this.euler = new THREE.Euler(0, 0, 0, "YXZ");
+      },
+      tick(_t, dt) {
+        const x = moveStick.x;
+        const y = moveStick.y;
+        if (x === 0 && y === 0) return;
+        const yaw = this.el.getAttribute("rotation")?.y || 0;
+        const delta = Math.min(dt, 50) / 1000;
+        this.dir.set(x, 0, y);
+        this.euler.set(0, THREE.MathUtils.degToRad(yaw), 0);
+        this.dir.applyEuler(this.euler);
+        this.dir.multiplyScalar(this.data.speed * delta);
+        this.el.object3D.position.add(this.dir);
       },
     });
   }
@@ -326,6 +356,7 @@ export function buildScene() {
     position: `0 ${EYE} 5.2`,
     "look-controls": "pointerLockEnabled: true",
     "wasd-controls": "acceleration: 22",
+    "stick-move": "speed: 1.15",
     "contain-player": "radius: 0.32",
   });
 

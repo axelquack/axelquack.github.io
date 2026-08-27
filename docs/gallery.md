@@ -21,12 +21,13 @@ WebXR museum of NFT and other work (A-Frame). Same paper / graphite system as [w
 ## What you see
 
 - **Title** — “Art Gallery”. Kicker: NFT · other work. Link back to axelquack.de. Same paper/ink **A** favicon as www.
-- **All** — walk the 3D room. Click to look (pointer lock). **WASD** to walk. Collision is AABB rooms + doorways.
+- **All** — walk the 3D room. Click to look (pointer lock). **WASD** to walk. On a phone, gyro looks; a hairline stick (next to fullscreen) walks. Collision is AABB rooms + doorways.
 - **NFT** / **Other** — a transparent ~40% strip on the left, stills at native 8∶5 (1400×875), scrollable, over the live room. The rest of the view stays the museum. **Escape** or **All** clears the strip.
 - **NFT** is empty until works in `works.json` have `"kind": "nft"`. Everything generated so far is `"kind": "other"`.
 - Hover / click a hanging in the room for a caption (title, year, medium). Optional outbound `link`.
 - **Audio** — looping bed *Monotonie 001*. Minimal play icon swaps to pause. First click anywhere also starts it. Volume 0.55.
 - **Fullscreen** — hairline expand / collapse icon. A-Frame’s default VR box is hidden (`xr-mode-ui` off).
+- **Walk stick** — coarse-pointer only (`hover: none`). Same stroke language as fullscreen. Analog WASD in camera yaw; gyro still handles look.
 
 No voice, users list, broadcast, or screenshot UI.
 

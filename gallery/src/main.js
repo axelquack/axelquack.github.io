@@ -1,4 +1,4 @@
-import { buildScene, hangWorks, setKindVisible } from "./scene.js";
+import { buildScene, hangWorks, setKindVisible, setMoveStick } from "./scene.js";
 
 const caption = document.querySelector("#caption");
 const captionTitle = document.querySelector("#caption-title");
@@ -282,6 +282,89 @@ function setupFullscreen() {
   sync();
 }
 
+function setupMoveStick() {
+  const root = document.querySelector("#move-stick");
+  const knob = root?.querySelector(".stick-knob");
+  if (!root || !knob) return;
+
+  const coarse = window.matchMedia("(hover: none) and (pointer: coarse)");
+  const syncHidden = () => {
+    root.setAttribute("aria-hidden", coarse.matches ? "false" : "true");
+  };
+  syncHidden();
+  coarse.addEventListener("change", () => {
+    syncHidden();
+    if (!coarse.matches) reset();
+  });
+
+  let pointerId = null;
+
+  function radius() {
+    return root.clientWidth * 0.32;
+  }
+
+  function apply(dx, dy) {
+    const r = radius();
+    const len = Math.hypot(dx, dy);
+    if (len > r && len > 0) {
+      dx = (dx / len) * r;
+      dy = (dy / len) * r;
+    }
+    const nx = r ? dx / r : 0;
+    const ny = r ? dy / r : 0;
+    const mag = Math.hypot(nx, ny);
+    const dead = 0.14;
+    if (mag < dead) {
+      setMoveStick(0, 0);
+      knob.style.transform = "";
+      return;
+    }
+    const scale = (mag - dead) / (1 - dead);
+    setMoveStick((nx / mag) * scale, (ny / mag) * scale);
+    knob.style.transform = `translate(${dx}px, ${dy}px)`;
+  }
+
+  function reset() {
+    pointerId = null;
+    root.classList.remove("is-active");
+    setMoveStick(0, 0);
+    knob.style.transform = "";
+  }
+
+  root.addEventListener("pointerdown", (event) => {
+    if (!coarse.matches || event.button) return;
+    event.preventDefault();
+    event.stopPropagation();
+    pointerId = event.pointerId;
+    root.setPointerCapture(event.pointerId);
+    root.classList.add("is-active");
+    const rect = root.getBoundingClientRect();
+    apply(
+      event.clientX - (rect.left + rect.width / 2),
+      event.clientY - (rect.top + rect.height / 2),
+    );
+  });
+
+  root.addEventListener("pointermove", (event) => {
+    if (pointerId !== event.pointerId) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const rect = root.getBoundingClientRect();
+    apply(
+      event.clientX - (rect.left + rect.width / 2),
+      event.clientY - (rect.top + rect.height / 2),
+    );
+  });
+
+  const onUp = (event) => {
+    if (pointerId !== event.pointerId) return;
+    event.stopPropagation();
+    reset();
+  };
+  root.addEventListener("pointerup", onUp);
+  root.addEventListener("pointercancel", onUp);
+}
+
 async function boot() {
   const [data, soundtrack] = await Promise.all([
     fetch("/works.json").then((res) => res.json()).catch(() => ({ works: [] })),
@@ -290,6 +373,7 @@ async function boot() {
   works = Array.isArray(data.works) ? data.works : [];
   setupAudio(soundtrack);
   setupFullscreen();
+  setupMoveStick();
 
   const scene = buildScene();
   document.querySelector("#scene-root").append(scene);

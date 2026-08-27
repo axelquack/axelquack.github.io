@@ -14,6 +14,7 @@ for release tags when used.
 - Art Gallery app (`gallery/`) at `gallery.axelquack.de` (alias `art.axelquack.de`) — A-Frame WebXR museum; point-field stills plus live rotating frames (helicoid, knot, gyroid, …)
 - Shared paper/ink **A** favicon on www, gallery, and art (`favicon.svg`, `favicon.ico`, apple-touch)
 - Ventures app (`ventures/`) at `axelquack.ventures` — pre-seed angel, deep tech & AI; gyroid field, not the www chapter scroll
+- Gallery mobile walk stick: hairline analog joystick (touch only); gyro still looks
 
 ### Changed
 
