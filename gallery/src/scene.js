@@ -1,3 +1,4 @@
+import "./disable-webxr.js";
 import "aframe";
 import { registerLiveField } from "./live-field.js";
 
@@ -368,7 +369,7 @@ export function buildScene() {
     background: `color: ${PAPER}`,
     renderer: "colorManagement: true; alpha: false",
     "xr-mode-ui": "enabled: false",
-    webxr: "optionalFeatures: local-floor, bounded-floor",
+    "device-orientation-permission-ui": "enabled: false",
     cursor: "rayOrigin: mouse",
     raycaster: "objects: .work",
     fog: `type: linear; color: ${PAPER}; near: 18; far: 42`,

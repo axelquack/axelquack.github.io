@@ -366,6 +366,37 @@ function setupMoveStick() {
   root.addEventListener("pointercancel", onUp);
 }
 
+function isBrave() {
+  return Boolean(navigator.brave) || /Brave/i.test(navigator.userAgent || "");
+}
+
+/**
+ * A-Frame's default motion-sensor modal sits under the WebGL canvas in
+ * Brave iOS, so Allow cannot be tapped. Request gyro from the first
+ * real gesture instead (Safari native prompt). Skip Brave: stick + drag
+ * still look and walk.
+ */
+function setupIosGyro(scene) {
+  const request = window.DeviceOrientationEvent?.requestPermission;
+  if (typeof request !== "function") return;
+  if (isBrave()) return;
+
+  const camera = scene.querySelector("a-camera");
+  if (!camera) return;
+
+  const onGesture = () => {
+    request
+      .call(DeviceOrientationEvent)
+      .then((status) => {
+        if (status !== "granted") return;
+        camera.setAttribute("look-controls", "magicWindowTrackingEnabled", true);
+        scene.emit("deviceorientationpermissiongranted");
+      })
+      .catch(() => {});
+  };
+  window.addEventListener("pointerdown", onGesture, { once: true, capture: true });
+}
+
 async function boot() {
   const [data, soundtrack] = await Promise.all([
     fetch("/works.json").then((res) => res.json()).catch(() => ({ works: [] })),
@@ -378,6 +409,7 @@ async function boot() {
 
   const scene = buildScene();
   document.querySelector("#scene-root").append(scene);
+  setupIosGyro(scene);
   scene.addEventListener("loaded", () => {
     hangWorks(works);
     const hash = decodeURIComponent(location.hash.replace(/^#/, ""));

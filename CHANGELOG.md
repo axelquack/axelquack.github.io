@@ -30,6 +30,7 @@ for release tags when used.
 
 - Gallery walk is faster (~2.5 m/s stick and WASD)
 - Gallery fullscreen control is desktop-only
+- Gallery does not probe WebXR or show A-Frame’s “immersive website” motion modal (Brave iOS could not accept it). iOS gyro is requested on the first tap in Safari; Brave uses the stick and drag-to-look.
 - Slides cover/end field: quieter gyroid/knot (~9k points, opacity ~0.58) so display type still reads
 - www fields: slightly quieter AQ lattice, helicoid, and knot so labels and contact copy contrast
 - Ventures gyroid: ~14k points, opacity 0.58 so thesis type still reads
