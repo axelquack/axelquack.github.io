@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garden — Axel Quack</title>
+    <meta name="description" content="Private digital garden." />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,400;14..32,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip link" href="#article">Skip to note</a>
+    <header class="mast">
+      <div class="mast-brand">
+        <p class="kicker">Garden</p>
+        <a class="mast-title" href="#/index">Axel Quack</a>
+      </div>
+      <div class="mast-tools">
+        <label class="search-label">
+          <span class="sr-only">Search</span>
+          <input
+            id="search"
+            type="search"
+            placeholder="Search"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </label>
+        <button type="button" class="text-btn" id="btn-graph" aria-expanded="false">
+          Graph
+        </button>
+        <button type="button" class="text-btn" id="btn-source">Markdown</button>
+      </div>
+    </header>
+
+    <div id="search-results" class="search-results" hidden></div>
+
+    <div class="shell">
+      <nav class="nav" id="nav" aria-label="Published notes"></nav>
+      <main class="main">
+        <article class="article" id="article"></article>
+      </main>
+      <aside class="meta" id="meta" aria-label="Outline and backlinks"></aside>
+    </div>
+
+    <div id="graph-overlay" class="graph-overlay" hidden>
+      <div class="graph-toolbar">
+        <p class="kicker">Graph</p>
+        <button type="button" class="text-btn" id="btn-graph-close">Close</button>
+      </div>
+      <canvas id="graph-full" aria-label="Garden graph"></canvas>
+    </div>
+
+    <div id="preview" class="preview" hidden></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

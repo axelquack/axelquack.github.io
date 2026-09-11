@@ -143,7 +143,7 @@ Other projects can skip 3D and still use colour/type/space. If they keep the fie
 
 Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, density-weighted size. Pixel ratio capped at 2. Pause when `document.hidden`.
 
-**Also used by** [Art Gallery](gallery.md), [Ventures](ventures.md), and the [AQ Slides](slides.md) spike (`slides/styles/index.css` imports this file; cover field reuses `src/forms.js`).
+**Also used by** [Art Gallery](gallery.md), [Ventures](ventures.md), the [Garden](garden.md) (`garden/src/style.css` imports this file), and the [AQ Slides](slides.md) spike (`slides/styles/index.css` imports this file; cover field reuses `src/forms.js`).
 
 ## Applying this to another project
 

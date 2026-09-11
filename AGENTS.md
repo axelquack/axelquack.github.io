@@ -11,6 +11,7 @@ A **static personal presence site** (not a job-application pack, CMS, or SPA fra
 - Prefer editing `index.html` for copy; `src/tokens.css` for colour/type/space; `src/style.css` for layout; `src/scene.js` / `forms.js` / `ascii.js` for WebGL
 - Art Gallery (`gallery/`, [gallery.axelquack.de](https://gallery.axelquack.de); alias [art.axelquack.de](https://art.axelquack.de)): A-Frame WebXR, same tokens; add works in `gallery/public/works.json` + `gallery/public/media/`. See [docs/gallery.md](docs/gallery.md)
 - Ventures (`ventures/`, [axelquack.ventures](https://axelquack.ventures)): business angel for solopreneurs building & scaling with AI agents (global). Same tokens, different layout (gyroid field, not the www chapter scroll). See [docs/ventures.md](docs/ventures.md)
+- Garden (`garden/`, [garden.axelquack.de](https://garden.axelquack.de)): password-gated digital garden of markdown notes with `published: true`. Same tokens; Obsidian-style nav/search/backlinks/outline/graph/hover plus Dataview TABLE/LIST, callouts, embeds. Public Pages repo `axelquack/garden` is StatiCrypt ciphertext. See [docs/garden.md](docs/garden.md)
 - Slides (`slides/`, spike, **not deployed**): Slidev + AQ layouts/components; demo copy is lorem ipsum (do not put talk copy in the templates). `cd slides && npm ci` then `npm run dev:slides` → http://localhost:5176/. Variants: `npm run dev:slides:variants` (:5177). See [docs/slides.md](docs/slides.md)
 - Keep tokens in sync: `src/tokens.css` ↔ `docs/tokens.json` ↔ `docs/design.md`
 - Keep solid content on `.screen` (above canvas); WebGL only on `.stage[data-scene]`
@@ -20,13 +21,14 @@ A **static personal presence site** (not a job-application pack, CMS, or SPA fra
 
 ## Don’t
 
-- Don’t reintroduce a client-side password gate unless explicitly requested
+- Don’t reintroduce a client-side password gate on **www** unless explicitly requested. The garden at `garden.axelquack.de` **is** password-gated (StatiCrypt); do not ship its plaintext `dist-garden/` to Pages
+- Don’t commit unpublished Obsidian vault notes into `garden/notes/` (only `published: true`)
 - Don’t add analytics, cookie banners, or marketing funnels without being asked
 - Don’t rewrite Git history or force-push unless the user explicitly asks
 - Don’t cite or name third-party personal portfolio sites in docs or comments
 - Don’t change INWX / DNS or GitHub Pages domain settings without an explicit request
 - Don’t add `slides.axelquack.de` or a slides deploy workflow unless explicitly requested
-- Don’t commit `node_modules/`, `dist/`, `dist-gallery/`, `dist-ventures/`, `dist-slides/`, or `slides/exports/`
+- Don’t commit `node_modules/`, `dist/`, `dist-gallery/`, `dist-garden/`, `dist-garden-public/`, `dist-ventures/`, `dist-slides/`, or `slides/exports/`
 
 ## Commands
 
@@ -35,6 +37,8 @@ npm ci
 npm run dev                 # www → :5173
 npm run dev:gallery         # :5174
 npm run dev:ventures        # :5175
+npm run dev:garden          # :5178
+npm test
 cd slides && npm ci && cd ..
 npm run dev:slides          # :5176
 npm run dev:slides:variants # :5177
@@ -49,11 +53,13 @@ npm run preview
 - Live: https://www.axelquack.de
 - Art Gallery: https://gallery.axelquack.de (alias https://art.axelquack.de via repo `axelquack/art`). Source in `gallery/`; published to `axelquack/gallery` via `.github/workflows/deploy-gallery.yml` (`GALLERY_DEPLOY_KEY`)
 - Ventures: https://axelquack.ventures — `ventures/` → `axelquack/ventures` via `.github/workflows/deploy-ventures.yml` (`VENTURES_DEPLOY_KEY`)
+- Garden: https://garden.axelquack.de — `garden/` → `axelquack/garden` via `.github/workflows/deploy-garden.yml` (`GARDEN_DEPLOY_KEY`, `GARDEN_SITE_PASSWORD`). Password is not in this repo.
 
 ## DNS note
 
 `www` → CNAME `axelquack.github.io`. Apex A/AAAA → GitHub Pages.  
 `gallery` → CNAME `axelquack.github.io` (repo `axelquack/gallery`, custom domain).  
 `art` → CNAME `axelquack.github.io` (repo `axelquack/art` redirect).  
+`garden` → CNAME `axelquack.github.io` (repo `axelquack/garden`, ciphertext Pages).  
 `axelquack.ventures` apex A/AAAA → GitHub Pages (repo `axelquack/ventures`).  
 **Do not** alter MX/TXT/iCloud records unless asked.

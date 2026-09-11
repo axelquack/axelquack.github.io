@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Axel Quack">
+  <rect width="32" height="32" fill="#f7f7f7"/>
+  <path
+    fill="#0a0a0a"
+    fill-rule="evenodd"
+    d="M16 6.4 26.6 26h-3.15l-2.12-4.02H10.67L8.55 26H5.4L16 6.4Zm-4.28 13.1h8.56L16 11.05l-4.28 8.45Z"
+  />
+</svg>

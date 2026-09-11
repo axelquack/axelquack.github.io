@@ -1,0 +1,58 @@
+name: Deploy Garden
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: garden-pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Encrypt garden
+        env:
+          GARDEN_SITE_PASSWORD: ${{ secrets.GARDEN_SITE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "${GARDEN_SITE_PASSWORD}"
+          node garden/scripts/encrypt.mjs --encrypt
+      - name: Publish dist-garden-public to axelquack/garden (gh-pages)
+        env:
+          GARDEN_DEPLOY_KEY: ${{ secrets.GARDEN_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${GARDEN_DEPLOY_KEY}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$GARDEN_DEPLOY_KEY" > ~/.ssh/garden_deploy
+          chmod 600 ~/.ssh/garden_deploy
+          export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/garden_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          cd dist-garden-public
+          git init
+          git checkout -B gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+            commit -m "Publish encrypted garden"
+          git remote add origin git@github.com:axelquack/garden.git
+          git push -f origin gh-pages

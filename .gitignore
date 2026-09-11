@@ -1,6 +1,8 @@
 node_modules/
 dist/
 dist-gallery/
+dist-garden/
+dist-garden-public/
 dist-ventures/
 dist-slides/
 slides/exports/
@@ -9,6 +11,7 @@ slides/exports/
 .vite/
 .env
 .env.*
+.staticrypt.json
 
 # X profile banners (local render)
 docs/x-header-*.png

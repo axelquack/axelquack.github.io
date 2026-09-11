@@ -19,6 +19,12 @@
     "preview": "vite preview",
     "preview:gallery": "vite preview --config gallery/vite.config.js",
     "preview:ventures": "vite preview --config ventures/vite.config.js",
+    "dev:garden": "vite --config garden/vite.config.js",
+    "build:garden": "vite build --config garden/vite.config.js",
+    "preview:garden": "vite preview --config garden/vite.config.js",
+    "encrypt:garden": "node garden/scripts/encrypt.mjs --encrypt",
+    "test": "node --test garden/test/*.test.js",
+    "test:garden": "node --test garden/test/*.test.js",
     "gallery:stills": "node gallery/scripts/render-math-art.mjs",
     "gallery:loops": "node gallery/scripts/render-loops.mjs",
     "gallery:videos": "node gallery/scripts/render-videos.mjs"
@@ -35,6 +41,9 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
-    "vite": "^8.2.1"
+    "marked": "^15.0.12",
+    "staticrypt": "^3.5.4",
+    "vite": "^8.2.1",
+    "yaml": "^2.8.1"
   }
 }

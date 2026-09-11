@@ -61,6 +61,17 @@ npm run export:slides:pdf        # Playwright PDF (optional)
 npm run export:slides:pptx
 ```
 
+## Garden
+
+[garden.axelquack.de](https://garden.axelquack.de) — private digital garden of markdown notes with `published: true`. Same tokens as www. App in `garden/`; public Pages repo `axelquack/garden` is password-gated ciphertext. Map: [docs/garden.md](docs/garden.md).
+
+```bash
+npm run dev:garden       # http://localhost:5178
+npm run build:garden     # → dist-garden/
+npm run encrypt:garden   # → dist-garden-public/
+npm test
+```
+
 ## Art Gallery
 
 [gallery.axelquack.de](https://gallery.axelquack.de) (NFT + other work). Alias [art.axelquack.de](https://art.axelquack.de) redirects to it (`axelquack/art`). A-Frame WebXR room, same tokens. App in `gallery/`; published to repo `axelquack/gallery`. DNS, catalog, audio: [docs/gallery.md](docs/gallery.md).
