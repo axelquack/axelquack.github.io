@@ -10,7 +10,7 @@ for release tags when used.
 
 ### Added
 
-- Digital garden (`garden/`) at `garden.axelquack.de` — password-gated GitHub Pages site of markdown notes with `published: true`. Wikilinks, backlinks, graph, search, outline, hover preview, callouts, embeds, Dataview TABLE/LIST over published frontmatter. Presence tokens (paper/ink, Instrument Serif + Inter + IBM Plex Mono). Public artifact is StatiCrypt ciphertext (`axelquack/garden`); password lives in GitHub secret / Pass, not in this repo. [docs/garden.md](docs/garden.md)
+- Digital garden (`garden/`) at `garden.axelquack.de` — password-gated GitHub Pages site of markdown notes with `published: true`. Wikilinks, backlinks, graph, search, outline, hover preview, callouts, embeds, Dataview TABLE/LIST over published frontmatter. Presence tokens (paper/ink, Instrument Serif + Inter + IBM Plex Mono). Public artifact is StatiCrypt ciphertext (`axelquack/garden`); password lives in GitHub secret / Pass, not in this repo. HTTPS is enforced. [docs/garden.md](docs/garden.md)
 - Garden tests (`npm test`) — fixture vault drives the shipped publish pipeline (include/exclude, wikilinks, backlinks, graph, callouts, embeds, Dataview) plus a real Vite build + encrypted-artifact scan
 - AQ Slides spike (`slides/`) — Slidev decks using `src/tokens.css`; Hermes Agent demo from Obsidian (`npm run dev:slides` :5176). Local only; no Pages host yet. Full inventory: [docs/slides.md](docs/slides.md)
 - Slides layouts (`aq-cover` … `aq-end`): cover gyroid field, quote, agenda (CSS 01–08), photo split, section, fill (lists + Monaco), media, three columns, giant stat, 2×2 grid, device frame, statement, split, inverse knot end; variants catalog on :5177
