@@ -233,3 +233,30 @@ describe("published flag flip", () => {
     assert.equal(findNote(offAgain, "unpublished-secret"), null);
   });
 });
+
+describe("demo garden notes", () => {
+  const notesDir = join(dirname(fileURLToPath(import.meta.url)), "../notes");
+  const demo = buildGarden(notesDir);
+
+  test("index wikilinks resolve to published slugs including presence", () => {
+    const index = findNote(demo, "index");
+    assert.ok(index);
+    assert.match(index.html, /GARDEN_INDEX_BODY/);
+    assert.match(index.html, /href="#\/presence"/);
+    assert.match(index.html, /data-slug="presence"/);
+    assert.match(index.html, /href="#\/how-this-garden-works"/);
+    assert.match(index.html, /href="#\/graph"/);
+    assert.equal(index.html.includes("UNPUBLISHED_SECRET_BODY"), false);
+  });
+
+  test("presence note HTML has body plus note/summary/warning/todo callouts", () => {
+    const presence = findNote(demo, "presence");
+    assert.ok(presence);
+    assert.match(presence.html, /GARDEN_PRESENCE_BODY/);
+    assert.match(presence.html, /data-callout="note"/);
+    assert.match(presence.html, /data-callout="summary"/);
+    assert.match(presence.html, /data-callout="warning"/);
+    assert.match(presence.html, /data-callout="todo"/);
+    assert.match(presence.html, /<h1[^>]*>Presence<\/h1>/);
+  });
+});

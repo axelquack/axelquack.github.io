@@ -100,7 +100,7 @@ function renderMeta(note) {
   localGraph = createGraph(localCanvas, local, {
     focus: note.slug,
     onClick: (slug) => {
-      location.hash = `#/${slug}`;
+      go(`#/${slug}`);
     },
   });
 }
@@ -136,7 +136,22 @@ function renderNote(note, anchor) {
   }
 }
 
+function clearSearch() {
+  if (!searchEl) return;
+  if (searchEl.value) searchEl.value = "";
+  renderSearch("");
+}
+
+function go(href) {
+  const next = href.startsWith("#") ? href : `#/${String(href).replace(/^\//, "")}`;
+  hidePreview();
+  clearSearch();
+  if (location.hash !== next) location.hash = next;
+  route();
+}
+
 function route() {
+  hidePreview();
   const { slug, anchor } = parseHash();
   const note = notesBySlug.get(slug);
   if (!note) {
@@ -202,7 +217,7 @@ function openGraph() {
     focus: currentSlug,
     onClick: (slug) => {
       closeGraph();
-      location.hash = `#/${slug}`;
+      go(`#/${slug}`);
     },
   });
 }
@@ -231,53 +246,64 @@ function bindChrome() {
 }
 
 function bindEvents() {
-searchEl.addEventListener("input", () => renderSearch(searchEl.value));
-searchEl.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    searchEl.value = "";
-    renderSearch("");
-    searchEl.blur();
-  }
-});
+  searchEl.addEventListener("input", () => renderSearch(searchEl.value));
+  searchEl.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      searchEl.value = "";
+      renderSearch("");
+      searchEl.blur();
+    }
+  });
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "/" && document.activeElement !== searchEl && e.target.tagName !== "INPUT") {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== searchEl && e.target.tagName !== "INPUT") {
+      e.preventDefault();
+      searchEl.focus();
+    }
+    if (e.key === "Escape") {
+      closeGraph();
+      hidePreview();
+    }
+  });
+
+  btnGraph.addEventListener("click", () => {
+    if (overlayEl.hidden) openGraph();
+    else closeGraph();
+  });
+  btnGraphClose.addEventListener("click", closeGraph);
+  btnSource.addEventListener("click", () => {
+    showSource = !showSource;
+    btnSource.textContent = showSource ? "Rendered" : "Markdown";
+    route();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const link = e.target.closest('a[href^="#/"]');
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href) return;
     e.preventDefault();
-    searchEl.focus();
-  }
-  if (e.key === "Escape") {
-    closeGraph();
-    hidePreview();
-  }
-});
+    go(href);
+  });
 
-btnGraph.addEventListener("click", () => {
-  if (overlayEl.hidden) openGraph();
-  else closeGraph();
-});
-btnGraphClose.addEventListener("click", closeGraph);
-btnSource.addEventListener("click", () => {
-  showSource = !showSource;
-  btnSource.textContent = showSource ? "Rendered" : "Markdown";
-  route();
-});
-
-document.addEventListener("pointerover", (e) => {
-  const link = e.target.closest("a.wiki[data-preview]");
-  if (!link) return;
-  showPreview(link.getAttribute("data-slug"), e.clientX, e.clientY);
-});
-document.addEventListener("pointerout", (e) => {
-  if (e.target.closest("a.wiki[data-preview]")) hidePreview();
-});
-document.addEventListener("pointermove", (e) => {
-  if (!previewEl.hidden) {
+  document.addEventListener("pointerover", (e) => {
     const link = e.target.closest("a.wiki[data-preview]");
-    if (link) showPreview(link.getAttribute("data-slug"), e.clientX, e.clientY);
-  }
-});
+    if (!link) return;
+    showPreview(link.getAttribute("data-slug"), e.clientX, e.clientY);
+  });
+  document.addEventListener("pointerout", (e) => {
+    if (e.target.closest("a.wiki[data-preview]")) hidePreview();
+  });
+  document.addEventListener("pointermove", (e) => {
+    if (!previewEl.hidden) {
+      const link = e.target.closest("a.wiki[data-preview]");
+      if (link) showPreview(link.getAttribute("data-slug"), e.clientX, e.clientY);
+    }
+  });
 
-window.addEventListener("hashchange", route);
+  window.addEventListener("hashchange", route);
 }
 
 function boot() {

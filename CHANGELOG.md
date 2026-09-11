@@ -30,6 +30,7 @@ for release tags when used.
 
 ### Changed
 
+- Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)
 - Gallery fullscreen control is desktop-only
 - Gallery does not probe WebXR or show A-Frame’s “immersive website” motion modal (Brave iOS could not accept it). iOS gyro is requested on the first tap in Safari; Brave uses the stick and drag-to-look.
