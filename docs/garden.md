@@ -73,6 +73,7 @@ Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production pas
 - Secret `GARDEN_DEPLOY_KEY` (write deploy key on `axelquack/garden`)
 - Secret `GARDEN_SITE_PASSWORD`
 - DNS: INWX CNAME `garden` → `axelquack.github.io` (see `inwx` Terraform). More specific than the VPS wildcard `*`.
+- GitHub’s custom-domain certificate can lag the first CNAME by several minutes. StatiCrypt needs a secure context (`https://` or localhost) for `crypto.subtle`; until GitHub issues the cert, the HTTP gate page loads but will not decrypt. Then: Pages → Enforce HTTPS.
 
 ## Design
 
