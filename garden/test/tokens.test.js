@@ -31,7 +31,8 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(fieldJs, /RAIL/);
   assert.match(fieldJs, /Reflector/);
   assert.match(fieldJs, /RectAreaLight/);
-  assert.match(fieldJs, /emissive/);
+  assert.match(fieldJs, /hairlineSquare/);
+  assert.doesNotMatch(fieldJs, /frameMolding/);
   assert.match(gardenCss, /\.frame:hover/);
   assert.match(designMd, /garden\.axelquack\.de/);
   assert.match(designMd, /abstract screening room/);

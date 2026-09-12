@@ -13,7 +13,7 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Landing** — empty hash is an **abstract screening room**: dark walls, mirror floor, a framed lightbox, gyroid particles as a **sculpture sticking out of the frame**, a camera rail into the volume. Title sits beside the square. Click or Enter to `#/gallery`.
+- **Landing** — empty hash is an **abstract screening room**: dark walls, mirror floor, a hairline square of gyroid particles as a **sculpture sticking out of the opening**, a camera rail into the volume. Title sits beside the square. Click or Enter to `#/gallery`.
 - **Gallery** — `#/gallery` is the cinema wall of published notes as **typographic stills**. Hover highlights the whole frame. The 3D field does not follow the pointer.
 - **Notes** — `#/slug` screens the note in the same room (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
@@ -79,6 +79,6 @@ Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production pas
 
 ## Design
 
-Imports [`src/tokens.css`](../src/tokens.css). This host is the screening-room exception in [docs/design.md](design.md) (garden only): inverse tokens, framed gyroid sculpture, cinema-wall gallery. Paper `#f7f7f7` / ink `#0a0a0a` still bind; the password gate is paper. No brand-colour accent, no pills/shadows.
+Imports [`src/tokens.css`](../src/tokens.css). This host is the screening-room exception in [docs/design.md](design.md) (garden only): inverse tokens, hairline gyroid sculpture, cinema-wall gallery. Paper `#f7f7f7` / ink `#0a0a0a` still bind; the password gate is paper. No brand-colour accent, no pills/shadows.
 
 `robots.txt` is `Disallow: /`; `noindex` on the gate and the app.

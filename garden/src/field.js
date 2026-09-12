@@ -61,41 +61,22 @@ const pointFrag = /* glsl */ `
   }
 `;
 
-function frameMolding(w, h, depth, thick) {
-  const g = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0x0c0c0c,
-    roughness: 0.38,
-    metalness: 0.14,
-  });
-  const lip = new THREE.MeshStandardMaterial({
-    color: 0x1a1a1a,
-    roughness: 0.55,
-    metalness: 0.04,
-    emissive: new THREE.Color(0xffffff),
-    emissiveIntensity: 0.12,
-  });
-  const top = new THREE.Mesh(new THREE.BoxGeometry(w + thick * 2, thick, depth), mat);
-  top.position.y = h / 2 + thick / 2;
-  const bot = new THREE.Mesh(new THREE.BoxGeometry(w + thick * 2, thick, depth), mat);
-  bot.position.y = -(h / 2 + thick / 2);
-  const left = new THREE.Mesh(new THREE.BoxGeometry(thick, h, depth), mat);
-  left.position.x = -(w / 2 + thick / 2);
-  const right = new THREE.Mesh(new THREE.BoxGeometry(thick, h, depth), mat);
-  right.position.x = w / 2 + thick / 2;
-  const innerW = w - 0.08;
-  const innerH = h - 0.08;
-  const innerD = depth * 0.45;
-  const lipTop = new THREE.Mesh(new THREE.BoxGeometry(innerW, 0.05, innerD), lip);
-  lipTop.position.set(0, h / 2 - 0.04, depth * 0.18);
-  const lipBot = new THREE.Mesh(new THREE.BoxGeometry(innerW, 0.05, innerD), lip);
-  lipBot.position.set(0, -(h / 2 - 0.04), depth * 0.18);
-  const lipL = new THREE.Mesh(new THREE.BoxGeometry(0.05, innerH, innerD), lip);
-  lipL.position.set(-(w / 2 - 0.04), 0, depth * 0.18);
-  const lipR = new THREE.Mesh(new THREE.BoxGeometry(0.05, innerH, innerD), lip);
-  lipR.position.set(w / 2 - 0.04, 0, depth * 0.18);
-  g.add(top, bot, left, right, lipTop, lipBot, lipL, lipR);
-  return g;
+function hairlineSquare(w, h) {
+  const g = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(-w / 2, -h / 2, 0),
+    new THREE.Vector3(w / 2, -h / 2, 0),
+    new THREE.Vector3(w / 2, h / 2, 0),
+    new THREE.Vector3(-w / 2, h / 2, 0),
+    new THREE.Vector3(-w / 2, -h / 2, 0),
+  ]);
+  return new THREE.Line(
+    g,
+    new THREE.LineBasicMaterial({
+      color: 0x8a8a8a,
+      transparent: true,
+      opacity: 0.4,
+    }),
+  );
 }
 
 function corona(w, h, opacity) {
@@ -247,16 +228,16 @@ export function createField(canvas) {
 
   const plate = new THREE.Mesh(
     new THREE.PlaneGeometry(screenW, screenH),
-    new THREE.MeshBasicMaterial({ color: 0x0a0a0a }),
+    new THREE.MeshBasicMaterial({ color: 0x000000 }),
   );
   plate.position.set(frameX, screenY, screenZ);
 
-  const molding = frameMolding(screenW, screenH, 0.48, 0.16);
-  molding.position.set(frameX, screenY, screenZ + 0.18);
+  const edge = hairlineSquare(screenW, screenH);
+  edge.position.set(frameX, screenY, screenZ + 0.04);
 
-  const glowA = corona(screenW + 0.35, screenH + 0.35, 0.055);
-  glowA.position.set(frameX, screenY, screenZ + 0.26);
-  scene.add(plate, molding, glowA);
+  const glowA = corona(screenW + 0.2, screenH + 0.2, 0.028);
+  glowA.position.set(frameX, screenY, screenZ + 0.06);
+  scene.add(plate, edge, glowA);
 
   const sample = buildGyroid(24000);
   const geo = new THREE.BufferGeometry();
@@ -424,7 +405,7 @@ export function createField(canvas) {
       area.intensity = mode === "landing" ? 22 : 6;
       inner.intensity = mode === "landing" ? 12 : 4;
       spot.intensity = mode === "landing" ? 55 : 12;
-      glowA.material.opacity = mode === "landing" ? 0.055 : 0.02;
+      glowA.material.opacity = mode === "landing" ? 0.028 : 0.01;
       if (mode !== "landing") {
         const park = PARK[mode] || PARK.gallery;
         camGoal.copy(park.cam);
