@@ -42,11 +42,11 @@ body.is-gallery {
 }
 
 body.is-gallery #bg {
-  opacity: 0.2;
+  opacity: 0.48;
 }
 
 body.is-read #bg {
-  opacity: 0.22;
+  opacity: 0.34;
 }
 
 body.is-landing .mast-brand,

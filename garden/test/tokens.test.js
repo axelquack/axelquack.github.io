@@ -29,11 +29,13 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(fieldJs, /buildGyroid/);
   assert.match(fieldJs, /UnrealBloomPass/);
   assert.match(fieldJs, /RAIL/);
+  assert.match(fieldJs, /INSIDE/);
   assert.match(fieldJs, /Reflector/);
   assert.match(fieldJs, /RectAreaLight/);
   assert.match(fieldJs, /hairlineSquare/);
   assert.doesNotMatch(fieldJs, /frameMolding/);
   assert.match(gardenCss, /\.frame:hover/);
+  assert.match(gardenCss, /body\.is-gallery #bg[\s\S]*opacity:\s*0\.48/);
   assert.match(designMd, /garden\.axelquack\.de/);
   assert.match(designMd, /abstract screening room/);
   assert.match(designMd, /Do \*\*not\*\* copy the room onto www/);

@@ -13,9 +13,9 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Landing** — empty hash is an **abstract screening room**: dark walls, mirror floor, a hairline square of gyroid particles as a **sculpture sticking out of the opening**, a camera rail into the volume. Title sits beside the square. Click or Enter to `#/gallery`.
-- **Gallery** — `#/gallery` is the cinema wall of published notes as **typographic stills**. Hover highlights the whole frame. The 3D field does not follow the pointer.
-- **Notes** — `#/slug` screens the note in the same room (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
+- **Landing** — empty hash is an **abstract screening room**: dark walls, mirror floor, a hairline square of gyroid particles as a **sculpture sticking out of the opening**. Camera starts further back and dollies into that square. Title sits beside it. Click or Enter to `#/gallery`.
+- **Gallery** — `#/gallery` zooms into the square (hairline gone; moving particles as backdrop). Cinema wall of published notes as **typographic stills**. Hover highlights the whole frame. The field does not follow the pointer.
+- **Notes** — `#/slug` stays inside the particle field (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
 - **Outline** — headings on the current note.
 - **Backlinks** — published notes that wikilink here.

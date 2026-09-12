@@ -149,7 +149,7 @@ Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, densi
 
 This host is the **one** exception to “white editorial chapters.” Do **not** copy the room onto www, ventures, slides, or the art gallery. Tokens still bind: inverse surface, three typefaces, no hue, no pills, no drop shadows. `theme-color` here is `#000000`.
 
-The spatial model is an **abstract screening room** (same job as a cinematic shader stage, not a photoreal set): dark walls and ceiling that catch light, a **mirror floor**, one **hairline square** on the far wall. The picture is a **gyroid sculpture** (`buildGyroid`, `--field-talk` `#f0f0f0`) that **sticks out of the square** — a volume, not a flat still. The square is light (corona, bloom, rect-area), not a picture frame. A **railed camera** dollies from a 3/4 room view into that volume and back. Do not model paneled walls, furniture, figures, or a realistic frame.
+The spatial model is an **abstract screening room** (same job as a cinematic shader stage, not a photoreal set): dark walls and ceiling that catch light, a **mirror floor**, one **hairline square** on the far wall. The picture is a **gyroid sculpture** (`buildGyroid`, `--field-talk` `#f0f0f0`) that **sticks out of the square** — a volume, not a flat still. The square is light (corona, bloom, rect-area), not a picture frame. A **railed camera** dollies from a far room view into the current 3/4 of that square. Gallery / notes zoom **into** the square: hairline gone, particles keep moving as the backdrop. Do not model paneled walls, furniture, figures, or a realistic frame.
 
 | Surface | Treatment |
 |---------|-----------|
@@ -157,11 +157,11 @@ The spatial model is an **abstract screening room** (same job as a cinematic sha
 | Screen | Hairline square; gyroid lattice as a sculpture coming through the opening; bloom / corona |
 | Copy | Instrument Serif title + italic lede + text-btn, `--ink-inverse` / `--copy-inverse` |
 
-**Landing (`#/`)** — the room is the page. Title sits beside the square. Click / Enter opens the gallery.
+**Landing (`#/`)** — the room is the page. Camera starts far and dollies into the current 3/4 of the square. Title sits beside it. Click / Enter opens the gallery.
 
-**Gallery (`#/gallery`)** — **cinema wall**: 2×2 frames of cropped display type. Hover washes the **whole frame**. The field is frozen (no pointer warp, no rail) so the catalog does not swim.
+**Gallery (`#/gallery`)** — camera zooms **into** the square (no hairline, no room). **Cinema wall**: 2×2 frames of cropped display type over the moving particle field. Hover washes the **whole frame**. No pointer warp.
 
-**Note (`#/slug`)** — same room, camera closer to the screen; the markdown screens as inverse type (outline / backlinks as credits).
+**Note (`#/slug`)** — same inside-the-square field; the markdown screens as inverse type (outline / backlinks as credits).
 
 Reduced motion: hide `#bg`; solid `--bg-inverse`. Password gate stays paper/ink (the one light surface on this host).
 

@@ -30,7 +30,7 @@ for release tags when used.
 
 ### Changed
 
-- Garden landing is an abstract screening room: dark walls, mirror floor, hairline square (not a picture frame), gyroid lattice as a sculpture that sticks out of the opening, bloom/corona, railed 3/4 camera into the volume. Gallery cinema wall is frozen (no hover-swim); hover washes the whole article frame
+- Garden landing is an abstract screening room: dark walls, mirror floor, hairline square (not a picture frame), gyroid lattice as a sculpture that sticks out of the opening. Camera rails from a far room into the current 3/4 of the square. Gallery / notes zoom into the square (no hairline; moving particles behind the cinema wall). No pointer-swim; hover washes the whole article frame
 - Garden callouts keep inline markdown (backticks) instead of leaking slot tokens
 - Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)

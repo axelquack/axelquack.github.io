@@ -94,32 +94,27 @@ function corona(w, h, opacity) {
 }
 
 /**
- * 3/4 room → into the sculpture that sticks out of the frame.
+ * Far room → current 3/4 of the hairline square.
+ * Gallery parks inside the volume so the square is gone.
  */
 const RAIL = [
+  {
+    cam: new THREE.Vector3(12.6, 3.55, 28.8),
+    look: new THREE.Vector3(-0.9, 2.15, -4.0),
+  },
+  {
+    cam: new THREE.Vector3(8.8, 2.2, 19.2),
+    look: new THREE.Vector3(-1.5, 2.6, -5.0),
+  },
   {
     cam: new THREE.Vector3(6.4, 1.42, 12.6),
     look: new THREE.Vector3(-1.9, 2.85, -5.4),
   },
-  {
-    cam: new THREE.Vector3(3.05, 2.05, 5.1),
-    look: new THREE.Vector3(-1.35, 3.15, -5.8),
-  },
-  {
-    cam: new THREE.Vector3(0.35, 3.2, 0.35),
-    look: new THREE.Vector3(-1.15, 3.35, -7.6),
-  },
 ];
 
-const PARK = {
-  gallery: {
-    cam: new THREE.Vector3(6.2, 1.45, 12.4),
-    look: new THREE.Vector3(-1.9, 2.85, -5.4),
-  },
-  read: {
-    cam: new THREE.Vector3(6.2, 1.45, 12.4),
-    look: new THREE.Vector3(-1.9, 2.85, -5.4),
-  },
+const INSIDE = {
+  cam: new THREE.Vector3(-1.65, 3.32, -2.55),
+  look: new THREE.Vector3(-1.88, 3.28, -7.35),
 };
 
 function railAt(u, camOut, lookOut) {
@@ -160,14 +155,14 @@ export function createField(canvas) {
   renderer.toneMappingExposure = 0.92;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0x050505, 16, 40);
+  scene.fog = new THREE.Fog(0x050505, 24, 62);
   scene.background = new THREE.Color(0x050505);
 
   const camera = new THREE.PerspectiveCamera(
     32,
     window.innerWidth / window.innerHeight,
     0.1,
-    90,
+    140,
   );
   const camPos = RAIL[0].cam.clone();
   const lookPos = RAIL[0].look.clone();
@@ -238,6 +233,20 @@ export function createField(canvas) {
   const glowA = corona(screenW + 0.2, screenH + 0.2, 0.028);
   glowA.position.set(frameX, screenY, screenZ + 0.06);
   scene.add(plate, edge, glowA);
+
+  const room = [
+    back,
+    leftWall,
+    rightWall,
+    ceiling,
+    skirtingBack,
+    skirtingLeft,
+    skirtingRight,
+    floor,
+    plate,
+    edge,
+    glowA,
+  ];
 
   const sample = buildGyroid(24000);
   const geo = new THREE.BufferGeometry();
@@ -325,7 +334,6 @@ export function createField(canvas) {
   let running = true;
   let railOn = true;
   let followPointer = true;
-  let holdTime = 0;
   const pointer = { x: 0, y: 0 };
   const railCam = new THREE.Vector3();
   const railLook = new THREE.Vector3();
@@ -333,19 +341,16 @@ export function createField(canvas) {
   function tick() {
     if (!running) return;
     const t = clock.getElapsedTime();
+    uniforms.uTime.value = t;
+    pts.rotation.y = Math.sin(t * 0.07) * 0.1;
+    pts.rotation.x = Math.sin(t * 0.05) * 0.03;
     if (railOn) {
-      holdTime = t;
-      uniforms.uTime.value = t;
-      const u = Math.sin((t / 24) * Math.PI * 2 - Math.PI / 2) * 0.5 + 0.5;
+      const u = Math.sin((t / 28) * Math.PI * 2 - Math.PI / 2) * 0.5 + 0.5;
       railAt(u, railCam, railLook);
       camGoal.copy(railCam);
       lookGoal.copy(railLook);
-      pts.rotation.y = Math.sin(t * 0.07) * 0.1;
-      pts.rotation.x = Math.sin(t * 0.05) * 0.03;
       area.intensity = 20 + 3 * Math.sin(t * 0.4);
       bloom.strength = 0.44 + 0.05 * Math.sin(t * 0.4);
-    } else {
-      uniforms.uTime.value = holdTime;
     }
     camPos.lerp(camGoal, 0.042);
     lookPos.lerp(lookGoal, 0.042);
@@ -392,25 +397,27 @@ export function createField(canvas) {
       uniforms.uMouse.value.set(x * 1.2, y * 0.9);
     },
     setLook({ mode = "landing" } = {}) {
-      railOn = mode === "landing";
-      followPointer = mode === "landing";
+      const landing = mode === "landing";
+      railOn = landing;
+      followPointer = landing;
       if (!followPointer) {
         pointer.x = 0;
         pointer.y = 0;
         uniforms.uMouse.value.set(99, 99);
       }
-      uniforms.uOpacity.value = mode === "landing" ? 0.9 : 0.32;
-      bloom.strength = mode === "landing" ? 0.46 : 0.1;
-      key.intensity = mode === "landing" ? 32 : 10;
-      area.intensity = mode === "landing" ? 22 : 6;
-      inner.intensity = mode === "landing" ? 12 : 4;
-      spot.intensity = mode === "landing" ? 55 : 12;
-      glowA.material.opacity = mode === "landing" ? 0.028 : 0.01;
-      if (mode !== "landing") {
-        const park = PARK[mode] || PARK.gallery;
-        camGoal.copy(park.cam);
-        lookGoal.copy(park.look);
-        pts.rotation.set(0, 0, 0);
+      uniforms.uOpacity.value = landing ? 0.9 : 0.72;
+      bloom.strength = landing ? 0.46 : 0.28;
+      key.intensity = landing ? 32 : 14;
+      area.intensity = landing ? 22 : 4;
+      inner.intensity = landing ? 12 : 6;
+      spot.intensity = landing ? 55 : 8;
+      glowA.material.opacity = landing ? 0.028 : 0;
+      scene.fog.near = landing ? 24 : 5;
+      scene.fog.far = landing ? 62 : 20;
+      for (const obj of room) obj.visible = landing;
+      if (!landing) {
+        camGoal.copy(INSIDE.cam);
+        lookGoal.copy(INSIDE.look);
       }
     },
     destroy() {
