@@ -13,7 +13,8 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Notes** — left nav of published titles (hairline list). Hash routes `#/slug`.
+- **Overview** — empty hash is a full-viewport **gyroid field** (same graphite points as www / ventures) with **gigantic tiles** for every `published: true` note. Title is display overlay; description sits on the tile. Reduced-motion hides the field.
+- **Notes** — left nav of published titles (hairline list) once a note is open. Hash routes `#/slug`. `#/` returns to the overview.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
 - **Outline** — headings on the current note.
 - **Backlinks** — published notes that wikilink here.

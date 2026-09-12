@@ -10,6 +10,7 @@ import {
   extractWikilinks,
   findNote,
   isPublished,
+  overviewTiles,
   pageList,
   parseDataview,
   parseFrontmatter,
@@ -82,6 +83,19 @@ describe("scan and select", () => {
 
 describe("buildGarden", () => {
   const garden = buildGarden(FIXTURES);
+
+  test("overview tiles list only published notes", () => {
+    const tiles = overviewTiles(garden);
+    assert.deepEqual(
+      tiles.map((t) => t.slug).sort(),
+      ["alpha", "beta", "callouts", "catalog"],
+    );
+    assert.ok(tiles.every((t) => t.title && t.slug));
+    assert.equal(
+      tiles.some((t) => t.slug === "unpublished-secret"),
+      false,
+    );
+  });
 
   test("page list, search, and graph contain only published notes", () => {
     assert.deepEqual(slugs(garden), ["alpha", "beta", "callouts", "catalog"]);
@@ -257,6 +271,21 @@ describe("demo garden notes", () => {
     assert.match(presence.html, /data-callout="summary"/);
     assert.match(presence.html, /data-callout="warning"/);
     assert.match(presence.html, /data-callout="todo"/);
+    assert.match(presence.html, /src\/tokens\.css/);
+    assert.doesNotMatch(presence.html, /GARDENMD/);
     assert.match(presence.html, /<h1[^>]*>Presence<\/h1>/);
+  });
+
+  test("overview tiles are published notes with title overlay fields", () => {
+    const tiles = overviewTiles(demo);
+    const slugs = tiles.map((t) => t.slug).sort();
+    assert.deepEqual(slugs, ["graph", "how-this-garden-works", "index", "presence"]);
+    const presence = tiles.find((t) => t.slug === "presence");
+    assert.equal(presence.title, "Presence");
+    assert.match(presence.description, /Paper/);
+    assert.equal(
+      tiles.some((t) => t.slug === "unpublished-secret"),
+      false,
+    );
   });
 });

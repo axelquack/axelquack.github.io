@@ -28,4 +28,4 @@ export {
   renderMarkdown,
   renderNote,
 } from "./render.js";
-export { buildGarden, findNote, pageList } from "./build.js";
+export { buildGarden, findNote, overviewTiles, pageList } from "./build.js";

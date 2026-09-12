@@ -15,4 +15,7 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(tokensCss, /--font-display:\s*"Instrument Serif"/);
   assert.match(tokensCss, /--font-ui:\s*"Inter"/);
   assert.match(tokensCss, /--font-mono:\s*"IBM Plex Mono"/);
+  assert.match(gardenCss, /#bg\s*\{/);
+  assert.match(gardenCss, /\.tile-title/);
+  assert.match(gardenCss, /--text-display-xl/);
 });

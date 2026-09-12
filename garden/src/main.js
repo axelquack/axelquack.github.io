@@ -1,5 +1,7 @@
 import garden from "virtual:garden-data";
+import { overviewTiles } from "./publish/build.js";
 import { searchNotes } from "./publish/search.js";
+import { createField } from "./field.js";
 import { createGraph } from "./graph.js";
 import "./style.css";
 
@@ -16,22 +18,28 @@ let btnGraph;
 let btnGraphClose;
 let btnSource;
 let graphFull;
+let boardEl;
+let shellEl;
 
 let showSource = false;
 let fullGraph = null;
 let localGraph = null;
 let currentSlug = null;
-
-function homeSlug() {
-  if (notesBySlug.has("index")) return "index";
-  return garden.navigation[0]?.slug || garden.notes[0]?.slug || "";
-}
+let fieldApi = null;
 
 function parseHash() {
   const raw = (location.hash || "").replace(/^#/, "");
   const [path, anchor] = raw.split("#");
   const slug = decodeURIComponent((path || "").replace(/^\//, "")).trim();
-  return { slug: slug || homeSlug(), anchor: anchor || "" };
+  return { slug, anchor: anchor || "", overview: !slug };
+}
+
+function setMode(mode) {
+  const overview = mode === "overview";
+  document.body.classList.toggle("is-overview", overview);
+  document.body.classList.toggle("is-read", !overview);
+  if (boardEl) boardEl.hidden = !overview;
+  if (shellEl) shellEl.hidden = overview;
 }
 
 function renderNav(active) {
@@ -53,10 +61,31 @@ function esc(value) {
 }
 
 function renderMissing(slug) {
+  setMode("read");
   articleEl.className = "article missing";
   articleEl.innerHTML = `<p class="kicker">Garden</p><h1>Not published</h1><p>No published note at <code>${esc(slug)}</code>.</p>`;
   metaEl.innerHTML = "";
   document.title = "Not published — Garden";
+}
+
+function renderOverview() {
+  currentSlug = "";
+  setMode("overview");
+  const tiles = overviewTiles(garden)
+    .map((t) => {
+      const lede = t.description
+        ? `<p class="tile-lede">${esc(t.description)}</p>`
+        : "";
+      return `<a class="tile" href="#/${esc(t.slug)}" data-slug="${esc(t.slug)}">
+        <p class="kicker">${esc(t.type || "note")}</p>
+        <h2 class="tile-title">${esc(t.title)}</h2>
+        ${lede}
+      </a>`;
+    })
+    .join("");
+  boardEl.innerHTML = tiles || `<p class="meta-empty">No published notes.</p>`;
+  renderNav("");
+  document.title = "Garden";
 }
 
 function renderMeta(note) {
@@ -117,6 +146,7 @@ function noteMetaLine(note) {
 
 function renderNote(note, anchor) {
   currentSlug = note.slug;
+  setMode("read");
   articleEl.className = "article";
   const meta = noteMetaLine(note);
   if (showSource) {
@@ -152,7 +182,11 @@ function go(href) {
 
 function route() {
   hidePreview();
-  const { slug, anchor } = parseHash();
+  const { slug, anchor, overview } = parseHash();
+  if (overview) {
+    renderOverview();
+    return;
+  }
   const note = notesBySlug.get(slug);
   if (!note) {
     currentSlug = slug;
@@ -243,6 +277,24 @@ function bindChrome() {
   btnGraphClose = document.getElementById("btn-graph-close");
   btnSource = document.getElementById("btn-source");
   graphFull = document.getElementById("graph-full");
+  boardEl = document.getElementById("board");
+  shellEl = document.getElementById("shell");
+}
+
+function bootField() {
+  const canvas = document.getElementById("bg");
+  if (!canvas) return;
+  fieldApi = createField(canvas);
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      if (!fieldApi) return;
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = -((e.clientY / window.innerHeight) * 2 - 1);
+      fieldApi.setPointer(x, y);
+    },
+    { passive: true },
+  );
 }
 
 function bindEvents() {
@@ -308,10 +360,11 @@ function bindEvents() {
 
 function boot() {
   bindChrome();
-  if (!articleEl || !searchEl) {
+  if (!articleEl || !searchEl || !boardEl) {
     throw new Error("garden chrome missing from the document");
   }
   bindEvents();
+  bootField();
   route();
 }
 

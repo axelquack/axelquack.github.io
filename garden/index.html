@@ -18,11 +18,12 @@
     />
   </head>
   <body>
-    <a class="skip link" href="#article">Skip to note</a>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <a class="skip link" href="#board">Skip to notes</a>
     <header class="mast">
       <div class="mast-brand">
         <p class="kicker">Garden</p>
-        <a class="mast-title" href="#/index">Axel Quack</a>
+        <a class="mast-title" href="#/">Axel Quack</a>
       </div>
       <div class="mast-tools">
         <label class="search-label">
@@ -44,7 +45,9 @@
 
     <div id="search-results" class="search-results" hidden></div>
 
-    <div class="shell">
+    <div id="board" class="board" hidden></div>
+
+    <div class="shell" id="shell">
       <nav class="nav" id="nav" aria-label="Published notes"></nav>
       <main class="main">
         <article class="article" id="article"></article>

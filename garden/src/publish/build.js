@@ -99,3 +99,20 @@ export function findNote(garden, slug) {
 export function pageList(garden) {
   return garden.navigation;
 }
+
+/**
+ * Home overview: one tile per published note (title + overlay lede).
+ * Unpublished notes never appear.
+ */
+export function overviewTiles(garden) {
+  return (garden.navigation || []).map((item) => {
+    const note = findNote(garden, item.slug);
+    const fm = note?.frontmatter || {};
+    return {
+      slug: item.slug,
+      title: item.title,
+      type: fm.type ? String(fm.type) : "note",
+      description: fm.description ? String(fm.description) : note?.preview || "",
+    };
+  });
+}

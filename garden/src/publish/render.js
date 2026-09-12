@@ -214,8 +214,8 @@ export function renderMarkdown(body, ctx) {
   if (!ctx.skipDataview) {
     src = replaceDataview(src, htmlSlots, ctx.published || []);
   }
-  src = protectCode(src, mdSlots);
   src = replaceCallouts(src, htmlSlots);
+  src = protectCode(src, mdSlots);
   src = replaceWikilinks(src, ctx, htmlSlots);
   src = mdSlots.restore(src);
   let html = marked.parse(src);

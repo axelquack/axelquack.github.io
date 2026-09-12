@@ -30,6 +30,8 @@ for release tags when used.
 
 ### Changed
 
+- Garden home is a moving gyroid field with gigantic published-note tiles (title + lede overlay). Empty hash is the overview; `#/slug` still opens the paper reading chapter
+- Garden callouts keep inline markdown (backticks) instead of leaking slot tokens
 - Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)
 - Gallery fullscreen control is desktop-only
