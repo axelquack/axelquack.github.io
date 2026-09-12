@@ -149,19 +149,18 @@ Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, densi
 
 This host is the **one** exception to “white editorial chapters.” Do **not** copy the room onto www, ventures, slides, or the art gallery. Tokens still bind: inverse surface, three typefaces, no hue, no pills, no drop shadows. `theme-color` here is `#000000`.
 
-The spatial model is a **physical screening room** (same job as a cinematic shader stage): a dark interior, paneled walls, a reflective floor, and one large **16:9 screen** on the far wall. The gyroid field lives *on the screen* (the film), not as a full-viewport wallpaper. A dark standing figure gives human scale in front of the wall. Camera sits at eye height, offset so the screen holds the left of the frame and HTML copy can sit on the right.
+The spatial model is a **physical screening room** (same job as a cinematic shader stage): a dark interior, paneled walls, a reflective floor, and one large **square glowing wall** on the far side. The picture on that wall is a **continuous lit gyroid shader** (graphite/white, `--field-talk`), not a point cloud and not a full-viewport wallpaper. Camera sits at eye height, offset so the wall holds the left of the frame and HTML copy sits on the right.
 
 | Surface | Treatment |
 |---------|-----------|
-| Room | `#000` void, paneled walls in hairline `#ffffff` at ~6% opacity, fog |
-| Screen | 16:9 emissive plane; gyroid points (`--field-talk` `#f0f0f0`) as the picture |
-| Floor | Dark mirror of the screen (reflection), not a paper plane |
-| Figure | Unlit near-black silhouette — no face, no clothes, no colour |
+| Room | Near-black interior, recessed wall panels catching light from the wall, fog |
+| Screen | Square emissive shader wall — domain-warped gyroid, lit, bloom |
+| Floor | Dark mirror of the wall |
 | Copy | Instrument Serif title + italic lede + text-btn, `--ink-inverse` / `--copy-inverse` |
 
-**Landing (`#/`)** — the room is the page. Title is a caption beside the screen, not a full-bleed poster over empty space. Click / Enter opens the gallery.
+**Landing (`#/`)** — the room is the page. Title is a caption beside the wall. Click / Enter opens the gallery.
 
-**Gallery (`#/gallery`)** — a **picture grid**, not overflowing display type and not a wiki list. Each published note is a 16:9 still (title set as the image, black ground) with kicker / title / lede **under** the picture. Gaps between stills; hairline on the picture edge; no filled cards, no radius, no shadow. The room may recede (low opacity) so the stills read as a catalog.
+**Gallery (`#/gallery`)** — the previous **cinema wall**: 2×2 frames of cropped display type (the title *is* the still), captions overlaid at the foot of each frame, hairline grid. The room recedes. Do not replace this with a thumbnail catalog.
 
 **Note (`#/slug`)** — same room, camera closer to the screen; the markdown screens as inverse type (outline / backlinks as credits).
 

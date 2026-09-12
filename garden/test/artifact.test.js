@@ -76,9 +76,8 @@ test("vite garden build embeds published bodies; encrypted public artifact does 
   assert.match(css, /\.landing-title/);
   assert.match(css, /\.landing-copy/);
   assert.match(css, /\.frame-type/);
-  assert.match(css, /\.frame-still/);
   assert.match(css, /#bg\s*\{/);
-  assert.match(js, /#f0f0f0/);
+  assert.match(js, /gyroid/);
   assert.match(js, /data-slug/);
 
   const inlined = inlineHtml(
