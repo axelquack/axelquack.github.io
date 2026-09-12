@@ -19,6 +19,14 @@ body {
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  transition: background var(--duration-scene) var(--ease), color var(--duration-scene) var(--ease);
+}
+
+body.scene-dark,
+body.is-landing,
+body.is-gallery {
+  background: var(--bg-inverse);
+  color: var(--ink-inverse);
 }
 
 #bg {
@@ -29,14 +37,21 @@ body {
   height: 100%;
   display: block;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.4s var(--ease);
+}
+
+body.is-gallery #bg {
+  opacity: 0.4;
 }
 
 body.is-read #bg {
-  opacity: 0.18;
+  opacity: 0.16;
 }
 
 .mast,
 .search-results,
+.landing,
 .board,
 .shell,
 .graph-overlay,
@@ -45,8 +60,16 @@ body.is-read #bg {
   z-index: 2;
 }
 
-body.is-overview #btn-source {
+body.is-landing .search-label,
+body.is-landing #btn-graph,
+body.is-landing #btn-source,
+body.is-gallery #btn-source {
   display: none;
+}
+
+body.is-landing #btn-gallery,
+body.is-gallery #btn-gallery {
+  color: var(--ink-inverse);
 }
 
 ::selection {
@@ -141,15 +164,51 @@ body.is-overview #btn-source {
   border-bottom: var(--hairline) solid var(--line);
 }
 
-body.is-overview .mast {
+body.is-landing .mast,
+body.is-gallery .mast {
   background: transparent;
 }
 
-body.is-overview .mast-title,
-body.is-overview .mast .kicker,
-body.is-overview .text-btn,
-body.is-overview #search {
-  text-shadow: 0 0 16px var(--bg), 0 0 32px var(--bg);
+body.is-landing .mast {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body.is-landing .mast-title,
+body.is-gallery .mast-title {
+  color: var(--ink-inverse);
+}
+
+body.is-landing .mast .kicker,
+body.is-landing .text-btn,
+body.is-gallery .mast .kicker,
+body.is-gallery .text-btn {
+  color: var(--muted-inverse);
+}
+
+body.is-landing .text-btn:hover,
+body.is-landing .text-btn:focus-visible,
+body.is-gallery .text-btn:hover,
+body.is-gallery .text-btn:focus-visible {
+  color: var(--ink-inverse);
+}
+
+body.is-gallery .mast {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+body.is-gallery #search {
+  color: var(--ink-inverse);
+  border-bottom-color: rgba(255, 255, 255, 0.18);
+}
+
+body.is-gallery #search:focus {
+  border-bottom-color: var(--ink-inverse);
+}
+
+body.is-gallery .search-results {
+  background: var(--bg-inverse);
+  color: var(--ink-inverse);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 .mast-title {
@@ -242,79 +301,194 @@ body.is-overview #search {
   color: var(--ink);
 }
 
-.board {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.landing {
   min-height: calc(100svh - 5.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--pad-y) var(--pad-x) clamp(2.5rem, 10vh, 5rem);
 }
 
+.landing[hidden],
 .board[hidden],
 .shell[hidden] {
   display: none !important;
 }
 
-.tile {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: max(48vh, 22rem);
-  padding: var(--pad-chapter-y) var(--pad-x) var(--pad-y);
+.landing-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(5.5rem, 22vw, 18rem);
+  letter-spacing: -0.045em;
+  line-height: 0.78;
+  color: var(--ink-inverse);
+}
+
+.landing-lede {
+  margin: 1.35rem 0 2.25rem;
+  max-width: 18em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.8vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-display);
+  color: var(--copy-inverse);
+}
+
+.landing-enter {
+  align-self: flex-start;
+  color: var(--muted-inverse);
+  font-size: var(--text-label);
+}
+
+.landing-enter:hover,
+.landing-enter:focus-visible {
+  color: var(--ink-inverse);
+}
+
+.landing-enter span {
+  display: inline-block;
+  transition: transform var(--duration) var(--ease);
+}
+
+.landing-enter:hover span,
+.landing-enter:focus-visible span {
+  transform: translateX(3px);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
   color: inherit;
   text-decoration: none;
   background: transparent;
   border: 0;
-  border-right: var(--hairline) solid var(--line);
-  border-bottom: var(--hairline) solid var(--line);
+  border-right: var(--hairline) solid rgba(255, 255, 255, 0.12);
+  border-bottom: var(--hairline) solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
 }
 
-.tile:nth-child(2n) {
+.frame:nth-child(2n) {
   border-right: 0;
 }
 
-.tile:last-child:nth-child(odd) {
+.frame:last-child:nth-child(odd) {
   grid-column: 1 / -1;
   border-right: 0;
 }
 
-.tile .kicker {
-  margin: 0 0 0.75rem;
-}
-
-.tile-title {
-  margin: 0;
+.frame-type {
+  position: absolute;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: var(--text-display-xl);
-  letter-spacing: var(--tracking-display-xl);
-  line-height: 0.95;
-  max-width: 11em;
-  text-shadow: 0 0 28px var(--bg), 0 0 56px var(--bg);
-  background-image: linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 var(--underline);
-  transition: background-size 0.35s var(--ease);
+  font-size: clamp(6rem, 18vw, 14rem);
+  letter-spacing: -0.045em;
+  line-height: 0.78;
+  white-space: nowrap;
+  color: var(--ink-inverse);
+  pointer-events: none;
+  transition: transform var(--duration-slow) var(--ease);
 }
 
-.tile-lede {
-  margin: 1rem 0 0;
+.frame:nth-child(4n + 1) .frame-type {
+  top: -0.12em;
+  left: -0.06em;
+}
+
+.frame:nth-child(4n + 2) .frame-type {
+  right: -0.12em;
+  bottom: -0.18em;
+}
+
+.frame:nth-child(4n + 3) .frame-type {
+  top: 50%;
+  left: -0.18em;
+  transform: translateY(-52%);
+}
+
+.frame:nth-child(4n + 4) .frame-type {
+  top: var(--pad-y);
+  right: var(--pad-x);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(5rem, 14vw, 11rem);
+  white-space: nowrap;
+}
+
+.frame:hover .frame-type,
+.frame:focus-visible .frame-type {
+  transform: translate(0.04em, -0.03em);
+}
+
+.frame:nth-child(4n + 3):hover .frame-type,
+.frame:nth-child(4n + 3):focus-visible .frame-type {
+  transform: translateY(-52%) translate(0.04em, -0.03em);
+}
+
+.frame:nth-child(4n + 4):hover .frame-type,
+.frame:nth-child(4n + 4):focus-visible .frame-type {
+  transform: rotate(180deg) translate(0.04em, -0.03em);
+}
+
+.frame-caption {
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  bottom: var(--pad-y);
+  z-index: 1;
+}
+
+.frame-caption .kicker,
+.frame-title,
+.frame-lede {
+  text-shadow: 0 0 18px #000, 0 0 36px #000;
+}
+
+.frame-caption .kicker {
+  margin: 0 0 0.4rem;
+}
+
+.frame-title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--ink-inverse);
+}
+
+.frame-lede {
+  margin: 0.35rem 0 0;
   max-width: 22rem;
   font-family: var(--font-ui);
   font-size: var(--text-ui);
-  line-height: 1.45;
-  color: var(--muted);
-  text-shadow: 0 0 18px var(--bg), 0 0 36px var(--bg);
+  line-height: 1.4;
+  color: var(--muted-inverse);
 }
 
-.tile:hover .tile-title,
-.tile:focus-visible .tile-title {
+body.is-gallery .frame-caption .kicker {
+  color: var(--muted-inverse);
+}
+
+.frame:focus-visible {
+  outline: none;
+}
+
+.frame:hover .frame-title,
+.frame:focus-visible .frame-title {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
   background-size: 100% var(--underline);
-  outline: none;
-}
-
-.tile:focus-visible {
-  outline: none;
 }
 
 .shell {
@@ -608,6 +782,10 @@ body.is-overview #search {
   font-weight: 400;
 }
 
+body.is-landing ::selection {
+  background: var(--selection-inverse);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -640,10 +818,16 @@ body.is-overview #search {
     grid-template-columns: 1fr;
   }
 
-  .tile,
-  .tile:nth-child(2n) {
+  .frame,
+  .frame:nth-child(2n),
+  .frame:last-child:nth-child(odd) {
     border-right: 0;
-    min-height: 70vh;
+    grid-column: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .landing-title {
+    font-size: clamp(4.2rem, 28vw, 8rem);
   }
 
   .shell {

@@ -19,7 +19,7 @@
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
-    <a class="skip link" href="#board">Skip to notes</a>
+    <a class="skip link" href="#landing">Skip to garden</a>
     <header class="mast">
       <div class="mast-brand">
         <p class="kicker">Garden</p>
@@ -36,6 +36,7 @@
             spellcheck="false"
           />
         </label>
+        <a class="text-btn" id="btn-gallery" href="#/gallery">Gallery</a>
         <button type="button" class="text-btn" id="btn-graph" aria-expanded="false">
           Graph
         </button>
@@ -44,6 +45,13 @@
     </header>
 
     <div id="search-results" class="search-results" hidden></div>
+
+    <section id="landing" class="landing" hidden>
+      <p class="kicker">Garden</p>
+      <h1 class="landing-title">Garden</h1>
+      <p class="landing-lede">A private garden of published notes.</p>
+      <a class="text-btn landing-enter" href="#/gallery">Gallery <span aria-hidden="true">→</span></a>
+    </section>
 
     <div id="board" class="board" hidden></div>
 

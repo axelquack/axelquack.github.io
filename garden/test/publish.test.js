@@ -276,7 +276,7 @@ describe("demo garden notes", () => {
     assert.match(presence.html, /<h1[^>]*>Presence<\/h1>/);
   });
 
-  test("overview tiles are published notes with title overlay fields", () => {
+  test("gallery frames are published notes with title overlay fields", () => {
     const tiles = overviewTiles(demo);
     const slugs = tiles.map((t) => t.slug).sort();
     assert.deepEqual(slugs, ["graph", "how-this-garden-works", "index", "presence"]);

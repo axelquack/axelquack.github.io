@@ -20,6 +20,7 @@ let btnSource;
 let graphFull;
 let boardEl;
 let shellEl;
+let landingEl;
 
 let showSource = false;
 let fullGraph = null;
@@ -31,15 +32,20 @@ function parseHash() {
   const raw = (location.hash || "").replace(/^#/, "");
   const [path, anchor] = raw.split("#");
   const slug = decodeURIComponent((path || "").replace(/^\//, "")).trim();
-  return { slug, anchor: anchor || "", overview: !slug };
+  if (!slug) return { slug: "", anchor: "", view: "landing" };
+  if (slug === "gallery") return { slug: "gallery", anchor: "", view: "gallery" };
+  return { slug, anchor: anchor || "", view: "read" };
 }
 
 function setMode(mode) {
-  const overview = mode === "overview";
-  document.body.classList.toggle("is-overview", overview);
-  document.body.classList.toggle("is-read", !overview);
-  if (boardEl) boardEl.hidden = !overview;
-  if (shellEl) shellEl.hidden = overview;
+  document.body.classList.toggle("is-landing", mode === "landing");
+  document.body.classList.toggle("is-gallery", mode === "gallery");
+  document.body.classList.toggle("is-read", mode === "read");
+  document.body.classList.toggle("scene-dark", mode !== "read");
+  if (landingEl) landingEl.hidden = mode !== "landing";
+  if (boardEl) boardEl.hidden = mode !== "gallery";
+  if (shellEl) shellEl.hidden = mode !== "read";
+  fieldApi?.setLook({ inverse: mode !== "read" });
 }
 
 function renderNav(active) {
@@ -68,24 +74,32 @@ function renderMissing(slug) {
   document.title = "Not published — Garden";
 }
 
-function renderOverview() {
+function renderLanding() {
   currentSlug = "";
-  setMode("overview");
+  setMode("landing");
+  document.title = "Garden";
+}
+
+function renderGallery() {
+  currentSlug = "gallery";
+  setMode("gallery");
   const tiles = overviewTiles(garden)
     .map((t) => {
       const lede = t.description
-        ? `<p class="tile-lede">${esc(t.description)}</p>`
+        ? `<p class="frame-lede">${esc(t.description)}</p>`
         : "";
-      return `<a class="tile" href="#/${esc(t.slug)}" data-slug="${esc(t.slug)}">
-        <p class="kicker">${esc(t.type || "note")}</p>
-        <h2 class="tile-title">${esc(t.title)}</h2>
-        ${lede}
+      return `<a class="frame" href="#/${esc(t.slug)}" data-slug="${esc(t.slug)}">
+        <span class="frame-type" aria-hidden="true">${esc(t.title)}</span>
+        <span class="frame-caption">
+          <p class="kicker">${esc(t.type || "note")}</p>
+          <h2 class="frame-title">${esc(t.title)}</h2>
+          ${lede}
+        </span>
       </a>`;
     })
     .join("");
   boardEl.innerHTML = tiles || `<p class="meta-empty">No published notes.</p>`;
-  renderNav("");
-  document.title = "Garden";
+  document.title = "Gallery — Garden";
 }
 
 function renderMeta(note) {
@@ -182,9 +196,13 @@ function go(href) {
 
 function route() {
   hidePreview();
-  const { slug, anchor, overview } = parseHash();
-  if (overview) {
-    renderOverview();
+  const { slug, anchor, view } = parseHash();
+  if (view === "landing") {
+    renderLanding();
+    return;
+  }
+  if (view === "gallery") {
+    renderGallery();
     return;
   }
   const note = notesBySlug.get(slug);
@@ -279,6 +297,7 @@ function bindChrome() {
   graphFull = document.getElementById("graph-full");
   boardEl = document.getElementById("board");
   shellEl = document.getElementById("shell");
+  landingEl = document.getElementById("landing");
 }
 
 function bootField() {
@@ -360,7 +379,7 @@ function bindEvents() {
 
 function boot() {
   bindChrome();
-  if (!articleEl || !searchEl || !boardEl) {
+  if (!articleEl || !searchEl || !boardEl || !landingEl) {
     throw new Error("garden chrome missing from the document");
   }
   bindEvents();

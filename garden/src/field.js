@@ -67,7 +67,7 @@ export function createField(canvas) {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (reduced || !canvas) {
-    return { setPointer() {}, destroy() {} };
+    return { setPointer() {}, setLook() {}, destroy() {} };
   }
 
   const renderer = new THREE.WebGLRenderer({
@@ -122,12 +122,13 @@ export function createField(canvas) {
   const clock = new THREE.Clock();
   let raf = 0;
   let running = true;
+  let spin = 1;
 
   function frame() {
     if (!running) return;
     const t = clock.getElapsedTime();
     uniforms.uTime.value = t;
-    pts.rotation.y = t * 0.045;
+    pts.rotation.y = t * 0.045 * spin;
     pts.rotation.x = Math.sin(t * 0.07) * 0.12;
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
@@ -162,6 +163,12 @@ export function createField(canvas) {
   return {
     setPointer(x, y) {
       uniforms.uMouse.value.set(x * 2.8, y * 2.2);
+    },
+    setLook({ inverse = false } = {}) {
+      uniforms.uColor.value.set(inverse ? "#f0f0f0" : "#121212");
+      uniforms.uOpacity.value = inverse ? 0.58 : 0.5;
+      camera.position.set(0.4, 0.15, inverse ? 4.2 : 6.4);
+      spin = inverse ? 1.4 : 1;
     },
     destroy() {
       running = false;
