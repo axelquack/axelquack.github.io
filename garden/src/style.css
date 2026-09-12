@@ -41,6 +41,14 @@ body.is-gallery {
   transition: opacity 0.4s var(--ease);
 }
 
+body.is-gallery #bg {
+  opacity: 0.12;
+}
+
+body.is-read #bg {
+  opacity: 0.28;
+}
+
 body.is-landing .mast-brand,
 body.is-landing .search-label,
 body.is-landing #btn-graph,
@@ -319,9 +327,18 @@ body.is-landing .mast {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--pad-y) var(--pad-x) 18vh;
+  align-items: flex-end;
+  padding: var(--pad-y) var(--pad-x) 16vh;
   overflow: hidden;
   cursor: pointer;
+}
+
+.landing-copy {
+  position: relative;
+  z-index: 2;
+  width: min(28rem, 38vw);
+  max-width: 100%;
+  text-shadow: 0 0 24px #000, 0 0 48px #000;
 }
 
 .landing[hidden],
@@ -331,12 +348,12 @@ body.is-landing .mast {
 }
 
 .landing-title {
-  margin: 0 0 0 -0.06em;
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(6rem, 24vw, 20rem);
-  letter-spacing: -0.05em;
-  line-height: 0.74;
+  font-size: clamp(3.2rem, 7vw, 6.5rem);
+  letter-spacing: var(--tracking-display-xl);
+  line-height: 0.9;
   color: var(--ink-inverse);
 }
 
@@ -375,97 +392,68 @@ body.is-landing .mast {
 
 .board {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+  gap: 1.75rem 1.35rem;
+  padding: 1.25rem var(--pad-x) 4rem;
 }
 
 .frame {
   position: relative;
-  display: block;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   color: inherit;
   text-decoration: none;
   background: transparent;
   border: 0;
-  border-right: var(--hairline) solid rgba(255, 255, 255, 0.12);
-  border-bottom: var(--hairline) solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
 }
 
-.frame:nth-child(2n) {
-  border-right: 0;
+.frame-still {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0a0a0a;
+  border: var(--hairline) solid rgba(255, 255, 255, 0.1);
 }
 
-.frame:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  border-right: 0;
+.frame-still::before {
+  content: "";
+  position: absolute;
+  inset: 12% 8%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(242, 242, 242, 0.18),
+    transparent 68%
+  );
+  pointer-events: none;
 }
 
 .frame-type {
-  position: absolute;
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(6rem, 18vw, 14rem);
-  letter-spacing: -0.045em;
-  line-height: 0.78;
-  white-space: nowrap;
+  font-size: clamp(1.45rem, 3.2vw, 2.55rem);
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  max-width: 90%;
+  text-align: center;
+  white-space: normal;
   color: var(--ink-inverse);
   pointer-events: none;
   transition: transform var(--duration-slow) var(--ease);
 }
 
-.frame:nth-child(4n + 1) .frame-type {
-  top: -0.12em;
-  left: -0.06em;
-}
-
-.frame:nth-child(4n + 2) .frame-type {
-  right: -0.12em;
-  bottom: -0.18em;
-}
-
-.frame:nth-child(4n + 3) .frame-type {
-  top: 50%;
-  left: -0.18em;
-  transform: translateY(-52%);
-}
-
-.frame:nth-child(4n + 4) .frame-type {
-  top: var(--pad-y);
-  right: var(--pad-x);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: clamp(5rem, 14vw, 11rem);
-  white-space: nowrap;
-}
-
 .frame:hover .frame-type,
 .frame:focus-visible .frame-type {
-  transform: translate(0.04em, -0.03em);
-}
-
-.frame:nth-child(4n + 3):hover .frame-type,
-.frame:nth-child(4n + 3):focus-visible .frame-type {
-  transform: translateY(-52%) translate(0.04em, -0.03em);
-}
-
-.frame:nth-child(4n + 4):hover .frame-type,
-.frame:nth-child(4n + 4):focus-visible .frame-type {
-  transform: rotate(180deg) translate(0.04em, -0.03em);
+  transform: translate(0.03em, -0.02em);
 }
 
 .frame-caption {
-  position: absolute;
-  left: var(--pad-x);
-  right: var(--pad-x);
-  bottom: var(--pad-y);
-  z-index: 1;
-}
-
-.frame-caption .kicker,
-.frame-title,
-.frame-lede {
-  text-shadow: 0 0 18px #000, 0 0 36px #000;
+  position: static;
+  padding: 0.7rem 0 0;
 }
 
 .frame-caption .kicker {
@@ -901,16 +889,17 @@ body.is-landing ::selection {
     grid-template-columns: 1fr;
   }
 
-  .frame,
-  .frame:nth-child(2n),
-  .frame:last-child:nth-child(odd) {
-    border-right: 0;
-    grid-column: auto;
-    aspect-ratio: 16 / 10;
+  .landing {
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+
+  .landing-copy {
+    width: 100%;
   }
 
   .landing-title {
-    font-size: clamp(4.2rem, 28vw, 8rem);
+    font-size: clamp(3rem, 14vw, 4.4rem);
   }
 
   .shell {

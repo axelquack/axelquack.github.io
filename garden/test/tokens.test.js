@@ -6,7 +6,9 @@ import { test } from "node:test";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const gardenCss = readFileSync(join(here, "../src/style.css"), "utf8");
+const fieldJs = readFileSync(join(here, "../src/field.js"), "utf8");
 const tokensCss = readFileSync(join(here, "../../src/tokens.css"), "utf8");
+const designMd = readFileSync(join(here, "../../docs/design.md"), "utf8");
 
 test("garden stylesheet imports presence tokens", () => {
   assert.match(gardenCss, /@import\s+"\.\.\/\.\.\/src\/tokens\.css"/);
@@ -17,10 +19,18 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(tokensCss, /--font-mono:\s*"IBM Plex Mono"/);
   assert.match(gardenCss, /#bg\s*\{/);
   assert.match(gardenCss, /\.landing-title/);
+  assert.match(gardenCss, /\.landing-copy/);
   assert.match(gardenCss, /\.frame-type/);
-  assert.match(gardenCss, /aspect-ratio:\s*16\s*\/\s*10/);
+  assert.match(gardenCss, /\.frame-still/);
+  assert.match(gardenCss, /aspect-ratio:\s*16\s*\/\s*9/);
   assert.match(gardenCss, /--text-display-xl/);
   assert.match(gardenCss, /--bg-inverse/);
   assert.match(gardenCss, /body\.is-read/);
   assert.match(gardenCss, /\.graph-overlay[\s\S]*--bg-inverse/);
+  assert.match(fieldJs, /three\/addons\/objects\/Reflector\.js/);
+  assert.match(fieldJs, /buildGyroid/);
+  assert.match(fieldJs, /CapsuleGeometry/);
+  assert.match(designMd, /garden\.axelquack\.de/);
+  assert.match(designMd, /physical screening room/);
+  assert.match(designMd, /Do \*\*not\*\* copy the room onto www/);
 });

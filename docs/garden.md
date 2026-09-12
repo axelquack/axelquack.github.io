@@ -13,9 +13,9 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Landing** — empty hash is a cinematic title card on an inverse gyroid field. Click the stage or **Gallery →** (or Enter) to `#/gallery`. Escape from gallery returns here.
-- **Gallery** — `#/gallery` is a cinema wall of published notes as **typographic stills** (cropped display type instead of images). Click a frame to screen it.
-- **Notes** — `#/slug` screens the note on the same dark stage (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
+- **Landing** — empty hash is a **screening room**: paneled dark interior, reflective floor, a 16:9 wall with the gyroid as the picture, figure for scale. Title sits beside the screen. Click or Enter to `#/gallery`.
+- **Gallery** — `#/gallery` is a **picture catalog**: 16:9 stills of each published title, caption underneath. Click a still to screen it.
+- **Notes** — `#/slug` screens the note in the same room (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
 - **Outline** — headings on the current note.
 - **Backlinks** — published notes that wikilink here.
@@ -79,6 +79,6 @@ Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production pas
 
 ## Design
 
-Imports [`src/tokens.css`](../src/tokens.css). Paper `#f7f7f7`, ink `#0a0a0a`, muted `#8a8a8a`, Instrument Serif + Inter + IBM Plex Mono, 720px stack. No brand-colour accent, no cards/pills/shadows. Password prompt uses the same paper/ink.
+Imports [`src/tokens.css`](../src/tokens.css). This host is the screening-room exception in [docs/design.md](design.md) (garden only): inverse tokens, 16:9 screen, picture gallery. Paper `#f7f7f7` / ink `#0a0a0a` still bind; the password gate is paper. No brand-colour accent, no pills/shadows.
 
 `robots.txt` is `Disallow: /`; `noindex` on the gate and the app.

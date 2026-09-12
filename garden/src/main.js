@@ -90,7 +90,9 @@ function renderGallery() {
         : "";
       const num = String(i + 1).padStart(2, "0");
       return `<a class="frame" href="#/${esc(t.slug)}" data-slug="${esc(t.slug)}">
-        <span class="frame-type" aria-hidden="true">${esc(t.title)}</span>
+        <span class="frame-still" aria-hidden="true">
+          <span class="frame-type">${esc(t.title)}</span>
+        </span>
         <span class="frame-caption">
           <p class="kicker">${num}  ·  ${esc(t.type || "note")}</p>
           <h2 class="frame-title">${esc(t.title)}</h2>

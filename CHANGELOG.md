@@ -30,7 +30,7 @@ for release tags when used.
 
 ### Changed
 
-- Garden stays on the dark stage: `#/` is a title card (click or Enter to enter), `#/gallery` is a cinema wall of typographic stills, `#/slug` screens the note in inverse type — not a paper wiki
+- Garden is a screening room (`docs/design.md`, this host only): `#/` is a physical dark interior with a 16:9 gyroid wall, reflective floor, and caption beside the screen; `#/gallery` is a 16:9 picture grid with captions under the stills; `#/slug` screens the note in the same room
 - Garden callouts keep inline markdown (backticks) instead of leaking slot tokens
 - Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)
