@@ -41,11 +41,11 @@ function setMode(mode) {
   document.body.classList.toggle("is-landing", mode === "landing");
   document.body.classList.toggle("is-gallery", mode === "gallery");
   document.body.classList.toggle("is-read", mode === "read");
-  document.body.classList.toggle("scene-dark", mode !== "read");
+  document.body.classList.add("scene-dark");
   if (landingEl) landingEl.hidden = mode !== "landing";
   if (boardEl) boardEl.hidden = mode !== "gallery";
   if (shellEl) shellEl.hidden = mode !== "read";
-  fieldApi?.setLook({ inverse: mode !== "read" });
+  fieldApi?.setLook({ mode });
 }
 
 function renderNav(active) {
@@ -84,14 +84,15 @@ function renderGallery() {
   currentSlug = "gallery";
   setMode("gallery");
   const tiles = overviewTiles(garden)
-    .map((t) => {
+    .map((t, i) => {
       const lede = t.description
         ? `<p class="frame-lede">${esc(t.description)}</p>`
         : "";
+      const num = String(i + 1).padStart(2, "0");
       return `<a class="frame" href="#/${esc(t.slug)}" data-slug="${esc(t.slug)}">
         <span class="frame-type" aria-hidden="true">${esc(t.title)}</span>
         <span class="frame-caption">
-          <p class="kicker">${esc(t.type || "note")}</p>
+          <p class="kicker">${num}  ·  ${esc(t.type || "note")}</p>
           <h2 class="frame-title">${esc(t.title)}</h2>
           ${lede}
         </span>
@@ -122,30 +123,11 @@ function renderMeta(note) {
       <p class="kicker">Backlinks</p>
       ${backs ? `<ul class="backlinks">${backs}</ul>` : `<p class="meta-empty">No backlinks</p>`}
     </div>
-    <div class="meta-block" id="local-graph">
-      <p class="kicker">Local graph</p>
-      <canvas id="graph-local" aria-label="Local graph"></canvas>
-    </div>
   `;
-  const localCanvas = document.getElementById("graph-local");
-  if (localGraph) localGraph.destroy();
-  const neighbour = new Set([note.slug]);
-  for (const e of garden.graph.edges) {
-    if (e.source === note.slug) neighbour.add(e.target);
-    if (e.target === note.slug) neighbour.add(e.source);
+  if (localGraph) {
+    localGraph.destroy();
+    localGraph = null;
   }
-  const local = {
-    nodes: garden.graph.nodes.filter((n) => neighbour.has(n.slug)),
-    edges: garden.graph.edges.filter(
-      (e) => neighbour.has(e.source) && neighbour.has(e.target),
-    ),
-  };
-  localGraph = createGraph(localCanvas, local, {
-    focus: note.slug,
-    onClick: (slug) => {
-      go(`#/${slug}`);
-    },
-  });
 }
 
 function noteMetaLine(note) {
@@ -327,14 +309,27 @@ function bindEvents() {
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "/" && document.activeElement !== searchEl && e.target.tagName !== "INPUT") {
+    if (e.target.tagName === "INPUT") return;
+    if (e.key === "Enter" && document.body.classList.contains("is-landing")) {
       e.preventDefault();
-      searchEl.focus();
+      go("#/gallery");
+      return;
+    }
+    if (e.key === "/" && document.activeElement !== searchEl) {
+      e.preventDefault();
+      if (!document.body.classList.contains("is-landing")) searchEl.focus();
     }
     if (e.key === "Escape") {
       closeGraph();
       hidePreview();
+      if (document.body.classList.contains("is-read")) go("#/gallery");
+      else if (document.body.classList.contains("is-gallery")) go("#/");
     }
+  });
+
+  landingEl.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    go("#/gallery");
   });
 
   btnGraph.addEventListener("click", () => {

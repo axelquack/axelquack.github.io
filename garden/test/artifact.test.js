@@ -76,7 +76,6 @@ test("vite garden build embeds published bodies; encrypted public artifact does 
   assert.match(css, /\.landing-title/);
   assert.match(css, /\.frame-type/);
   assert.match(css, /#bg\s*\{/);
-  assert.match(js, /#121212/);
   assert.match(js, /#f0f0f0/);
   assert.match(js, /data-slug/);
 

@@ -18,7 +18,7 @@ Each published note is a node. Each `[[wikilink]]` between published notes is an
 
 This note links to [[index|the garden home]], [[how-this-garden-works]], and [[presence]].
 
-Open **Graph** in the mast to see the whole published set. The local graph in the aside is this note and its neighbours.
+Open **Graph** in the mast to see the whole published set.
 
 > [!note]
 > Unpublished notes are not nodes. A wikilink to a draft does not draw an edge and does not publish the draft.

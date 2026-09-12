@@ -18,6 +18,9 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(gardenCss, /#bg\s*\{/);
   assert.match(gardenCss, /\.landing-title/);
   assert.match(gardenCss, /\.frame-type/);
+  assert.match(gardenCss, /aspect-ratio:\s*16\s*\/\s*10/);
   assert.match(gardenCss, /--text-display-xl/);
   assert.match(gardenCss, /--bg-inverse/);
+  assert.match(gardenCss, /body\.is-read/);
+  assert.match(gardenCss, /\.graph-overlay[\s\S]*--bg-inverse/);
 });

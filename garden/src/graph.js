@@ -1,7 +1,7 @@
 /**
  * Force-directed graph of published notes.
  * Nodes = notes, edges = wikilinks, radius follows degree.
- * Ink on paper, hairline edges, no colour accent.
+ * Inverse ink on the dark stage, hairline edges, no colour accent.
  */
 
 function cssVar(name, fallback) {
@@ -9,15 +9,29 @@ function cssVar(name, fallback) {
   return value.trim() || fallback;
 }
 
+function palette() {
+  const inverse = document.body.classList.contains("scene-dark");
+  if (inverse) {
+    return {
+      ink: cssVar("--ink-inverse", "#f2f2f2"),
+      line: "rgba(255,255,255,0.18)",
+      muted: cssVar("--muted-inverse", "rgba(255,255,255,0.5)"),
+    };
+  }
+  return {
+    ink: cssVar("--ink", "#0a0a0a"),
+    line: cssVar("--line", "rgba(10,10,10,0.12)"),
+    muted: cssVar("--muted", "#8a8a8a"),
+  };
+}
+
 export function createGraph(canvas, graph, options = {}) {
   const ctx = canvas.getContext("2d");
-  const nodes = (graph.nodes || []).map((n, i) => ({
-    ...n,
-    x: Math.cos((i / Math.max(graph.nodes.length, 1)) * Math.PI * 2) * 80,
-    y: Math.sin((i / Math.max(graph.nodes.length, 1)) * Math.PI * 2) * 80,
-    vx: 0,
-    vy: 0,
-  }));
+  const count = Math.max((graph.nodes || []).length, 1);
+  const nodes = (graph.nodes || []).map((n, i) => {
+    const a = (i / count) * Math.PI * 2;
+    return { ...n, x: Math.cos(a) * 160, y: Math.sin(a) * 160, vx: 0, vy: 0, sx: 0, sy: 0 };
+  });
   const index = new Map(nodes.map((n) => [n.slug, n]));
   const edges = (graph.edges || [])
     .map((e) => ({ source: index.get(e.source), target: index.get(e.target) }))
@@ -31,8 +45,11 @@ export function createGraph(canvas, graph, options = {}) {
   function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+    const w = Math.max(1, Math.floor(rect.width * dpr));
+    const h = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width === w && canvas.height === h) return;
+    canvas.width = w;
+    canvas.height = h;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
@@ -44,18 +61,18 @@ export function createGraph(canvas, graph, options = {}) {
     const rect = canvas.getBoundingClientRect();
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-    const n = nodes.length || 1;
+    const rest = Math.max(110, Math.min(rect.width, rect.height) * 0.22);
+    const min = rest * 0.85;
 
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {
         const a = nodes[i];
         const b = nodes[j];
-        let dx = a.x - b.x;
-        let dy = a.y - b.y;
-        let dist = Math.hypot(dx, dy) || 0.01;
-        const min = 36 + (160 / n) * 4;
-        const force = (min - dist) / dist * 0.08;
-        if (dist < min * 2.4) {
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy) || 0.01;
+        if (dist < min * 2) {
+          const force = ((min - dist) / dist) * 0.012;
           a.vx += dx * force;
           a.vy += dy * force;
           b.vx -= dx * force;
@@ -68,21 +85,34 @@ export function createGraph(canvas, graph, options = {}) {
       const dx = e.target.x - e.source.x;
       const dy = e.target.y - e.source.y;
       const dist = Math.hypot(dx, dy) || 0.01;
-      const rest = 90;
-      const k = (dist - rest) * 0.012;
+      const k = (dist - rest) * 0.004;
       e.source.vx += dx * k;
       e.source.vy += dy * k;
       e.target.vx -= dx * k;
       e.target.vy -= dy * k;
     }
 
+    const pad = 72;
+    const hw = Math.max(40, rect.width / 2 - pad);
+    const hh = Math.max(40, rect.height / 2 - pad);
+    const cap = 6;
     for (const node of nodes) {
-      node.vx += (0 - node.x) * 0.01;
-      node.vy += (0 - node.y) * 0.01;
-      node.vx *= 0.86;
-      node.vy *= 0.86;
+      node.vx += (0 - node.x) * 0.008;
+      node.vy += (0 - node.y) * 0.008;
+      node.vx *= 0.82;
+      node.vy *= 0.82;
+      node.vx = Math.max(-cap, Math.min(cap, node.vx));
+      node.vy = Math.max(-cap, Math.min(cap, node.vy));
       node.x += node.vx;
       node.y += node.vy;
+      node.x = Math.max(-hw, Math.min(hw, node.x));
+      node.y = Math.max(-hh, Math.min(hh, node.y));
+      if (!Number.isFinite(node.x) || !Number.isFinite(node.y)) {
+        node.x = 0;
+        node.y = 0;
+        node.vx = 0;
+        node.vy = 0;
+      }
       node.sx = cx + node.x;
       node.sy = cy + node.y;
     }
@@ -90,9 +120,7 @@ export function createGraph(canvas, graph, options = {}) {
 
   function draw() {
     const rect = canvas.getBoundingClientRect();
-    const ink = cssVar("--ink", "#0a0a0a");
-    const line = cssVar("--line", "rgba(10,10,10,0.12)");
-    const muted = cssVar("--muted", "#8a8a8a");
+    const { ink, line, muted } = palette();
     ctx.clearRect(0, 0, rect.width, rect.height);
 
     ctx.strokeStyle = line;
@@ -169,6 +197,8 @@ export function createGraph(canvas, graph, options = {}) {
   const ro = new ResizeObserver(() => resize());
   ro.observe(canvas);
   resize();
+  step();
+  draw();
   requestAnimationFrame(loop);
 
   return {

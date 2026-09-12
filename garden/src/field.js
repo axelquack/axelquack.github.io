@@ -103,8 +103,8 @@ export function createField(canvas) {
     uTime: { value: 0 },
     uMouse: { value: new THREE.Vector2(99, 99) },
     uRepel: { value: 1.05 },
-    uColor: { value: new THREE.Color("#121212") },
-    uOpacity: { value: 0.58 },
+    uColor: { value: new THREE.Color("#f0f0f0") },
+    uOpacity: { value: 0.64 },
   };
 
   const mat = new THREE.ShaderMaterial({
@@ -123,6 +123,7 @@ export function createField(canvas) {
   let raf = 0;
   let running = true;
   let spin = 1;
+  let baseZ = 6.4;
 
   function frame() {
     if (!running) return;
@@ -130,6 +131,8 @@ export function createField(canvas) {
     uniforms.uTime.value = t;
     pts.rotation.y = t * 0.045 * spin;
     pts.rotation.x = Math.sin(t * 0.07) * 0.12;
+    camera.position.x = 0.4 + Math.sin(t * 0.08) * 0.18;
+    camera.position.z = baseZ + Math.sin(t * 0.14) * 0.32;
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
   }
@@ -164,11 +167,21 @@ export function createField(canvas) {
     setPointer(x, y) {
       uniforms.uMouse.value.set(x * 2.8, y * 2.2);
     },
-    setLook({ inverse = false } = {}) {
-      uniforms.uColor.value.set(inverse ? "#f0f0f0" : "#121212");
-      uniforms.uOpacity.value = inverse ? 0.58 : 0.5;
-      camera.position.set(0.4, 0.15, inverse ? 4.2 : 6.4);
-      spin = inverse ? 1.4 : 1;
+    setLook({ mode = "gallery" } = {}) {
+      uniforms.uColor.value.set("#f0f0f0");
+      if (mode === "landing") {
+        baseZ = 3.5;
+        spin = 1.55;
+        uniforms.uOpacity.value = 0.64;
+      } else if (mode === "gallery") {
+        baseZ = 5.1;
+        spin = 1.12;
+        uniforms.uOpacity.value = 0.48;
+      } else {
+        baseZ = 6.3;
+        spin = 0.85;
+        uniforms.uOpacity.value = 0.34;
+      }
     },
     destroy() {
       running = false;

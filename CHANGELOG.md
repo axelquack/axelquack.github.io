@@ -30,7 +30,7 @@ for release tags when used.
 
 ### Changed
 
-- Garden home is a cinematic landing (`#/`): inverse gyroid field, huge Garden wordmark, then `#/gallery` as a type-as-image grid of published notes. `#/slug` still opens the paper reading chapter
+- Garden stays on the dark stage: `#/` is a title card (click or Enter to enter), `#/gallery` is a cinema wall of typographic stills, `#/slug` screens the note in inverse type — not a paper wiki
 - Garden callouts keep inline markdown (backticks) instead of leaking slot tokens
 - Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)

@@ -13,13 +13,13 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Landing** — empty hash is a cinematic inverse gyroid field (www contact-stage language) with a huge Garden wordmark. **Gallery →** goes to `#/gallery`.
-- **Gallery** — `#/gallery` is a grid of published notes as **typographic stills** (cropped display type instead of images). Click a frame to read.
-- **Notes** — left nav of published titles (hairline list) once a note is open. Hash routes `#/slug`. `#/` returns to the landing.
+- **Landing** — empty hash is a cinematic title card on an inverse gyroid field. Click the stage or **Gallery →** (or Enter) to `#/gallery`. Escape from gallery returns here.
+- **Gallery** — `#/gallery` is a cinema wall of published notes as **typographic stills** (cropped display type instead of images). Click a frame to screen it.
+- **Notes** — `#/slug` screens the note on the same dark stage (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
 - **Outline** — headings on the current note.
 - **Backlinks** — published notes that wikilink here.
-- **Graph** — nodes = published notes, edges = wikilinks; size follows degree. Local graph in the aside; **Graph** in the mast for the full set.
+- **Graph** — **Graph** in the mast opens published notes as nodes and wikilinks as edges; size follows degree.
 - **Hover preview** — title + lede of a linked published note.
 - **Markdown** — toggle the original note body (still markdown).
 - **Callouts** — `> [!note]`, `summary`, `tip`, `warning`, `todo` (and the usual aliases).
