@@ -149,12 +149,12 @@ Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, densi
 
 This host is the **one** exception to “white editorial chapters.” Do **not** copy the room onto www, ventures, slides, or the art gallery. Tokens still bind: inverse surface, three typefaces, no hue, no pills, no drop shadows. `theme-color` here is `#000000`.
 
-The spatial model is an **abstract screening room** (same job as a cinematic shader stage, not a photoreal set): black void, a hairline floor, one square on the far wall. The picture is the **gyroid particle lattice** from the art gallery (`buildGyroid`, `--field-talk` `#f0f0f0`), lit and bloomed. A **railed camera** dollies into that lattice and back. Do not model paneled walls, furniture, or figures.
+The spatial model is an **abstract screening room** (same job as a cinematic shader stage, not a photoreal set): dark walls and ceiling that catch light, a **mirror floor**, one **framed aperture** on the far wall. The picture is a **gyroid sculpture** (`buildGyroid`, `--field-talk` `#f0f0f0`) that **sticks out of the frame** — a volume, not a flat still. The square is a lightbox (emissive plate, corona, bloom, rect-area light). A **railed camera** dollies from a 3/4 room view into that volume and back. Do not model paneled walls, furniture, or figures.
 
 | Surface | Treatment |
 |---------|-----------|
-| Room | Black void, fog, hairline floor rectangle — a room by implication |
-| Screen | Hairline square; gyroid particles as the picture |
+| Room | Dark standard-material walls + ceiling, skirting, reflective floor — a room you can feel, not a furnished set |
+| Screen | Physical frame; gyroid lattice as a sculpture coming through the opening; bloom / corona |
 | Copy | Instrument Serif title + italic lede + text-btn, `--ink-inverse` / `--copy-inverse` |
 
 **Landing (`#/`)** — the room is the page. Title sits beside the square. Click / Enter opens the gallery.
