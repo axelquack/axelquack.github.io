@@ -13,8 +13,8 @@ Obsidian Publish’s reading chrome is here — navigation, search, backlinks, o
 
 ## What you see
 
-- **Landing** — empty hash is a **screening room**: paneled dark interior, reflective floor, a square glowing gyroid wall. Title sits beside the wall. Click or Enter to `#/gallery`.
-- **Gallery** — `#/gallery` is the cinema wall of published notes as **typographic stills** (cropped display type). Click a frame to screen it.
+- **Landing** — empty hash is an **abstract room**: hairline floor, square on the wall, gyroid particles, a camera rail into the lattice. Title sits beside the square. Click or Enter to `#/gallery`.
+- **Gallery** — `#/gallery` is the cinema wall of published notes as **typographic stills**. Hover highlights the whole frame. The 3D field does not follow the pointer.
 - **Notes** — `#/slug` screens the note in the same room (inverse type, outline/backlinks as credits). Escape returns to the gallery. `#/` is the landing.
 - **Search** — titles and bodies of published notes. `/` focuses the field.
 - **Outline** — headings on the current note.

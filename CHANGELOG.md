@@ -30,7 +30,7 @@ for release tags when used.
 
 ### Changed
 
-- Garden landing is a screening room (`docs/design.md`, this host only): square lit gyroid wall, reflective floor, caption beside the wall. Gallery stays the cinema wall of cropped type. `#/slug` screens the note on the same dark stage
+- Garden landing is an abstract room: hairline floor, square wall of gyroid particles (same lattice as the art gallery), railed camera into the picture. Gallery cinema wall is frozen (no hover-swim); hover washes the whole article frame
 - Garden callouts keep inline markdown (backticks) instead of leaking slot tokens
 - Garden `#/slug` wikilinks and nav links navigate in JS (search closes; the target note renders even when the fragment does not change)
 - Gallery walk is faster (~2.5 m/s stick and WASD)

@@ -407,6 +407,13 @@ body.is-landing .mast {
   border-right: var(--hairline) solid rgba(255, 255, 255, 0.12);
   border-bottom: var(--hairline) solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
+  transition: background var(--duration) var(--ease);
+}
+
+.frame:hover,
+.frame:focus-visible {
+  background: rgba(255, 255, 255, 0.07);
+  z-index: 1;
 }
 
 .frame:nth-child(2n) {

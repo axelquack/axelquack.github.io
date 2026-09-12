@@ -149,18 +149,17 @@ Renderer clear is transparent (`0x000000`, alpha 0). Square point sprites, densi
 
 This host is the **one** exception to “white editorial chapters.” Do **not** copy the room onto www, ventures, slides, or the art gallery. Tokens still bind: inverse surface, three typefaces, no hue, no pills, no drop shadows. `theme-color` here is `#000000`.
 
-The spatial model is a **physical screening room** (same job as a cinematic shader stage): a dark interior, paneled walls, a reflective floor, and one large **square glowing wall** on the far side. The picture on that wall is a **continuous lit gyroid shader** (graphite/white, `--field-talk`), not a point cloud and not a full-viewport wallpaper. Camera sits at eye height, offset so the wall holds the left of the frame and HTML copy sits on the right.
+The spatial model is an **abstract screening room** (same job as a cinematic shader stage, not a photoreal set): black void, a hairline floor, one square on the far wall. The picture is the **gyroid particle lattice** from the art gallery (`buildGyroid`, `--field-talk` `#f0f0f0`), lit and bloomed. A **railed camera** dollies into that lattice and back. Do not model paneled walls, furniture, or figures.
 
 | Surface | Treatment |
 |---------|-----------|
-| Room | Near-black interior, recessed wall panels catching light from the wall, fog |
-| Screen | Square emissive shader wall — domain-warped gyroid, lit, bloom |
-| Floor | Dark mirror of the wall |
+| Room | Black void, fog, hairline floor rectangle — a room by implication |
+| Screen | Hairline square; gyroid particles as the picture |
 | Copy | Instrument Serif title + italic lede + text-btn, `--ink-inverse` / `--copy-inverse` |
 
-**Landing (`#/`)** — the room is the page. Title is a caption beside the wall. Click / Enter opens the gallery.
+**Landing (`#/`)** — the room is the page. Title sits beside the square. Click / Enter opens the gallery.
 
-**Gallery (`#/gallery`)** — the previous **cinema wall**: 2×2 frames of cropped display type (the title *is* the still), captions overlaid at the foot of each frame, hairline grid. The room recedes. Do not replace this with a thumbnail catalog.
+**Gallery (`#/gallery`)** — **cinema wall**: 2×2 frames of cropped display type. Hover washes the **whole frame**. The field is frozen (no pointer warp, no rail) so the catalog does not swim.
 
 **Note (`#/slug`)** — same room, camera closer to the screen; the markdown screens as inverse type (outline / backlinks as credits).
 

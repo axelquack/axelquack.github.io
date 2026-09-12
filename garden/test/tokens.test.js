@@ -26,10 +26,11 @@ test("garden stylesheet imports presence tokens", () => {
   assert.match(gardenCss, /--bg-inverse/);
   assert.match(gardenCss, /body\.is-read/);
   assert.match(gardenCss, /\.graph-overlay[\s\S]*--bg-inverse/);
-  assert.match(fieldJs, /three\/addons\/objects\/Reflector\.js/);
+  assert.match(fieldJs, /buildGyroid/);
   assert.match(fieldJs, /UnrealBloomPass/);
-  assert.match(fieldJs, /float gyroid/);
+  assert.match(fieldJs, /RAIL/);
+  assert.match(gardenCss, /\.frame:hover/);
   assert.match(designMd, /garden\.axelquack\.de/);
-  assert.match(designMd, /physical screening room/);
+  assert.match(designMd, /abstract screening room/);
   assert.match(designMd, /Do \*\*not\*\* copy the room onto www/);
 });
