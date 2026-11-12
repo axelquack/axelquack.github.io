@@ -11,9 +11,13 @@ import { scanVault, selectPublished } from "../src/publish/index.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dest = join(root, "notes");
-const vault =
-  process.env.GARDEN_VAULT ||
-  join(process.env.HOME || "", "Obsidian/AQCapital");
+const vault = process.env.GARDEN_VAULT;
+if (!vault) {
+  console.error(
+    "export-published: set GARDEN_VAULT to the local notes directory.",
+  );
+  process.exit(1);
+}
 const prune = process.argv.includes("--prune");
 
 const published = selectPublished(scanVault(vault));
@@ -27,4 +31,4 @@ for (const note of published) {
   cpSync(note.absPath, target);
   console.log(`published ${note.path} → ${note.slug}`);
 }
-console.log(`${published.length} published notes from ${vault}`);
+console.log(`${published.length} published notes`);

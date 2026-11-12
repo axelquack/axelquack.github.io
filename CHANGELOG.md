@@ -9,7 +9,8 @@ for release tags when used.
 
 ## 2026-11-12
 
-- Added a Role section and recorded the Herdr agent Julian (Web) · axelquack.de sites (pane wS:p1) in AGENTS.md.
+- Added a Role section and recorded the Herdr agent for this repo in `AGENTS.md`.
+- Stopped publishing the local garden-vault path. `docs/garden.md` and `garden/SECURITY.md` no longer name it. `garden/scripts/export-published.mjs` requires `GARDEN_VAULT` and prints only the note count.
 
 
 ## [Unreleased]

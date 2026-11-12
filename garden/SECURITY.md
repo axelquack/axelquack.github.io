@@ -18,7 +18,7 @@ Threat model for the password-gated garden. This presence repo is **public**; tr
 |------|----------------|---------|
 | Site password | GitHub Actions secret `GARDEN_SITE_PASSWORD`; Proton Pass | **Never** in this repo or in `axelquack/garden` |
 | Deploy key for `axelquack/garden` | GitHub secret `GARDEN_DEPLOY_KEY` | **Never** |
-| Obsidian vault | `~/Obsidian/AQCapital` (Sync) | **Never** unpublished notes |
+| Local notes vault | Outside this repo. Pass it as `GARDEN_VAULT` when exporting. | **Never** unpublished notes, and never the vault path |
 | INWX / GitHub credentials | Proton Pass / `gh` | **Never** |
 
 ## What password protection actually does
@@ -36,5 +36,5 @@ Limits (this is a gate, not a vault):
 1. Never push unencrypted `dist-garden/` (note bodies in JS) to `axelquack/garden`.
 2. Do not log `GARDEN_SITE_PASSWORD` in CI.
 3. `robots.txt` is `Disallow: /`; keep `noindex` on the password page and the app.
-4. Canonical publish field is `published:` (boolean). Do not ingest the whole AQCapital vault.
+4. Canonical publish field is `published:` (boolean). Do not ingest a whole private vault.
 5. After threat-model changes, update this file and `CHANGELOG.md`.

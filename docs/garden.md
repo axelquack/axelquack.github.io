@@ -46,13 +46,7 @@ published: true
 ---
 ```
 
-In-repo notes live in `garden/notes/` (the live vault for CI). Optional export from the Obsidian vault:
-
-```bash
-GARDEN_VAULT="$HOME/Obsidian/AQCapital" node garden/scripts/export-published.mjs
-```
-
-That copies **only** `published: true` files. Never commit unpublished vault notes.
+In-repo notes live in `garden/notes/` (what CI publishes). To copy published notes from a local vault, set `GARDEN_VAULT` to that directory and run `node garden/scripts/export-published.mjs`. The variable is required. The script copies only notes with `published: true`. Never commit unpublished notes, and do not write the local vault path into this repo.
 
 ## Local
 
@@ -65,7 +59,7 @@ npm run preview:garden   # http://localhost:4178
 npm run encrypt:garden   # → dist-garden-public/ (password-gated)
 ```
 
-`GARDEN_VAULT` overrides the notes directory (default `garden/notes`).
+`GARDEN_VAULT` is the local vault for that export. It has no default path in the script.
 
 Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production passphrase is **not** in this public repo — GitHub secret `GARDEN_SITE_PASSWORD` and Proton Pass.
 
@@ -74,7 +68,7 @@ Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production pas
 - Workflow: `.github/workflows/deploy-garden.yml` → encrypt → `axelquack/garden` (`gh-pages`)
 - Secret `GARDEN_DEPLOY_KEY` (write deploy key on `axelquack/garden`)
 - Secret `GARDEN_SITE_PASSWORD`
-- DNS: INWX CNAME `garden` → `axelquack.github.io` (see `inwx` Terraform). More specific than the VPS wildcard `*`.
+- DNS: `garden` is a CNAME to the GitHub Pages host for this project.
 - GitHub Pages **Enforce HTTPS** is on. StatiCrypt needs a secure context (`https://` or localhost) for `crypto.subtle`. HTTP redirects to HTTPS.
 
 ## Design
