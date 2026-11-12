@@ -19,3 +19,7 @@ docs/x-header-*.png
 docs/facebook-cover-*.png
 
 docs/youtube-banner-*.png
+
+# secrets and backups (agent rule 2026-11-12)
+*.bak*
+secrets/
