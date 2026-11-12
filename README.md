@@ -1,147 +1,119 @@
 # axelquack.github.io
 
-Static personal presence site for **Axel Quack**, deployed to GitHub Pages at
-[`www.axelquack.de`](https://www.axelquack.de) (apex redirects to `www`).
+Static personal presence site for Axel Quack. Copy is first-person and restrained. Visual system: white editorial chapters and graphite WebGL point fields on transparent stages.
+
+## Status
+
+2026-11-12, Europe/Berlin: public repository on the repo standard. Site content (text, images, slides) is CC BY-NC-SA 4.0. Site code (HTML, CSS, JS, build scripts) is PolyForm Noncommercial 1.0.0. Before this change there was no `LICENSE` file.
+
+## Start here
+
+1. `AGENTS.md`
+2. This file
+3. `BUGFIXES.md` and `SECURITY.md`
+4. `HANDOFF.md`, the last three entries in `CHANGELOG.md`, and `git log -5`. `HANDOFF.md` is gitignored in this public repository.
+5. The current ticket, or else `TODO.md` and `ROADMAP.md`
+6. `docs/README.md`
+
+## Layout
+
+| Path | What |
+| --- | --- |
+| `AGENTS.md` | Agent rules. `CLAUDE.md` is a symlink to this file. |
+| `README.md` | This page. |
+| `CHANGELOG.md` | What changed, newest first. |
+| `ROADMAP.md` | Now, next, later, ideas, done recently. |
+| `TODO.md` | Interim tasks until the agent-ops board exists. |
+| `BUGFIXES.md` | Durable bug writeups (`BF-NNN`). |
+| `HANDOFF.md` | Done, next, open questions. Tracked in a private repo. Gitignored in a public repo. |
+| `SECURITY.md` | Threat model and where secrets live. |
+| `LICENSE` | Rights for this repo. Content and code are licensed separately. |
+| `justfile` | Recipes. `just` lists them. `just setup` installs the git hook. Imports `just/website.just`. |
+| `just/website.just` | Build and serve the presence site. Not a file at the repository root. |
+| `docs/` | Longer docs. Index: `docs/README.md`. |
+| `.env.example` | Setting names only. |
+| `.githooks/` | `pre-commit` runs the secret check. |
+| `scripts/check-secrets.sh` | Secret check for the working tree, the index, or history. |
+| `index.html` | Presence page. |
+| `src/` | Presence styles and the Three.js field. |
+| `gallery/` | Art gallery app. |
+| `ventures/` | Angel page. |
+| `garden/` | Password-gated garden. Plaintext build output is not published. |
+| `slides/` | Slidev spike. Not deployed. |
+
+## Hosts
+
+| Host | Source | What |
+| --- | --- | --- |
+| [www.axelquack.de](https://www.axelquack.de) | `index.html`, `src/` | Five-section scroll. The apex redirects to `www`. |
+| [gallery.axelquack.de](https://gallery.axelquack.de) | `gallery/` | A-Frame WebXR museum. Alias [art.axelquack.de](https://art.axelquack.de). |
+| [axelquack.ventures](https://axelquack.ventures) | `ventures/` | Business angel for solopreneurs building and scaling with AI agents. |
+| [garden.axelquack.de](https://garden.axelquack.de) | `garden/` | Password-gated notes. The public Pages repo is ciphertext. |
+
+Slides have no host. Do not add one unless Axel asks.
 
 ## Architecture
 
 | Layer | Role |
-|--------|------|
-| **HTML** | Five scroll sections: hero, intro, helicoid stage, skills, contact |
-| **CSS** | Editorial type system (Instrument Serif + Inter + IBM Plex Mono); solid `.screen` chapters sit above a fixed WebGL canvas |
-| **`src/main.js`** | Scroll/pointer wiring; activates the stage whose viewport coverage is highest |
-| **`src/scene.js`** | Three.js scene: density-grid “AQ” letterform, hyperbolic helicoid, torus knot |
-| **`src/ascii.js`** | Offscreen canvas → point lattice sampler (`sampleTextPoints`) |
-| **`src/forms.js`** | Parametric point clouds (`buildHelicoid`, `buildTorusKnot`, unused helpers) |
+| --- | --- |
+| HTML | Five scroll sections: hero, intro, helicoid stage, skills, contact |
+| CSS | Editorial type (Instrument Serif, Inter, IBM Plex Mono). Solid `.screen` chapters sit above a fixed WebGL canvas |
+| `src/main.js` | Scroll and pointer wiring. Activates the stage whose viewport coverage is highest |
+| `src/scene.js` | Three.js scene: density-grid letterform, hyperbolic helicoid, torus knot |
+| `src/ascii.js` | Offscreen canvas to a point lattice |
+| `src/forms.js` | Parametric point clouds |
 
-### Scroll / scene modes
-
-`data-scene` on transparent `.stage` sections drives WebGL visibility:
+`data-scene` on a transparent `.stage` drives the field:
 
 | `data-scene` | Geometry | Notes |
-|--------------|----------|--------|
-| `name` | Sampled “AQ” glyph lattice | Pointer repulsion / light drag |
+| --- | --- | --- |
+| `name` | Sampled glyph lattice | Pointer repulsion |
 | `mono` | Hyperbolic helicoid | Continuous auto-rotation |
-| `talk` | Torus knot (3,2) | White points on black contact stage |
+| `talk` | Torus knot (3,2) | Light points on the contact stage |
 
-Solid `.screen` chapters (intro, skills) cover the canvas so type stays crisp.
-
-### Rendering notes
-
-- `ShaderMaterial` point sprites (square cells, density-weighted size/alpha)
-- Pixel ratio capped at 2; animation paused when `document.hidden`
-- `prefers-reduced-motion: reduce` disables WebGL (static CSS fallback on hero)
+Solid `.screen` chapters cover the canvas so type stays crisp. Point sprites are square and density-weighted. The pixel ratio is capped at 2. Animation pauses when the document is hidden. Reduced motion hides the canvas.
 
 ## Stack
 
-- **Vite 8** (ESM, `base: '/'`)
-- **Three.js** `^0.185` (dynamic `import()` of `scene.js` after first paint)
-- **GitHub Actions** → `actions/upload-pages-artifact` + `deploy-pages`
-- Custom domain: `public/CNAME` → `www.axelquack.de`
+- Vite 8 (`base: '/'`)
+- Three.js, loaded after first paint
+- GitHub Actions publishes the presence site with `actions/upload-pages-artifact` and `deploy-pages`
+- `public/CNAME` is `www.axelquack.de`
 
-## Ventures
-
-[axelquack.ventures](https://axelquack.ventures) — business angel for solopreneurs building & scaling with AI agents (global). Same tokens as www, different layout (live gyroid, offset thesis). App in `ventures/`. [docs/ventures.md](docs/ventures.md).
-
-```bash
-npm run dev:ventures     # http://localhost:5175
-npm run build:ventures   # → dist-ventures/
-```
-
-## Slides (spike)
-
-Slidev decks with AQ tokens. **Local only** — not on GitHub Pages. Demo deck (`slides/hermes-agent.md`) uses placeholder lorem; video and layouts unchanged. Layout catalog: `slides/variants.md`. Full map: [docs/slides.md](docs/slides.md).
-
-```bash
-cd slides && npm ci              # first time (own lockfile)
-npm run dev:slides               # http://localhost:5176
-npm run dev:slides:variants      # http://localhost:5177
-npm run build:slides             # → dist-slides/
-npm run export:slides:pdf        # Playwright PDF (optional)
-npm run export:slides:pptx
-```
-
-## Garden
-
-[garden.axelquack.de](https://garden.axelquack.de) — private digital garden of markdown notes with `published: true`. Same tokens as www. App in `garden/`; public Pages repo `axelquack/garden` is password-gated ciphertext. Map: [docs/garden.md](docs/garden.md).
-
-```bash
-npm run dev:garden       # http://localhost:5178
-npm run build:garden     # → dist-garden/
-npm run encrypt:garden   # → dist-garden-public/
-npm test
-```
-
-## Art Gallery
-
-[gallery.axelquack.de](https://gallery.axelquack.de) (NFT + other work). Alias [art.axelquack.de](https://art.axelquack.de) redirects to it (`axelquack/art`). A-Frame WebXR room, same tokens. App in `gallery/`; published to repo `axelquack/gallery`. DNS, catalog, audio: [docs/gallery.md](docs/gallery.md).
-
-```bash
-npm run dev:gallery    # http://localhost:5174
-npm run build:gallery  # → dist-gallery/
-```
+Gallery, ventures, and the garden each have their own workflow and their own Pages repository. The map is in `docs/gallery.md`, `docs/ventures.md`, and `docs/garden.md`.
 
 ## Local development
 
 ```bash
 npm ci
-npm run dev      # http://localhost:5173
-npm run build    # → dist/
-npm run preview  # serve dist
+npm run dev                 # www, port 5173
+npm run dev:gallery         # port 5174
+npm run dev:ventures        # port 5175
+npm run dev:garden          # port 5178
+npm test
+cd slides && npm ci && cd ..
+npm run dev:slides          # port 5176
+npm run dev:slides:variants # port 5177
+npm run build               # www → dist/
+npm run preview
 ```
 
-Node 22+ recommended (matches CI).
+`just serve` and `just build` run the presence-site scripts. Node 22 or newer matches CI.
 
 ## Deploy
 
-Push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) (www), [`.github/workflows/deploy-gallery.yml`](.github/workflows/deploy-gallery.yml) (gallery), and [`.github/workflows/deploy-ventures.yml`](.github/workflows/deploy-ventures.yml) (ventures). Slides have no workflow yet.
+Pushing `main` runs `.github/workflows/deploy.yml` (www), `.github/workflows/deploy-gallery.yml`, `.github/workflows/deploy-ventures.yml`, and `.github/workflows/deploy-garden.yml`. From 2026-11-12, changes reach `main` through a pull request. Slides have no workflow.
 
-DNS (INWX): `www` / `gallery` / `art` CNAME → `axelquack.github.io`; apex A/AAAA → GitHub Pages anycast. Mail MX/TXT untouched.
+DNS: `www`, `gallery`, `art`, and `garden` are CNAMEs to `axelquack.github.io`. The apex of `axelquack.de` and the apex of `axelquack.ventures` use GitHub Pages A and AAAA records. The ventures records are listed in `docs/ventures.md`. Do not change mail records.
 
 ## Design system
 
-Reusable styleguide for other projects:
-
 | File | |
-|------|--|
+| --- | --- |
 | [docs/design.md](docs/design.md) | Principles, type, colour, components, WebGL rules |
-| [src/tokens.css](src/tokens.css) | CSS custom properties (this site imports them) |
-| [docs/tokens.json](docs/tokens.json) | Same values as JSON |
-
-## Repository layout
-
-```
-index.html
-public/CNAME
-public/favicon.svg        # paper/ink A; ICO + apple-touch rasters alongside
-public/photo.jpg          # unused by current markup; kept as asset
-src/
-  main.js
-  scene.js
-  ascii.js
-  forms.js
-  style.css
-  tokens.css
-gallery/                  # Art Gallery app (Vite, port 5174)
-ventures/                 # Angel page (Vite, port 5175)
-slides/                   # Slidev spike (ports 5176 / 5177; not deployed)
-scripts/
-  render-x-header.mjs     # local X / Facebook / YouTube banners → docs/ (gitignored PNGs)
-docs/
-  design.md
-  tokens.json
-  gallery.md
-  ventures.md
-  slides.md
-.github/workflows/
-  deploy.yml
-  deploy-gallery.yml
-  deploy-ventures.yml
-vite.config.js
-AGENTS.md
-CHANGELOG.md
-```
+| [src/tokens.css](src/tokens.css) | CSS custom properties |
+| [docs/tokens.json](docs/tokens.json) | The same values as JSON |
 
 ## License
 
-UNLICENSED — private personal site.
+See `LICENSE`. Site content and site code are licensed separately.
