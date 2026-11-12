@@ -2,6 +2,15 @@
 
 Guidance for coding agents working in this repository.
 
+
+## Role
+
+- **Project:** Static personal presence site for Axel Quack (www, gallery, ventures, password-gated garden). Not a job-application pack, CMS, or SPA framework app.
+- **This agent owns:** The site sources in this repo (`index.html`, `src/`, `gallery/`, `ventures/`, `garden/`, unpublished `slides/` spike), tokens, and the GitHub Pages deploy workflows.
+- **Out of scope / handoff:** Do not change INWX/DNS or GitHub Pages domain settings without an explicit request. Do not alter MX/TXT/iCloud records unless asked. Do not commit unpublished vault notes, garden plaintext `dist-garden/`, or deploy keys/passwords. Do not add analytics, cookie banners, or marketing funnels without being asked. Do not reintroduce a www password gate. Related published repos (`axelquack/gallery`, `art`, `garden`, `ventures`) are deploy targets, not this agent's other codebases unless a workflow here already publishes to them.
+
+Herdr agent: Julian (Web) · axelquack.de sites (pane wS:p1)
+
 ## What this is
 
 A **static personal presence site** (not a job-application pack, CMS, or SPA framework app). Copy is first-person and restrained. Visual system: white editorial chapters + graphite WebGL point fields on transparent stages.

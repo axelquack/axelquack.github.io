@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 for release tags when used.
 
+
+## 2026-11-12
+
+- Added a Role section and recorded the Herdr agent Julian (Web) · axelquack.de sites (pane wS:p1) in AGENTS.md.
+
+
 ## [Unreleased]
 
 ### Added
