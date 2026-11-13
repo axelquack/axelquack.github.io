@@ -10,4 +10,5 @@ None.
 
 ## Done
 
+- [x] 2026-11-13 — Pin the Actions workflows, bump the named advisories, and add Dependabot for GitHub Actions. Holder: Julian.
 - [x] 2026-11-12 — Apply the public repo standard. Holder: Julian.

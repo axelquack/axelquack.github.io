@@ -68,6 +68,7 @@ Read in this order:
 | `.github/workflows/deploy-ventures.yml` | Builds the ventures page and publishes it to its Pages repository. | Julian, when that deploy changes |
 | `.github/workflows/deploy.yml` | Builds the presence site and publishes it with Pages. | Julian, when that deploy changes |
 | `.github/workflows/gitleaks.yml` | Runs gitleaks on push and pull_request. | Whoever changes the CI check |
+| `.github/dependabot.yml` | Weekly minor and patch updates for GitHub Actions. | Julian, when that config changes |
 | `.gitignore` | Ignore rules, including the public handoff and the private changelog. | Whoever changes ignore rules |
 | `.gitleaks.toml` | Gitleaks rules and the license-text allowlist. | Whoever changes the secret check |
 | `AGENTS.md` | Rules for the herdr agent. | The owning agent, when the role or the rules change |
@@ -299,6 +300,7 @@ npm run preview
 - `.github/workflows/deploy-garden.yml` tests, encrypts, and publishes `dist-garden-public/` with `GARDEN_DEPLOY_KEY` and `GARDEN_SITE_PASSWORD`. The public artifact is ciphertext.
 - Slides have no workflow.
 - DNS is recorded in `README.md`. Do not change it, and do not change mail records, unless asked.
+- `.github/dependabot.yml` groups weekly minor and patch updates for those pinned actions. Dependabot alerts and security updates are enabled.
 - From 2026-11-12, changes reach `main` through a pull request. Pages still deploys from `main` via Actions.
 
 ## Workflow

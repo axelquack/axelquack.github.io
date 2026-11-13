@@ -38,6 +38,15 @@ Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the s
 
 **Why:** The named advisories are fixed with the smallest version step that clears them.
 
+## 2026-11-13 — Watch GitHub Actions with Dependabot
+
+### Security
+
+- `.github/dependabot.yml` groups weekly minor and patch updates for GitHub Actions. The npm ecosystem is not in that file.
+- Dependabot alerts and Dependabot security updates are enabled on this repository as of 2026-11-13.
+
+**Why:** Pinned action SHAs go stale unless something opens the update.
+
 ## 2026-11-12 — Public repo standard
 
 ### Added

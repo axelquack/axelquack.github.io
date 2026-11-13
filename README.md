@@ -102,7 +102,7 @@ npm run preview
 
 ## Deploy
 
-Pushing `main` runs `.github/workflows/deploy.yml` (www), `.github/workflows/deploy-gallery.yml`, `.github/workflows/deploy-ventures.yml`, and `.github/workflows/deploy-garden.yml`. Each action is pinned to a commit SHA. Gallery, ventures, and the garden publish with their existing deploy keys. From 2026-11-12, changes reach `main` through a pull request. Slides have no workflow.
+Pushing `main` runs `.github/workflows/deploy.yml` (www), `.github/workflows/deploy-gallery.yml`, `.github/workflows/deploy-ventures.yml`, and `.github/workflows/deploy-garden.yml`. Each action is pinned to a commit SHA. Gallery, ventures, and the garden publish with their existing deploy keys. Dependabot opens a weekly pull request for minor and patch updates of those actions. From 2026-11-12, changes reach `main` through a pull request. Slides have no workflow.
 
 DNS: `www`, `gallery`, `art`, and `garden` are CNAMEs to `axelquack.github.io`. The apex of `axelquack.de` and the apex of `axelquack.ventures` use GitHub Pages A and AAAA records. The ventures records are listed in `docs/ventures.md`. Do not change mail records.
 
