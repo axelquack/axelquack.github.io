@@ -23,6 +23,7 @@ Dates are Europe/Berlin, `YYYY-MM-DD`.
 | Threat | What can happen | What we do |
 | --- | --- | --- |
 | A secret is added to a commit | The value is public as soon as it is pushed | `pre-commit` runs `scripts/check-secrets.sh --staged`. GitHub Actions runs gitleaks on push and pull_request. |
+| A workflow action moves, or a deploy key is written in the job shell | The published site or the key can change without a reviewed diff | Actions are pinned to a commit SHA. Gallery, ventures, and the garden pass the existing deploy key to a pinned publish action. Workflow tokens default to contents read. |
 | A private detail is written into a public file | Addresses, names, or paths become public | This file's never-appear list is the rule. Longer private notes go in gitignored `CHANGELOG.private.md`, or in the agent-platform handoff, not here. |
 | A local secret file is committed by name | `.env`, a key, or a credential file is published | The secret check rejects those names. `.env.example` is the one env file that may be committed, and it holds names only. |
 | The garden plaintext build is published | Note bodies would be readable | Publish only the encrypted garden artifact. See `garden/SECURITY.md`. |

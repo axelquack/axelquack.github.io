@@ -30,7 +30,7 @@ Same tokens, type, hairlines, favicon.
 
 GitHub Pages: one custom domain per repo. Apex **`axelquack.ventures`** is this site.
 
-Push to `main` runs [`.github/workflows/deploy-ventures.yml`](../.github/workflows/deploy-ventures.yml) (`VENTURES_DEPLOY_KEY`).
+Push to `main` runs [`.github/workflows/deploy-ventures.yml`](../.github/workflows/deploy-ventures.yml). It publishes `dist-ventures/` to `axelquack/ventures` (`gh-pages`) with `VENTURES_DEPLOY_KEY` and replaces that branch with one new commit.
 
 ### DNS (INWX) — do not touch MX / TXT
 

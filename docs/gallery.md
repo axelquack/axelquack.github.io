@@ -119,7 +119,7 @@ GitHub Pages is **one custom domain per repo**. `axelquack.github.io` is already
 | `axelquack/gallery` | `gh-pages` (built `dist-gallery/`) | `gallery.axelquack.de` |
 | `axelquack/art` | `main` (static HTML redirect) | `art.axelquack.de` |
 
-Source of the gallery stays in this repo (`gallery/`). Push to `main` runs [`.github/workflows/deploy-gallery.yml`](../.github/workflows/deploy-gallery.yml): `npm run build:gallery`, then force-pushes `dist-gallery/` to `axelquack/gallery` `gh-pages` using deploy key secret `GALLERY_DEPLOY_KEY`.
+Source of the gallery stays in this repo (`gallery/`). Push to `main` runs [`.github/workflows/deploy-gallery.yml`](../.github/workflows/deploy-gallery.yml): `npm run build:gallery`, then publishes `dist-gallery/` to `axelquack/gallery` `gh-pages` with deploy key secret `GALLERY_DEPLOY_KEY`. The pinned publish action replaces that branch with one new commit (`force_orphan`), the same replacement the previous force-push performed.
 
 `gallery/public/CNAME` contains `gallery.axelquack.de` (copied into the Pages artifact).
 

@@ -293,10 +293,10 @@ npm run preview
 ## Deploy
 
 - Default branch: `main`.
-- `.github/workflows/deploy.yml` publishes the presence site with Pages.
-- Gallery source is `gallery/`. `.github/workflows/deploy-gallery.yml` publishes it with `GALLERY_DEPLOY_KEY`. A separate repository is only a redirect. Names are in `README.md`.
-- `.github/workflows/deploy-ventures.yml` publishes `ventures/` with `VENTURES_DEPLOY_KEY`.
-- `.github/workflows/deploy-garden.yml` publishes `garden/` with `GARDEN_DEPLOY_KEY` and `GARDEN_SITE_PASSWORD`. The public artifact is ciphertext.
+- `.github/workflows/deploy.yml` publishes the presence site with Pages. Actions are pinned to a commit SHA. The token defaults to contents read; the deploy job adds Pages write and the identity token.
+- Gallery source is `gallery/`. `.github/workflows/deploy-gallery.yml` publishes `dist-gallery/` with `GALLERY_DEPLOY_KEY` passed to a pinned publish action (`force_orphan`, `gh-pages`). A separate repository is only a redirect. Names are in `README.md`.
+- `.github/workflows/deploy-ventures.yml` publishes `dist-ventures/` the same way with `VENTURES_DEPLOY_KEY`.
+- `.github/workflows/deploy-garden.yml` tests, encrypts, and publishes `dist-garden-public/` with `GARDEN_DEPLOY_KEY` and `GARDEN_SITE_PASSWORD`. The public artifact is ciphertext.
 - Slides have no workflow.
 - DNS is recorded in `README.md`. Do not change it, and do not change mail records, unless asked.
 - From 2026-11-12, changes reach `main` through a pull request. Pages still deploys from `main` via Actions.

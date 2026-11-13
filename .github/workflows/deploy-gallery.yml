@@ -5,16 +5,20 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
-  group: gallery-pages
-  cancel-in-progress: true
+  group: deploy-gallery
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09  # v5.1.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5.0.0
         with:
           node-version: 22
           cache: npm
@@ -22,20 +26,15 @@ jobs:
       - run: npm run build:gallery
       - run: touch dist-gallery/.nojekyll
       - name: Publish dist-gallery to axelquack/gallery (gh-pages)
-        env:
-          GALLERY_DEPLOY_KEY: ${{ secrets.GALLERY_DEPLOY_KEY }}
-        run: |
-          set -euo pipefail
-          test -n "${GALLERY_DEPLOY_KEY}"
-          mkdir -p ~/.ssh
-          printf '%s\n' "$GALLERY_DEPLOY_KEY" > ~/.ssh/gallery_deploy
-          chmod 600 ~/.ssh/gallery_deploy
-          export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/gallery_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
-          cd dist-gallery
-          git init
-          git checkout -B gh-pages
-          git add -A
-          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
-            commit -m "Publish Art Gallery"
-          git remote add origin git@github.com:axelquack/gallery.git
-          git push -f origin gh-pages
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453  # v4.1.0
+        with:
+          deploy_key: ${{ secrets.GALLERY_DEPLOY_KEY }}
+          external_repository: axelquack/gallery
+          publish_branch: gh-pages
+          publish_dir: ./dist-gallery
+          force_orphan: true
+          keep_files: false
+          enable_jekyll: false
+          full_commit_message: Publish Art Gallery
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com

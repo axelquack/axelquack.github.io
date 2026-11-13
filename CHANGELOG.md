@@ -10,6 +10,21 @@ Newest first. Dates are Europe/Berlin, `YYYY-MM-DD`.
 
 Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the subsections that have items. End with a Why line.
 
+## 2026-11-13 — Pin Actions and stop writing deploy keys in the shell
+
+### Security
+
+- Every workflow `uses` step is pinned to a full commit SHA.
+- Workflow tokens default to contents read. The presence-site deploy job also has Pages write and the identity token. The gitleaks job keeps pull-request write so it can comment.
+- Gallery, ventures, and the garden publish through a pinned pages action with the existing deploy-key secrets. Those jobs no longer write the keys from the shell or call `git push -f`.
+- Checkout, setup-node, and the Pages actions that still ran on Node 20 move to the current Node 24 release of the same use. Hosted runners dropped Node 20 on 2026-09-16.
+
+### Changed
+
+- Deploy concurrency no longer cancels an in-progress publish. Each of those jobs has a 20 minute timeout. The gitleaks job has a 15 minute timeout.
+
+**Why:** A floating action tag, or a deploy key written by the job shell, is how a workflow change can publish something other than the built site or leak a key into a trace.
+
 ## 2026-11-12 — Public repo standard
 
 ### Added

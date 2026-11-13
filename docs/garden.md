@@ -65,7 +65,7 @@ Local encrypt uses `GARDEN_SITE_PASSWORD` or `SITE_PASSWORD`. The production pas
 
 ## Deploy
 
-- Workflow: `.github/workflows/deploy-garden.yml` → encrypt → `axelquack/garden` (`gh-pages`)
+- Workflow: `.github/workflows/deploy-garden.yml` tests, encrypts, then publishes `dist-garden-public/` to `axelquack/garden` (`gh-pages`) with a pinned action and `GARDEN_DEPLOY_KEY`. The branch is replaced by one new commit.
 - Secret `GARDEN_DEPLOY_KEY` (write deploy key on `axelquack/garden`)
 - Secret `GARDEN_SITE_PASSWORD`
 - DNS: `garden` is a CNAME to the GitHub Pages host for this project.

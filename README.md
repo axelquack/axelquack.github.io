@@ -77,7 +77,7 @@ Solid `.screen` chapters cover the canvas so type stays crisp. Point sprites are
 
 - Vite 8 (`base: '/'`)
 - Three.js, loaded after first paint
-- GitHub Actions publishes the presence site with `actions/upload-pages-artifact` and `deploy-pages`
+- GitHub Actions publishes the presence site with pinned `actions/upload-pages-artifact` and `deploy-pages`
 - `public/CNAME` is `www.axelquack.de`
 
 Gallery, ventures, and the garden each have their own workflow and their own Pages repository. The map is in `docs/gallery.md`, `docs/ventures.md`, and `docs/garden.md`.
@@ -102,7 +102,7 @@ npm run preview
 
 ## Deploy
 
-Pushing `main` runs `.github/workflows/deploy.yml` (www), `.github/workflows/deploy-gallery.yml`, `.github/workflows/deploy-ventures.yml`, and `.github/workflows/deploy-garden.yml`. From 2026-11-12, changes reach `main` through a pull request. Slides have no workflow.
+Pushing `main` runs `.github/workflows/deploy.yml` (www), `.github/workflows/deploy-gallery.yml`, `.github/workflows/deploy-ventures.yml`, and `.github/workflows/deploy-garden.yml`. Each action is pinned to a commit SHA. Gallery, ventures, and the garden publish with their existing deploy keys. From 2026-11-12, changes reach `main` through a pull request. Slides have no workflow.
 
 DNS: `www`, `gallery`, `art`, and `garden` are CNAMEs to `axelquack.github.io`. The apex of `axelquack.de` and the apex of `axelquack.ventures` use GitHub Pages A and AAAA records. The ventures records are listed in `docs/ventures.md`. Do not change mail records.
 
