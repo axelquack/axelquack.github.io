@@ -43,7 +43,7 @@
   "devDependencies": {
     "marked": "^15.0.12",
     "staticrypt": "^3.5.4",
-    "vite": "^8.2.1",
+    "vite": "^8.3.3",
     "yaml": "^2.8.1"
   }
 }

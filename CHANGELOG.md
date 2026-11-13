@@ -25,6 +25,19 @@ Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the s
 
 **Why:** A floating action tag, or a deploy key written by the job shell, is how a workflow change can publish something other than the built site or leak a key into a trace.
 
+## 2026-11-13 — Bump vite and Slidev for advisory fixes
+
+### Security
+
+- Root `vite` is 8.3.3 (`^8.3.3`). `follow-redirects` is 1.16.2. `source-map-js` is 1.2.2. Those are the smallest releases that clear the named advisories. Vite's own lockfile updates (Rolldown, PostCSS, and their bindings) come along with 8.3.3.
+- Slides `@slidev/cli` is 53.1.0. The range moves from 52 because 53.1.0 is a new major. Monaco 0.57.0 still pins DOMPurify 3.4.15, so an override uses 3.4.17, the copy Slidev already resolves at the top of the tree.
+
+### Changed
+
+- The presence-site build and the slides build both succeed on these versions.
+
+**Why:** The named advisories are fixed with the smallest version step that clears them.
+
 ## 2026-11-12 — Public repo standard
 
 ### Added
