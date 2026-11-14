@@ -23,6 +23,15 @@ Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the s
 
 **Why:** Keep the decks on a current Slidev major and close the slides audit.
 
+## 2026-11-14 — Patch npm lockfile advisories
+
+### Security
+
+- Updated the root npm lockfile so the available advisory fixes apply. Direct dependencies are unchanged. The site build and garden tests succeed on this lockfile.
+- The slides lockfile is unchanged here. Some slides advisories already have open Dependabot pull requests. The rest need a major Slidev update, which is out of scope for this change.
+
+**Why:** Apply the smallest lockfile-only fix for the open root advisories.
+
 ## 2026-11-14 — Documentation rule
 
 ### Changed
