@@ -10,6 +10,19 @@ Newest first. Dates are Europe/Berlin, `YYYY-MM-DD`.
 
 Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the subsections that have items. End with a Why line.
 
+## 2026-11-14 — Upgrade Slidev to 53.x
+
+### Changed
+
+- `slides/`: `@slidev/cli` moved to the 53.x line (53.1.0). `@slidev/theme-default` stays at 0.25.0, the current latest. Slidev 53 needs a current Node 22 release. Custom layouts and components did not need changes.
+- `slides/package.json` adds npm overrides for `dompurify` and `image-size` so the slides audit stays clean after the major bump. A regular `npm audit fix` also moved the 14.x `markdown-it` copy to a patched release, without downgrading the 15.x copy used by shiki.
+
+### Security
+
+- The remaining slides npm advisories are cleared. `npm audit` in `slides/` reports 0 vulnerabilities.
+
+**Why:** Keep the decks on a current Slidev major and close the slides audit.
+
 ## 2026-11-14 — Patch npm lockfile advisories
 
 ### Security

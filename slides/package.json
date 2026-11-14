@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "AQ Slides — Slidev decks styled with axelquack.de tokens",
+  "description": "AQ Slides \u2014 Slidev decks styled with axelquack.de tokens",
   "scripts": {
     "dev": "slidev hermes-agent.md --port 5176 --open false",
     "dev:variants": "slidev variants.md --port 5177 --open false",
@@ -12,12 +12,16 @@
     "export:pptx": "slidev export hermes-agent.md --format pptx --output exports/hermes-agent.pptx"
   },
   "dependencies": {
-    "@slidev/cli": "^52.19.1",
+    "@slidev/cli": "^53.1.0",
     "@slidev/theme-default": "^0.25.0",
     "three": "^0.185.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
     "playwright-chromium": "^1.62.1"
+  },
+  "overrides": {
+    "dompurify": "3.4.18",
+    "image-size": "2.0.3"
   }
 }
