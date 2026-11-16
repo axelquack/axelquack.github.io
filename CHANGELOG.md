@@ -10,6 +10,16 @@ Newest first. Dates are Europe/Berlin, `YYYY-MM-DD`.
 
 Use one heading per change: `## YYYY-MM-DD — title`. Under it, keep only the subsections that have items. End with a Why line.
 
+## 2026-11-16 — Pin GitHub Actions and add workflow permissions
+
+### Security
+
+- Every action in `deploy.yml`, `deploy-gallery.yml`, `deploy-ventures.yml`, `deploy-garden.yml`, and `gitleaks.yml` is pinned to a full commit SHA with a version comment, resolved from the tag already in use.
+- `deploy-gallery.yml`, `deploy-ventures.yml`, and `deploy-garden.yml` now declare top-level `permissions: contents: read`. They publish with a deploy key to a separate repository, so they do not need `pages: write` or `id-token: write`.
+- `deploy.yml` already had `contents: read`, `pages: write`, and `id-token: write` for the official GitHub Pages deploy. Those scopes are unchanged. `gitleaks.yml` already had `contents: read` and `pull-requests: write`.
+
+**Why:** Pin Actions so a moved tag cannot change what CI runs, and give the deploy workflows least-privilege token permissions.
+
 ## 2026-11-14 — Upgrade Slidev to 53.x
 
 ### Changed
